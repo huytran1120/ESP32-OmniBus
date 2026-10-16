@@ -1,0 +1,217 @@
+{
+  "cc1101": {
+    "file": "cc1101-photo.webp",
+    "source": "Texas Instruments CC1101 product documentation",
+    "url": "https://www.ti.com/product/CC1101"
+  },
+  "cc1101-pinout-gallery": [
+    {
+      "file": "cc1101-pinout-front-back-640.webp, cc1101-pinout-front-back-960.webp",
+      "source": "Texas Instruments CC1101 product documentation",
+      "url": "https://www.ti.com/product/CC1101"
+    },
+    {
+      "file": "cc1101-pinout-definition-table-640.webp, cc1101-pinout-definition-table-960.webp",
+      "source": "Texas Instruments CC1101 product documentation",
+      "url": "https://www.ti.com/product/CC1101"
+    },
+    {
+      "file": "cc1101-pinout-header-labels-640.webp, cc1101-pinout-header-labels-1200.webp",
+      "source": "Texas Instruments CC1101 product documentation",
+      "url": "https://www.ti.com/product/CC1101"
+    },
+    {
+      "file": "cc1101-module-antenna-photo-640.webp, cc1101-module-antenna-photo-960.webp",
+      "source": "Texas Instruments CC1101 product documentation",
+      "url": "https://www.ti.com/product/CC1101"
+    }
+  ],
+  "nrf24l01": {
+    "file": "nrf24l01-photo.webp",
+    "source": "Nordic Semiconductor nRF24L01+ product specification",
+    "url": "https://docs.nordicsemi.com/bundle/nRF24L01P_PS_v1.0/resource/nRF24L01P_PS_v1.0.pdf"
+  },
+  "nrf24l01-pinout-gallery": [
+    {
+      "file": "nrf24l01-pinout-pa-lna-sma-550.webp",
+      "source": "Nordic Semiconductor nRF24L01+ product specification",
+      "url": "https://docs.nordicsemi.com/bundle/nRF24L01P_PS_v1.0/resource/nRF24L01P_PS_v1.0.pdf"
+    },
+    {
+      "file": "nrf24l01-module-ceramic-front-640.webp, nrf24l01-module-ceramic-front-1200.webp",
+      "source": "Nordic Semiconductor nRF24L01+ product specification",
+      "url": "https://docs.nordicsemi.com/bundle/nRF24L01P_PS_v1.0/resource/nRF24L01P_PS_v1.0.pdf"
+    },
+    {
+      "file": "nrf24l01-module-ceramic-back-640.webp, nrf24l01-module-ceramic-back-1200.webp",
+      "source": "Nordic Semiconductor nRF24L01+ product specification",
+      "url": "https://docs.nordicsemi.com/bundle/nRF24L01P_PS_v1.0/resource/nRF24L01P_PS_v1.0.pdf"
+    },
+    {
+      "file": "nrf24l01-pinout-ceramic-640.webp, nrf24l01-pinout-ceramic-1200.webp",
+      "source": "Nordic Semiconductor nRF24L01+ product specification",
+      "url": "https://docs.nordicsemi.com/bundle/nRF24L01P_PS_v1.0/resource/nRF24L01P_PS_v1.0.pdf"
+    }
+  ],
+  "si4713": {
+    "file": "si4713-photo.webp",
+    "source": "Adafruit Si4713 product image",
+    "url": "https://www.adafruit.com/product/1958"
+  },
+  "si4713-pinout-gallery": [
+    {
+      "file": "si4713-pinout-board-1024.webp, si4713-pinout-board-thumb.webp",
+      "source": "Adafruit Si4713 FM Radio Transmitter with RDS/RBDS Support pinouts guide image",
+      "url": "https://learn.adafruit.com/adafruit-si4713-fm-radio-transmitter-with-rds-rdbs-support/pinouts",
+      "license": "CC BY-SA"
+    },
+    {
+      "file": "si4713-front-angle-960.webp, si4713-front-angle-thumb.webp",
+      "source": "Adafruit Stereo FM Transmitter with RDS/RBDS Breakout - Si4713 product image",
+      "url": "https://www.adafruit.com/product/1958"
+    },
+    {
+      "file": "si4713-back-photo-960.webp, si4713-back-photo-thumb.webp",
+      "source": "Adafruit Stereo FM Transmitter with RDS/RBDS Breakout - Si4713 product image",
+      "url": "https://www.adafruit.com/product/1958"
+    },
+    {
+      "file": "si4713-kit-top-960.webp, si4713-kit-top-thumb.webp",
+      "source": "Adafruit Stereo FM Transmitter with RDS/RBDS Breakout - Si4713 product image",
+      "url": "https://www.adafruit.com/product/1958"
+    }
+  ],
+  "cellular-at-modem": {
+    "file": "cellular-at-modem-photo.webp",
+    "source": "SIMCom SIM800L product documentation",
+    "url": "https://www.simcom.com/product/SIM800L.html"
+  },
+  "cellular-at-modem-pinout-gallery": [
+    {
+      "file": "simcom-sim800l-pinout-696.webp, simcom-sim800l-pinout-thumb.webp",
+      "source": "SIMCom SIM800L product documentation",
+      "url": "https://www.simcom.com/product/SIM800L.html"
+    },
+    {
+      "file": "simcom-sim7600x-pinout-900.webp, simcom-sim7600x-pinout-thumb.webp",
+      "source": "Waveshare SIM7600G-H official wiki",
+      "url": "https://www.waveshare.com/wiki/SIM7600G-H_4G_HAT"
+    },
+    {
+      "file": "simcom-sim7080g-pinout-960.webp, simcom-sim7080g-pinout-thumb.webp",
+      "source": "Waveshare Pico-SIM7080G official wiki",
+      "url": "https://www.waveshare.com/wiki/Pico-SIM7080G"
+    },
+    {
+      "file": "simcom-a7670e-pinout-1024.webp, simcom-a7670e-pinout-thumb.webp",
+      "source": "SIMCom A7670X product documentation",
+      "url": "https://www.simcom.com/product/A7670X.html"
+    }
+  ],
+  "mcp2515": {
+    "file": "mcp2515-photo.webp",
+    "source": "Microchip MCP2515 product documentation",
+    "url": "https://www.microchip.com/en-us/product/MCP2515"
+  },
+  "mcp2515-pinout-gallery": [
+    {
+      "file": "mcp2515-can-pinout-500.webp, mcp2515-can-pinout-thumb.webp",
+      "source": "Microchip MCP2515 product documentation",
+      "url": "https://www.microchip.com/en-us/product/MCP2515"
+    },
+    {
+      "file": "mcp2515-can-module-front-800.webp, mcp2515-can-module-front-thumb.webp",
+      "source": "Microchip MCP2515 product documentation",
+      "url": "https://www.microchip.com/en-us/product/MCP2515"
+    },
+    {
+      "file": "mcp2515-can-module-angle-800.webp, mcp2515-can-module-angle-thumb.webp",
+      "source": "Microchip MCP2515 product documentation",
+      "url": "https://www.microchip.com/en-us/product/MCP2515"
+    },
+    {
+      "file": "mcp2515-can-module-back-800.webp, mcp2515-can-module-back-thumb.webp",
+      "source": "Microchip MCP2515 product documentation",
+      "url": "https://www.microchip.com/en-us/product/MCP2515"
+    }
+  ],
+  "w5500": {
+    "file": "w5500-photo.webp",
+    "source": "WIZnet W5500 product documentation",
+    "url": "https://docs.wiznet.io/Product/iEthernet/W5500/overview"
+  },
+  "w5500-pinout-gallery": [
+    {
+      "file": "w5500-common-blue-front-back-640.webp, w5500-common-blue-front-back-thumb.webp",
+      "source": "WIZnet W5500 product documentation",
+      "url": "https://docs.wiznet.io/Product/iEthernet/W5500/overview"
+    },
+    {
+      "file": "w5500-common-blue-back-labels-640.webp, w5500-common-blue-back-labels-thumb.webp",
+      "source": "WIZnet W5500 product documentation",
+      "url": "https://docs.wiznet.io/Product/iEthernet/W5500/overview"
+    },
+    {
+      "file": "w5500-ethernet-spi-pinout-diagram-900.webp, w5500-ethernet-spi-pinout-diagram-thumb.webp",
+      "source": "WIZnet W5500 product documentation",
+      "url": "https://docs.wiznet.io/Product/iEthernet/W5500/overview"
+    },
+    {
+      "file": "w5500-ethernet-spi-header-pin-labels-640.webp, w5500-ethernet-spi-header-pin-labels-thumb.webp",
+      "source": "WIZnet W5500 product documentation",
+      "url": "https://docs.wiznet.io/Product/iEthernet/W5500/overview"
+    }
+  ],
+  "i2c-eeprom": {
+    "file": "i2c-eeprom-photo.webp",
+    "source": "STMicroelectronics M24C02 EEPROM product documentation",
+    "url": "https://www.st.com/en/memories/m24c02-r.html"
+  },
+  "93cxx-eeprom": {
+    "file": "93cxx-eeprom-photo.webp",
+    "source": "Bus Pirate official hardware documentation",
+    "url": "https://docs.buspirate.com/docs/overview/"
+  },
+  "sle4442": {
+    "file": "sle4442-photo.webp",
+    "source": "Infineon SLE 4442 product documentation",
+    "url": "https://www.infineon.com/cms/en/product/security-smart-card-solutions/security-controllers/contact-based-security-controllers/sle-4442/"
+  },
+  "pn532": {
+    "file": "pn532-photo.webp",
+    "source": "NXP PN532 product documentation",
+    "url": "https://www.nxp.com/docs/en/nxp/data-sheets/PN532_C1.pdf"
+  },
+  "spi-nor-flash": {
+    "file": "spi-nor-flash-photo.webp",
+    "source": "Bus Pirate official hardware documentation",
+    "url": "https://docs.buspirate.com/docs/overview/"
+  },
+  "ibutton": {
+    "file": "ibutton-photo.webp",
+    "source": "Analog Devices DS1990A product documentation",
+    "url": "https://www.analog.com/en/products/ds1990a.html"
+  },
+  "pn532-pinout-gallery": [
+    {
+      "file": "pn532-pinout-overview-960.webp, pn532-pinout-overview-thumb.webp",
+      "source": "NXP PN532 product documentation",
+      "url": "https://www.nxp.com/docs/en/nxp/data-sheets/PN532_C1.pdf"
+    },
+    {
+      "file": "pn532-i2c-hsu-header.webp, pn532-i2c-hsu-header-thumb.webp",
+      "source": "NXP PN532 product documentation",
+      "url": "https://www.nxp.com/docs/en/nxp/data-sheets/PN532_C1.pdf"
+    },
+    {
+      "file": "pn532-interface-jumper-table.webp, pn532-interface-jumper-table-thumb.webp",
+      "source": "NXP PN532 product documentation",
+      "url": "https://www.nxp.com/docs/en/nxp/data-sheets/PN532_C1.pdf"
+    },
+    {
+      "file": "pn532-spi-control-header.webp, pn532-spi-control-header-thumb.webp",
+      "source": "NXP PN532 product documentation",
+      "url": "https://www.nxp.com/docs/en/nxp/data-sheets/PN532_C1.pdf"
+    }
+  ]
+}

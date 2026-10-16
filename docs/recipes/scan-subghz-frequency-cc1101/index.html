@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Use ESP32 OmniBus SubGHz scan and sweep workflows with a CC1101 module to find RSSI peaks in common sub-GHz bands." name="description"/>
+<meta content="index,follow,max-snippet:-1,max-image-preview:large" name="robots"/>
+<meta content="#121212" name="theme-color"/>
+<meta content="ESP32 OmniBus" property="og:site_name"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="How to find active Sub-GHz frequencies with ESP32 OmniBus and CC1101" property="og:title"/>
+<meta content="Use ESP32 OmniBus SubGHz scan and sweep workflows with a CC1101 module to find RSSI peaks in common sub-GHz bands." property="og:description"/>
+<meta content="article" property="og:type"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-subghz-frequency-cc1101/" property="og:url"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-subghz-frequency-cc1101/assets/cover.png" property="og:image"/><meta content="CC1101 sub-GHz radio signal workflow." property="og:image:alt"/><meta content="image/png" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="2026-06-23" property="article:published_time"/>
+<meta content="2026-06-29" property="article:modified_time"/>
+<meta content="Geo" property="article:author">
+<meta content="summary_large_image" name="twitter:card">
+<meta content="How to find active Sub-GHz frequencies with ESP32 OmniBus and CC1101" name="twitter:title"/>
+<meta content="Use ESP32 OmniBus SubGHz scan and sweep workflows with a CC1101 module to find RSSI peaks in common sub-GHz bands." name="twitter:description"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-subghz-frequency-cc1101/assets/cover.png" name="twitter:image"/><meta content="CC1101 sub-GHz radio signal workflow." name="twitter:image:alt"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-subghz-frequency-cc1101/" rel="canonical"/>
+<title>Find Active Sub-GHz Frequencies with CC1101 | ESP32 OmniBus</title>
+<link href="../recipes.css?v=20260702-mobileclone2" rel="stylesheet"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "How to find active Sub-GHz frequencies with ESP32 OmniBus and CC1101",
+      "description": "Use ESP32 OmniBus SubGHz scan and sweep workflows with a CC1101 module to find RSSI peaks in common sub-GHz bands.",
+      "image": "https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-subghz-frequency-cc1101/assets/cover.png",
+      "datePublished": "2026-06-23",
+      "dateModified": "2026-06-29",
+      "author": {
+        "@type": "Person",
+        "name": "Geo"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ESP32 OmniBus",
+        "url": "https://github.com/huytran1120/ESP32-OmniBus"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-subghz-frequency-cc1101/"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ESP32 OmniBus",
+          "item": "https://huytran1120.github.io/ESP32-OmniBus/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Recipes",
+          "item": "https://huytran1120.github.io/ESP32-OmniBus/recipes/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "How to find active Sub-GHz frequencies with ESP32 OmniBus and CC1101",
+          "item": "https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-subghz-frequency-cc1101/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does a Sub-GHz scan decode the signal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Scan and sweep find RSSI peaks or active areas. Decoding comes later, after tuning the receiver and capturing repeatable pulse timing from a signal you are authorized to analyze."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does the strongest Sub-GHz peak move slightly?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Small offsets can come from transmitter tolerance, receiver tuning, antenna placement or nearby interference. Fine-tune around the peak before assuming the exact nominal frequency."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which Sub-GHz bands should I scan first?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Start only with bands that are legal and relevant in your region and lab setup. Common device families may use areas around 315, 433, 868 or 915 MHz, but rules and allowed use vary by location."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<script defer="" src="../../assets/theme-toggle.js?v=20260702-desktop-sober2"></script>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.ico" rel="icon" sizes="any"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.png" rel="icon" sizes="48x48" type="image/png"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/apple-touch-icon.png" rel="apple-touch-icon"/>
+</meta></meta></head>
+<body>
+<main class="wrap">
+<header class="hero"><div class="article-hero-top"><div class="article-brand-tags"><a aria-label="ESP32 OmniBus home" class="brand" href="../"><span aria-hidden="true" class="brand-mark">B</span><span class="visually-hidden">ESP32 OmniBus home</span></a><ul aria-label="Recipe tags" class="article-hero-tags"><li>SubGHz</li><li>Intermediate</li><li>10 min</li><li>Serial CLI</li></ul></div><nav aria-label="Section navigation" class="article-top-nav"><a href="../../"><svg aria-hidden="true" class="article-nav-icon" viewbox="0 0 24 24"><path d="M3 11l9-8 9 8"></path><path d="M5 10v10h14V10"></path><path d="M9 20v-6h6v6"></path></svg>Home</a><a href="../">Recipes</a>
+<a href="../../web-tools/">Web Tools</a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus/wiki" rel="noopener" target="_blank">Wiki</a>
+
+</nav></div>
+<p class="eyebrow">Recipe · Intermediate · SubGHz</p>
+<h1>How to find active Sub-GHz frequencies with CC1101</h1>
+<p>A remote or sensor may be using 315, 433, 868 or 915 MHz. With a CC1101 connected, OmniBus can scan or sweep for RSSI peaks before any receive analysis.</p>
+</header>
+<figure class="recipe-banner">
+<img alt="CC1101 sub-GHz radio signal workflow." height="600" src="../assets/visual-subghz.svg" width="1040"/>
+<figcaption>Find the carrier first; decoding comes later.</figcaption>
+</figure>
+<div class="recipe-layout">
+<article class="recipe-article"><section aria-label="Generated wiring diagram" class="recipe-section wiring-visual-section">
+<p class="wiring-visual-label">Wiring View</p><figure class="wiring-diagram wiring-diagram-main">
+<svg aria-label="Generated wiring diagram" role="img" viewbox="0 0 920 320">
+<rect class="wiring-node wiring-node-left" height="224" rx="8" width="220" x="34" y="48"></rect>
+<rect class="wiring-node wiring-node-right" height="224" rx="8" width="220" x="666" y="48"></rect>
+<text class="wiring-title" text-anchor="middle" x="144" y="86">CC1101</text>
+<text class="wiring-title" text-anchor="middle" x="776" y="86">BP</text>
+<line class="wiring-line wire-0" x1="254" x2="666" y1="122" y2="122"></line><text class="wiring-pin" text-anchor="end" x="232" y="126">CS</text><text class="wiring-pin" x="688" y="126">SPI CS</text><line class="wiring-line wire-1" x1="254" x2="666" y1="144" y2="144"></line><text class="wiring-pin" text-anchor="end" x="232" y="148">SCK</text><text class="wiring-pin" x="688" y="148">SPI SCK</text><line class="wiring-line wire-2" x1="254" x2="666" y1="166" y2="166"></line><text class="wiring-pin" text-anchor="end" x="232" y="170">MISO</text><text class="wiring-pin" x="688" y="170">SPI MISO</text><line class="wiring-line wire-3" x1="254" x2="666" y1="188" y2="188"></line><text class="wiring-pin" text-anchor="end" x="232" y="192">MOSI</text><text class="wiring-pin" x="688" y="192">SPI MOSI</text><line class="wiring-line wire-4" x1="254" x2="666" y1="210" y2="210"></line><text class="wiring-pin" text-anchor="end" x="232" y="214">GDO0</text><text class="wiring-pin" x="688" y="214">BP GPIO</text><line class="wiring-line wire-0" x1="254" x2="666" y1="232" y2="232"></line><text class="wiring-pin" text-anchor="end" x="232" y="236">VCC</text><text class="wiring-pin" x="688" y="236">3.3V</text><line class="wiring-line wire-1" x1="254" x2="666" y1="254" y2="254"></line><text class="wiring-pin" text-anchor="end" x="232" y="258">GND</text><text class="wiring-pin" x="688" y="258">BP GND</text>
+</svg>
+<div aria-hidden="true" class="wiring-mobile-list"><div class="wiring-mobile-row wire-0"><span>CS</span><span class="wiring-mobile-arrow">-&gt;</span><span>SPI CS</span></div><div class="wiring-mobile-row wire-1"><span>SCK</span><span class="wiring-mobile-arrow">-&gt;</span><span>SPI SCK</span></div><div class="wiring-mobile-row wire-2"><span>MISO</span><span class="wiring-mobile-arrow">-&gt;</span><span>SPI MISO</span></div><div class="wiring-mobile-row wire-3"><span>MOSI</span><span class="wiring-mobile-arrow">-&gt;</span><span>SPI MOSI</span></div><div class="wiring-mobile-row wire-4"><span>GDO0</span><span class="wiring-mobile-arrow">-&gt;</span><span>BP GPIO</span></div><div class="wiring-mobile-row wire-0"><span>VCC</span><span class="wiring-mobile-arrow">-&gt;</span><span>3.3V</span></div><div class="wiring-mobile-row wire-1"><span>GND</span><span class="wiring-mobile-arrow">-&gt;</span><span>BP GND</span></div></div>
+<figcaption>Generated from the wiring summary: CC1101 to BP.</figcaption>
+</figure>
+</section>
+<section class="recipe-section command-step-section">
+<span class="step-label">Step 1</span><h2>Commands</h2>
+<p>Run the commands below after selecting the right OmniBus mode and confirming the wiring.</p>
+<div data-cli-commands="mode subghz
+setfrequency
+scan
+sweep" data-cli-mode="BitPirate" data-cli-result="CC1101 initialized
+Scan started
+Peak near 433.92 MHz
+Sweep confidence high around selected band" data-cli-session=""></div>
+</section><section class="recipe-section result-section">
+<h2>Result</h2>
+<div class="callout success"><h3>What success looks like</h3><p>You get a stable peak when the remote/sensor is active. A few kHz of offset can matter, so fine-tune around the discovered value.</p></div>
+</section><section class="recipe-section troubleshooting-section">
+<h2>Troubleshooting</h2>
+<ul class="mistake-list">
+<li>Wrong antenna or no antenna.</li>
+<li>CC1101 module powered at the wrong voltage.</li>
+<li>GDO0 not wired for trace/receive workflows.</li>
+<li>Signal is outside the selected band.</li>
+</ul>
+</section><section class="recipe-section next-steps-section">
+<h2>Next steps</h2>
+<ul class="hardware-list">
+<li>Use <code>receive</code> once the frequency is stable.</li>
+<li>Use <code>trace</code> to see whether GDO0 toggles.</li>
+<li>Use <code>record</code> only for your own lab signal.</li>
+</ul>
+</section><section aria-labelledby="faq-title" class="recipe-section recipe-faq">
+<h2 id="faq-title">Sub-GHz frequency scan FAQ</h2>
+<div class="recipe-faq-list">
+<details class="recipe-faq-item">
+<summary>Does a scan decode the signal?</summary>
+<p>No. Scan and sweep find RSSI peaks or active areas. Decoding comes later, after tuning the receiver and capturing repeatable pulse timing from a signal you are authorized to analyze.</p>
+</details>
+<details class="recipe-faq-item"><summary>What should I do with a strong Sub-GHz peak?</summary><p>Use it as a candidate frequency for narrower listening, trace, receive or record workflows. The scan is the discovery step, not the final protocol interpretation.</p></details>
+<details class="recipe-faq-item">
+<summary>Which bands should I scan first?</summary>
+<p>Start only with bands that are legal and relevant in your region and lab setup. Common device families may use areas around 315, 433, 868 or 915 MHz, but rules and allowed use vary by location.</p>
+</details>
+</div>
+</section><section class="recipe-section">
+<h2>Go deeper</h2>
+<nav aria-label="Related links" class="link-card-list"><a href="../../modules/cc1101/"><span>Module</span><strong>CC1101 Sub-GHz module overview</strong></a><a href="../../protocols/subghz/"><span>Protocol</span><strong>Sub-GHz protocol overview</strong></a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus/wiki/19-SUBGHZ" rel="noopener" target="_blank"><span>Wiki</span><strong>SubGHz mode</strong></a>
+<a href="../receive-subghz-frame/"><span>Related</span><strong>Receive a Sub-GHz frame</strong></a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus/wiki/99-LittleFS-File-System" rel="noopener" target="_blank"><span>Wiki</span><strong>LittleFS file storage</strong></a>
+</nav>
+</section></article>
+<aside aria-label="Recipe setup and details" class="content-card aside-card"><dl><dt class="aside-dt-requirements">Requirements</dt><dd class="aside-setup-dd"><ul class="hardware-list setup-list aside-setup-list">
+<li>ESP32 OmniBus firmware</li>
+<li>CC1101 module</li>
+<li>Antenna matched to the band</li>
+<li>Known legal test signal or own remote</li>
+</ul></dd><dt class="aside-dt-wiring">Wiring</dt><dd class="aside-setup-dd"><ul class="wiring-list setup-list aside-setup-list" data-wiring-left="CC1101" data-wiring-right="BP">
+<li>CS → SPI CS</li><li>SCK → SPI SCK</li><li>MISO → SPI MISO</li><li>MOSI → SPI MOSI</li><li>GDO0 → BP GPIO</li><li>VCC → 3.3V</li><li>GND → BP GND</li>
+</ul></dd><dt class="aside-dt-protocol">Protocol</dt><dd>SubGHz</dd><dt class="aside-dt-hardware">Hardware</dt><dd>CC1101 module, antenna, SPI wiring</dd><dt class="aside-dt-wiki">Wiki source</dt><dd><a href="https://github.com/huytran1120/ESP32-OmniBus/wiki/19-SUBGHZ">19-SUBGHZ</a></dd><dt class="aside-dt-date">Date</dt><dd>2026-06-23</dd></dl></aside>
+</div>
+</main>
+<script src="../recipes.js?v=20260629-recipesfix1"></script>
+</body>
+</html>

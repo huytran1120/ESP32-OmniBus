@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Use the I2C EEPROM shell to probe, read and dump common 24XX / AT24C EEPROM chips." name="description"/>
+<meta content="index,follow,max-snippet:-1,max-image-preview:large" name="robots"/>
+<meta content="#121212" name="theme-color"/>
+<meta content="ESP32 OmniBus" property="og:site_name"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="How to dump an I2C EEPROM with ESP32 OmniBus" property="og:title"/>
+<meta content="Use the I2C EEPROM shell to probe, read and dump common 24XX / AT24C EEPROM chips." property="og:description"/>
+<meta content="article" property="og:type"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/recipes/dump-i2c-eeprom/" property="og:url"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/recipes/dump-i2c-eeprom/assets/cover.png" property="og:image"/><meta content="I2C EEPROM chip on an I2C bus." property="og:image:alt"/><meta content="image/png" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="2026-06-23" property="article:published_time">
+<meta content="2026-06-29" property="article:modified_time">
+<meta content="Geo" property="article:author"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="How to dump an I2C EEPROM with ESP32 OmniBus" name="twitter:title"/>
+<meta content="Use the I2C EEPROM shell to probe, read and dump common 24XX / AT24C EEPROM chips." name="twitter:description"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/recipes/dump-i2c-eeprom/assets/cover.png" name="twitter:image"/><meta content="I2C EEPROM chip on an I2C bus." name="twitter:image:alt"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/recipes/dump-i2c-eeprom/" rel="canonical"/>
+<title>Dump I2C EEPROM | ESP32 OmniBus</title>
+<link href="../recipes.css" rel="stylesheet"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "How to dump an I2C EEPROM with ESP32 OmniBus",
+      "description": "Use the I2C EEPROM shell to probe, read and dump common 24XX / AT24C EEPROM chips.",
+      "image": "https://huytran1120.github.io/ESP32-OmniBus/recipes/dump-i2c-eeprom/assets/cover.png",
+      "datePublished": "2026-06-23",
+      "dateModified": "2026-06-29",
+      "author": { "@type": "Person", "name": "Geo" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ESP32 OmniBus",
+        "url": "https://github.com/huytran1120/ESP32-OmniBus"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://huytran1120.github.io/ESP32-OmniBus/recipes/dump-i2c-eeprom/"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "ESP32 OmniBus", "item": "https://huytran1120.github.io/ESP32-OmniBus/" },
+        { "@type": "ListItem", "position": 2, "name": "Recipes", "item": "https://huytran1120.github.io/ESP32-OmniBus/recipes/" },
+        { "@type": "ListItem", "position": 3, "name": "How to dump an I2C EEPROM with ESP32 OmniBus", "item": "https://huytran1120.github.io/ESP32-OmniBus/recipes/dump-i2c-eeprom/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why should I probe an I2C EEPROM before dumping it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Probe first so the tool can confirm the device ACKs and choose a sensible address width, size and page behavior. Blind raw reads can miss data or wrap addresses on small EEPROMs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is 0x50 always the I2C EEPROM address?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Many 24xx EEPROMs use a base 7-bit address around 0x50, but address pins and some larger devices can change which addresses respond. Scan the bus before opening the EEPROM shell."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can dumping an I2C EEPROM modify its contents?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A read-only dump should not modify EEPROM contents, but wiring errors, wrong voltage or accidental write/erase actions can. Make a backup before any write, verify write-protect pins and avoid erase commands on unknown boards."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+<script defer="" src="../../assets/theme-toggle.js?v=20260702-desktop-sober2"></script>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.ico" rel="icon" sizes="any"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.png" rel="icon" sizes="48x48" type="image/png"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/apple-touch-icon.png" rel="apple-touch-icon"/>
+</meta></meta></head>
+<body>
+<main class="wrap">
+<header class="hero"><div class="article-hero-top"><div class="article-brand-tags"><a aria-label="ESP32 OmniBus home" class="brand" href="../"><span aria-hidden="true" class="brand-mark">B</span><span class="visually-hidden">ESP32 OmniBus home</span></a><ul aria-label="Recipe tags" class="article-hero-tags"><li>I2C</li><li>Beginner</li><li>10 min</li><li>Serial CLI</li></ul></div><nav aria-label="Section navigation" class="article-top-nav"><a href="../../"><svg aria-hidden="true" class="article-nav-icon" viewbox="0 0 24 24"><path d="M3 11l9-8 9 8"></path><path d="M5 10v10h14V10"></path><path d="M9 20v-6h6v6"></path></svg>Home</a><a href="../">Recipes</a>
+<a href="../../web-tools/">Web Tools</a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus/wiki" rel="noopener" target="_blank">Wiki</a>
+
+</nav></div>
+<p class="eyebrow">Recipe · Beginner · I2C</p>
+<h1>How to dump an I2C EEPROM</h1>
+<p>A small board had an 8-pin serial EEPROM and I needed a backup before changing anything. The goal was to detect the chip geometry, read bytes, then dump the content in a controlled way.</p>
+</header>
+<figure class="recipe-banner">
+<img alt="I2C EEPROM chip on an I2C bus." height="600" src="../assets/visual-i2c-eeprom.svg" width="1040"/>
+<figcaption>Probe the chip first, then dump it through the dedicated EEPROM shell instead of guessing register reads.</figcaption>
+</figure>
+<div class="recipe-layout">
+<article class="recipe-article"><section aria-label="Generated wiring diagram" class="recipe-section wiring-visual-section">
+<p class="wiring-visual-label">Wiring View</p><figure class="wiring-diagram wiring-diagram-main">
+<svg aria-label="Generated wiring diagram" role="img" viewbox="0 0 920 320">
+<rect class="wiring-node wiring-node-left" height="224" rx="8" width="220" x="34" y="48"></rect>
+<rect class="wiring-node wiring-node-right" height="224" rx="8" width="220" x="666" y="48"></rect>
+<text class="wiring-title" text-anchor="middle" x="144" y="86">EEPROM</text>
+<text class="wiring-title" text-anchor="middle" x="776" y="86">BP</text>
+<line class="wiring-line wire-0" x1="254" x2="666" y1="122" y2="122"></line><text class="wiring-pin" text-anchor="end" x="232" y="126">SDA</text><text class="wiring-pin" x="688" y="126">I2C SDA GPIO</text><line class="wiring-line wire-1" x1="254" x2="666" y1="144" y2="144"></line><text class="wiring-pin" text-anchor="end" x="232" y="148">SCL</text><text class="wiring-pin" x="688" y="148">I2C SCL GPIO</text><line class="wiring-line wire-2" x1="254" x2="666" y1="166" y2="166"></line><text class="wiring-pin" text-anchor="end" x="232" y="170">VCC</text><text class="wiring-pin" x="688" y="170">correct supply</text><line class="wiring-line wire-3" x1="254" x2="666" y1="188" y2="188"></line><text class="wiring-pin" text-anchor="end" x="232" y="192">GND</text><text class="wiring-pin" x="688" y="192">BP GND</text>
+</svg>
+<div aria-hidden="true" class="wiring-mobile-list"><div class="wiring-mobile-row wire-0"><span>SDA</span><span class="wiring-mobile-arrow">-&gt;</span><span>I2C SDA GPIO</span></div><div class="wiring-mobile-row wire-1"><span>SCL</span><span class="wiring-mobile-arrow">-&gt;</span><span>I2C SCL GPIO</span></div><div class="wiring-mobile-row wire-2"><span>VCC</span><span class="wiring-mobile-arrow">-&gt;</span><span>correct supply</span></div><div class="wiring-mobile-row wire-3"><span>GND</span><span class="wiring-mobile-arrow">-&gt;</span><span>BP GND</span></div></div>
+<figcaption>Generated from the wiring summary: EEPROM to BP.</figcaption>
+</figure>
+</section>
+<section class="recipe-section command-step-section">
+<span class="step-label">Step 1</span><h2>Commands</h2>
+<p>Run the typed commands first. If the command opens an interactive shell, select the named action from the shell menu instead of treating it as another CLI command.</p>
+<div data-cli-commands="mode i2c
+eeprom 0x50" data-cli-mode="BitPirate" data-cli-session=""></div>
+</section><section class="recipe-section result-section">
+<h2>Result</h2>
+<div class="callout success">
+<h3>What success looks like</h3>
+<p>A successful probe means the chip ACKed and the shell can use an EEPROM-aware workflow for read, dump, analyze or erase actions.</p>
+</div>
+<div data-cli-commands="eeprom 0x50" data-cli-mode="I2C" data-cli-result="EEPROM shell opened
+Probe EEPROM
+Detected 24Cxx-like device
+Addressing and page size selected before reads" data-cli-session=""></div>
+</section><section class="recipe-section troubleshooting-section">
+<h2>Troubleshooting</h2>
+<ul class="mistake-list">
+<li>Forgetting that many EEPROMs use 0x50 by default, but address pins can change it.</li>
+<li>Trying raw register reads before confirming addressing size.</li>
+<li>Writing before making a backup.</li>
+<li>Using long wires without pull-ups or shared ground.</li>
+</ul>
+</section><section class="recipe-section next-steps-section">
+<h2>Next steps</h2>
+<ul>
+<li>Use <code>Probe</code> first inside the EEPROM shell.</li>
+<li>Use <code>Read bytes</code> on a small range before dumping everything.</li>
+<li>Use <code>Dump EEPROM</code> only after the probe result is stable.</li>
+</ul>
+</section><section aria-labelledby="faq-title" class="recipe-section recipe-faq">
+<h2 id="faq-title">I2C EEPROM dump FAQ</h2>
+<div class="recipe-faq-list">
+<details class="recipe-faq-item">
+<summary>Why probe before dumping the EEPROM?</summary>
+<p>Probe first so the shell can confirm the chip responds and choose a sensible geometry before reading. Serial EEPROM families differ in density, address width and page behavior, so a blind raw dump can wrap or miss data on the wrong assumptions.</p>
+</details>
+<details class="recipe-faq-item">
+<summary>Is <code>0x50</code> always the EEPROM address?</summary>
+<p>No. Many 24xx parts use a base 7-bit address near <code>0x50</code>, but address pins and larger memories can make more than one address respond. Scan first, then open the EEPROM shell with the address you actually found.</p>
+</details>
+<details class="recipe-faq-item">
+<summary>Can a dump damage or change the EEPROM contents?</summary>
+<p>A read-only dump should not change contents, but wrong voltage, wiring mistakes or accidental write/erase actions can. Treat unknown boards as evidence: back up before writing, check write-protect pins, and avoid erase actions until the dump is verified.</p>
+</details>
+</div>
+</section><section class="recipe-section">
+<h2>Go deeper</h2>
+<nav aria-label="Related links" class="link-card-list"><a href="../../modules/i2c-eeprom/"><span>Module</span><strong>I2C EEPROM module overview</strong></a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus/wiki/05-I2C"><span>Wiki</span><strong>I2C EEPROM shell</strong></a>
+<a href="../../protocols/i2c/"><span>Protocols</span><strong>More I2C workflows: I2C debugging with ESP32 OmniBus</strong></a>
+<a href="../scan-unknown-i2c-device/"><span>Related</span><strong>Scan an unknown I2C device</strong></a>
+<a href="../../web-tools/web-serial-terminal/"><span>Web Tool</span><strong>Open Web Serial Terminal</strong></a>
+</nav>
+</section></article>
+<aside aria-label="Recipe setup and details" class="content-card aside-card">
+<dl><dt class="aside-dt-requirements">Requirements</dt><dd class="aside-setup-dd"><ul class="hardware-list setup-list aside-setup-list">
+<li>ESP32 OmniBus firmware</li>
+<li>I2C EEPROM such as 24C02 / 24C64 / AT24C</li>
+<li>4 jumper wires</li>
+<li>USB Serial or Web Serial Terminal</li>
+</ul></dd><dt class="aside-dt-wiring">Wiring</dt><dd class="aside-setup-dd"><ul class="wiring-list setup-list aside-setup-list" data-wiring-left="EEPROM" data-wiring-right="BP">
+<li>SDA → I2C SDA GPIO</li>
+<li>SCL → I2C SCL GPIO</li>
+<li>VCC → correct supply</li>
+<li>GND → BP GND</li>
+</ul></dd><dt class="aside-dt-protocol">Protocol</dt><dd>I2C</dd><dt class="aside-dt-hardware">Hardware</dt><dd>24XX EEPROM, jumper wires, known-safe supply</dd><dt class="aside-dt-wiki">Wiki source</dt><dd><a href="https://github.com/huytran1120/ESP32-OmniBus/wiki/05-I2C">05-I2C</a></dd><dt class="aside-dt-date">Date</dt><dd>2026-06-23</dd></dl>
+</aside>
+</div>
+</main>
+<script src="../recipes.js?v=20260629-recipesfix1"></script>
+</body>
+</html>

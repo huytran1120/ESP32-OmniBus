@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Use ESP32 OmniBus for UART bridge mode, serial terminal workflows, autobaud detection, raw byte reads, XMODEM transfers and USB-UART adapter workflows." name="description"/>
+<meta content="index,follow,max-snippet:-1,max-image-preview:large" name="robots"/>
+<meta content="#121212" name="theme-color"/>
+<meta content="ESP32 OmniBus" property="og:site_name"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="ESP32 UART bridge mode, serial terminal and autobaud tools" property="og:title"/>
+<meta content="Use ESP32 OmniBus for UART bridge mode, serial terminal workflows, autobaud detection, raw byte reads, XMODEM transfers and USB-UART adapter workflows." property="og:description"/>
+<meta content="article" property="og:type"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/protocols/uart/" property="og:url"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/recipes/assets/covers/visual-uart.png" property="og:image"/>
+<meta content="UART debugging visual with an ESP32 board and serial target modules." property="og:image:alt"/>
+<meta content="image/png" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="ESP32 UART bridge mode, serial terminal and autobaud tools" name="twitter:title"/>
+<meta content="Use ESP32 OmniBus for UART bridge mode, serial terminal workflows, autobaud detection, raw byte reads, XMODEM transfers and USB-UART adapter workflows." name="twitter:description"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/recipes/assets/covers/visual-uart.png" name="twitter:image"/>
+<meta content="UART debugging visual with an ESP32 board and serial target modules." name="twitter:image:alt"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/protocols/uart/" rel="canonical"/>
+<title>ESP32 UART bridge mode, serial terminal and autobaud tools</title>
+<link href="../protocols.css" rel="stylesheet"/>
+<script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "name": "ESP32 UART bridge mode, serial terminal and autobaud tools",
+      "description": "Use ESP32 OmniBus for UART bridge mode, serial terminal workflows, autobaud detection, raw byte reads, XMODEM transfers and USB-UART adapter workflows.",
+      "url": "https://huytran1120.github.io/ESP32-OmniBus/protocols/uart/",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "ESP32 OmniBus",
+        "url": "https://huytran1120.github.io/ESP32-OmniBus/"
+      },
+      "about": [
+        "ESP32 UART debugging",
+        "UART baud rate detection",
+        "UART console bridge",
+        "UART sniffing tool",
+        "half-duplex UART debugging"
+      ],
+      "inLanguage": "en",
+      "dateModified": "2026-06-28"
+    },
+    {
+      "@type": "ItemList",
+      "name": "ESP32 OmniBus UART recipes",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Bridge a UART console",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/bridge-uart-console/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Auto-detect an unknown UART baud rate",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/detect-uart-baudrate-autobaud/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Sniff UART traffic between two boards",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/sniff-uart-between-two-boards/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Read UART as raw hex bytes",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/read-uart-raw-hex-stream/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Use the UART AT shell",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/use-uart-at-shell-modem/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "Transfer files over UART XMODEM",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/transfer-uart-xmodem-sd/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "name": "Probe a UART device with ping",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/probe-uart-device-with-ping/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "name": "Auto-reply to a UART trigger pattern",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/auto-reply-uart-trigger-pattern/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "name": "Send repeated UART text",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/send-uart-spam-pattern/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 10,
+          "name": "Emulate a UART GPS device",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/emulate-uart-gps-device/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 11,
+          "name": "Bridge a half-duplex UART",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/bridge-half-duplex-uart/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 12,
+          "name": "Open a half-duplex UART bridge session",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/open-hduart-bridge-session/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 13,
+          "name": "Send a timed HDUART bytecode query",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/send-hduart-bytecode-query/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can ESP32 OmniBus detect an unknown UART baud rate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. ESP32 OmniBus can listen for serial activity with autobaud and use the detected rate as a starting point for reading or bridging a target console."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can ESP32 OmniBus bridge a UART console?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. After RX, TX, ground, voltage and serial format are known, bridge mode lets your terminal interact with the target UART."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can ESP32 OmniBus sniff UART traffic passively?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Use a read-only sniffing workflow when you need to observe serial traffic between two boards without injecting bytes."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ESP32 OmniBus",
+          "item": "https://huytran1120.github.io/ESP32-OmniBus/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Supported protocols",
+          "item": "https://huytran1120.github.io/ESP32-OmniBus/protocols/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "UART debugging",
+          "item": "https://huytran1120.github.io/ESP32-OmniBus/protocols/uart/"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "headline": "ESP32 UART bridge mode, serial terminal and autobaud tools",
+      "description": "Use ESP32 OmniBus for UART bridge mode, serial terminal workflows, autobaud detection, raw byte reads, XMODEM transfers and USB-UART adapter workflows.",
+      "url": "https://huytran1120.github.io/ESP32-OmniBus/protocols/uart/",
+      "inLanguage": "en",
+      "dateModified": "2026-06-28",
+      "author": {
+        "@type": "Organization",
+        "name": "ESP32 OmniBus"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ESP32 OmniBus"
+      },
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "ESP32 OmniBus",
+        "url": "https://huytran1120.github.io/ESP32-OmniBus/"
+      },
+      "about": [
+        "ESP32 UART debugging",
+        "UART baud rate detection",
+        "UART console bridge",
+        "UART sniffing tool",
+        "half-duplex UART debugging"
+      ]
+    }
+  ]
+}
+
+</script>
+<script defer="" src="../../assets/theme-toggle.js?v=20260702-desktop-sober2"></script>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.ico" rel="icon" sizes="any"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.png" rel="icon" sizes="48x48" type="image/png"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/apple-touch-icon.png" rel="apple-touch-icon"/>
+</head>
+<body>
+<main class="protocol-page">
+<header class="protocol-header">
+<a aria-label="ESP32 OmniBus home" class="brand" href="../../"><span aria-hidden="true" class="brand-mark">B</span><span>ESP32 OmniBus</span></a>
+<nav aria-label="Primary destinations" class="page-top-nav top-nav">
+<a href="../../"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><circle cx="6" cy="12" r="2"></circle><circle cx="18" cy="6" r="2"></circle><circle cx="18" cy="18" r="2"></circle><path d="m7.8 11 8.4-4M7.8 13l8.4 4"></path></svg>Site index</a>
+<a href="../"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>Protocols</a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus" rel="noopener" target="_blank"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-1-2.6c3.2-.4 6.5-1.6 6.5-7A5.4 5.4 0 0 0 20 4.8 5 5 0 0 0 19.9 2s-1.2-.4-4 1.5a13.7 13.7 0 0 0-7.3 0C5.8 1.6 4.6 2 4.6 2a5 5 0 0 0-.1 2.8A5.4 5.4 0 0 0 3 8.5c0 5.4 3.3 6.6 6.5 7a3.4 3.4 0 0 0-1 2.6V22"></path></svg>GitHub</a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus/wiki/03-UART" rel="noopener" target="_blank"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z"></path><path d="M8 6h8M8 10h8"></path></svg>UART wiki</a>
+</nav>
+</header>
+<section aria-labelledby="page-title" class="protocol-hero">
+<div>
+<p class="eyebrow">ESP32-S3 UART protocol debugging</p>
+<h1 id="page-title">ESP32 UART bridge mode, serial terminal and autobaud tools</h1>
+<p class="lead">ESP32 OmniBus turns a compatible ESP32-S3 board into a UART serial console, bridge and traffic inspection workbench. Use it to detect baud rates, bridge target consoles, inspect raw bytes, transfer files and debug half-duplex links.</p>
+<div class="hero-actions">
+<a class="action-link" href="../../web-tools/web-serial-terminal/"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><circle cx="6" cy="12" r="2"></circle><circle cx="18" cy="6" r="2"></circle><circle cx="18" cy="18" r="2"></circle><path d="m7.8 11 8.4-4M7.8 13l8.4 4"></path></svg>Open Web Serial Terminal</a>
+<a class="action-link" href="../../recipes/use-usb-uart-adapter/"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-1-2.6c3.2-.4 6.5-1.6 6.5-7A5.4 5.4 0 0 0 20 4.8 5 5 0 0 0 19.9 2s-1.2-.4-4 1.5a13.7 13.7 0 0 0-7.3 0C5.8 1.6 4.6 2 4.6 2a5 5 0 0 0-.1 2.8A5.4 5.4 0 0 0 3 8.5c0 5.4 3.3 6.6 6.5 7a3.4 3.4 0 0 0-1 2.6V22"></path></svg>Use ESP32 as USB-UART</a>
+</div>
+</div>
+<figure class="hero-visual">
+<img alt="UART debugging visual with an ESP32 board and serial target modules" height="600" src="../../recipes/assets/visual-uart.svg" width="1040"/>
+</figure>
+</section>
+<section aria-labelledby="workflow-title" class="protocol-band">
+<div class="section-head">
+<h2 id="workflow-title">Quick UART workflow</h2>
+<p class="section-intro">Start by making the serial link observable. Once the target speaks, choose the recipe for bridging, sniffing, raw bytes, AT commands or half-duplex work.</p>
+</div>
+<div class="workflow-layout">
+<ol class="step-list">
+<li><span>01</span><p>Connect GND first, then identify the target TX and RX pads.</p></li>
+<li><span>02</span><p>Confirm the target voltage level before connecting ESP32 GPIO.</p></li>
+<li><span>03</span><p>Start UART mode on ESP32 OmniBus.</p></li>
+<li><span>04</span><p>Use autobaud or configure baud rate, data bits, parity, stop bits and inversion.</p></li>
+<li><span>05</span><p>Read, sniff, bridge or continue with the recipe that matches the target behavior.</p></li>
+</ol>
+<div class="command-panel">
+<pre class="command-block"><code>mode uart
+autobaud
+read
+raw
+bridge</code></pre>
+<p class="command-note">Example CLI flow. See the UART wiki for exact syntax and firmware-specific options.</p>
+</div>
+</div>
+</section>
+<section aria-labelledby="coverage-title" class="protocol-band">
+<div class="section-head">
+<h2 id="coverage-title">UART workflows covered by ESP32 OmniBus</h2>
+<p class="section-intro">Use this overview to choose the right serial workflow before opening a detailed recipe.</p>
+</div>
+<div class="intent-grid">
+<article class="intent-card"><span>Baud</span><h3>UART baud rate detection</h3><p>Listen for target serial activity and use the detected rate as a starting point for readable logs or console bridging.</p></article>
+<article class="intent-card"><span>Bridge</span><h3>UART console bridge</h3><p>Interact with a target console once RX, TX, ground, voltage and serial format are known.</p></article>
+<article class="intent-card"><span>Sniff</span><h3>Passive UART sniffing</h3><p>Observe boot logs or device-to-device serial traffic without sending bytes onto the target link.</p></article>
+<article class="intent-card"><span>Raw</span><h3>Raw hex byte view</h3><p>Inspect binary frames, control bytes, packet headers and checksums when printable text is not enough.</p></article>
+<article class="intent-card"><span>AT</span><h3>AT command shell</h3><p>Work with modem-style serial modules where repeated commands, responses and line endings matter.</p></article>
+<article class="intent-card"><span>HDUART</span><h3>Half-duplex UART debugging</h3><p>Use the single-wire serial path when a device shares one line for transmit and receive.</p></article>
+</div>
+</section>
+<section aria-labelledby="fit-title" class="protocol-band">
+<div class="section-head">
+<h2 id="fit-title">When an ESP32-S3 UART workbench helps</h2>
+<p class="section-intro">UART debugging is often about discovering what a board is already saying. A small external tool can reveal speed, format, direction and timing before you integrate a target into your own firmware.</p>
+</div>
+<div class="signal-grid">
+<article class="signal-card"><span>Unknown console</span><h3>Before writing automation</h3><p>Find the baud rate, confirm text output and decide whether the port is a read-only log or an interactive shell.</p></article>
+<article class="signal-card"><span>Repair bench</span><h3>Before changing firmware</h3><p>Use serial logs, boot messages and console bridges to understand a board before flashing, erasing or modifying it.</p></article>
+<article class="signal-card"><span>Passive debug</span><h3>Before injecting bytes</h3><p>Sniff first when two devices already talk to each other and you need to avoid disturbing the bus.</p></article>
+</div>
+</section>
+<section aria-labelledby="hardware-title" class="protocol-band">
+<div class="section-head">
+<h2 id="hardware-title">UART hardware reminders</h2>
+<p class="section-intro">These notes are intentionally short. The detailed command references live in the project documentation and firmware repository.</p>
+</div>
+<div class="note-grid">
+<article class="note-card"><span>Ground first</span><p>UART needs a shared ground reference. Without it, readable text and reliable input are mostly luck.</p></article>
+<article class="note-card"><span>Voltage levels</span><p>ESP32 GPIO is 3.3 V; choose level adaptation before UART tests on 1.8 V or 5 V hardware.</p></article>
+<article class="note-card"><span>RX and TX direction</span><p>A target TX pin connects to the OmniBus RX GPIO. A target RX pin connects to the OmniBus TX GPIO.</p></article>
+<article class="note-card"><span>Serial format</span><p>Baud rate is only one setting. Data bits, parity, stop bits and inverted signaling can all change what you see.</p></article>
+<article class="note-card"><span>Half-duplex links</span><p>Single-wire buses need HDUART-style handling so the tool does not drive the line while the target is talking.</p></article>
+<article class="note-card"><span>Safe probing</span><p>Start read-only, avoid powering unknown boards blindly and keep write, bridge or spam tests for devices you own or have permission to debug.</p></article>
+</div>
+</section>
+<section aria-labelledby="problems-title" class="protocol-band">
+<div class="section-head">
+<h2 id="problems-title">Common UART problems</h2>
+<p class="section-intro">Most UART failures come from wiring direction, missing ground, wrong format settings or target consoles that only speak during boot.</p>
+</div>
+<div class="problem-grid">
+<article class="problem-card"><span>No text</span><p>Check common ground, target TX to OmniBus RX, target power and whether the console only emits data during reset.</p></article>
+<article class="problem-card"><span>Garbled output</span><p>Try autobaud, then check data bits, parity, stop bits, inversion and voltage-level mismatch.</p></article>
+<article class="problem-card"><span>No response</span><p>Check RX/TX crossing, line endings, console lock state and whether the target accepts input at that boot stage.</p></article>
+<article class="problem-card"><span>Binary-looking data</span><p>Switch to raw hex before assuming the link is broken; many serial protocols are not plain text.</p></article>
+<article class="problem-card"><span>Half-duplex contention</span><p>Use the HDUART workflow for shared-wire serial links and avoid driving while the target is transmitting.</p></article>
+</div>
+</section>
+<section aria-labelledby="board-choice-title" class="protocol-band">
+<div class="section-head">
+<h2 id="board-choice-title">Board choice for UART work</h2>
+<p class="section-intro">UART can be done from most supported boards, but the best choice depends on whether you want a portable console or a flexible bench wiring setup.</p>
+</div>
+<div class="note-grid">
+<article class="note-card"><span>Portable console</span><p><a href="../../boards/cardputer/">Cardputer</a> is the most natural choice when the built-in screen, keyboard and battery matter more than many exposed pins.</p></article>
+<article class="note-card"><span>Bench wiring</span><p><a href="../../boards/esp32-s3-devkit/">ESP32-S3 DevKit</a> is easier for RX/TX/GND wiring, level adapters and repeatable serial fixtures.</p></article>
+</div>
+</section>
+<section aria-labelledby="recipes-title" class="protocol-band">
+<div class="section-head">
+<h2 id="recipes-title">Detailed UART recipes</h2>
+<p class="section-intro">These pages are the task-level UART workflows. This overview keeps the protocol-level guidance here, while each recipe covers wiring, commands and troubleshooting in detail.</p>
+</div>
+<nav aria-label="ESP32 OmniBus UART recipes" class="recipe-index-grid">
+<a href="../../recipes/bridge-uart-console/"><span>Bridge</span><strong>Bridge a UART console</strong><small>Interact with a target shell once the serial format is known.</small></a>
+<a href="../../recipes/detect-uart-baudrate-autobaud/"><span>Baud</span><strong>Auto-detect an unknown UART baud rate</strong><small>Use serial activity to find a likely speed before reading logs.</small></a>
+<a href="../../recipes/sniff-uart-between-two-boards/"><span>Sniff</span><strong>Sniff UART traffic between two boards</strong><small>Observe an existing serial link without injecting data.</small></a>
+<a href="../../recipes/read-uart-raw-hex-stream/"><span>Raw</span><strong>Read UART as raw hex bytes</strong><small>Inspect non-printable frames, headers and checksums.</small></a>
+<a href="../../recipes/use-uart-at-shell-modem/"><span>AT</span><strong>Use the UART AT shell</strong><small>Talk to modem-style serial modules from an interactive shell.</small></a>
+<a href="../../recipes/transfer-uart-xmodem-sd/"><span>XMODEM</span><strong>Transfer files over UART XMODEM</strong><small>Move files through a serial workflow backed by SD storage.</small></a>
+<a href="../../recipes/probe-uart-device-with-ping/"><span>Probe</span><strong>Probe a UART device with ping</strong><small>Send a small request to check whether a target answers.</small></a>
+<a href="../../recipes/auto-reply-uart-trigger-pattern/"><span>Trigger</span><strong>Auto-reply to a UART trigger pattern</strong><small>Send a predefined response when matching bytes appear.</small></a>
+<a href="../../recipes/send-uart-spam-pattern/"><span>Repeat</span><strong>Send repeated UART text</strong><small>Exercise a serial parser or target input path repeatedly.</small></a>
+<a href="../../recipes/emulate-uart-gps-device/"><span>Emulate</span><strong>Emulate a UART GPS device</strong><small>Produce repeatable serial output for receiver-side tests.</small></a>
+<a href="../../recipes/bridge-half-duplex-uart/"><span>HDUART</span><strong>Bridge a half-duplex UART</strong><small>Connect to a single-wire console after the shared line is known.</small></a>
+<a href="../../recipes/open-hduart-bridge-session/"><span>HDUART</span><strong>Open a half-duplex UART bridge session</strong><small>Use the firmware HDUART mode for shared-line serial work.</small></a>
+<a href="../../recipes/send-hduart-bytecode-query/"><span>HDUART</span><strong>Send a timed HDUART bytecode query</strong><small>Issue a timed request on a single-wire serial bus.</small></a>
+</nav>
+</section>
+<section aria-labelledby="references-title" class="protocol-band">
+<div class="section-head">
+<h2 id="references-title">Useful UART references</h2>
+<p class="section-intro">This page is a protocol overview. Use the site index for the full web experience, or GitHub for source code, firmware documentation and the UART command reference.</p>
+</div>
+<div class="destination-grid">
+<article class="destination-card"><h3>Flash ESP32 OmniBus</h3><p>Flash a supported ESP32-S3 board before testing UART mode from the browser.</p><a class="action-link" href="../../webflasher/">Open Web Flasher</a></article>
+<article class="destination-card"><h3>UART command reference</h3><p>Open the maintained firmware wiki for UART mode commands and behavior.</p><a class="action-link" href="https://github.com/huytran1120/ESP32-OmniBus/wiki/03-UART" rel="noopener" target="_blank">Open UART command reference</a></article>
+<article class="destination-card"><h3>HDUART command reference</h3><p>Open the half-duplex UART wiki for single-wire serial workflows.</p><a class="action-link" href="https://github.com/huytran1120/ESP32-OmniBus/wiki/04-HDUART" rel="noopener" target="_blank">Open HDUART command reference</a></article>
+<article class="destination-card"><h3>Supported ESP32-S3 boards</h3><p>Check compatible boards and hardware notes before wiring a target console.</p><a class="action-link" href="../../boards/">Compare supported ESP32-S3 boards</a></article>
+<article class="destination-card"><h3>Web Serial Terminal</h3><p>Open Web Serial for UART commands after the matching firmware is running.</p><a class="action-link" href="../../web-tools/web-serial-terminal/">Open Web Serial Terminal for ESP32 OmniBus</a></article>
+<article class="destination-card"><h3>All hardware debugging recipes</h3><p>Browse recipes that connect UART work to wiring, commands, captures and troubleshooting.</p><a class="action-link" href="../../recipes/">Browse all hardware debugging recipes</a></article>
+<article class="destination-card"><h3>ESP32 OmniBus GitHub</h3><p>Check firmware source, issues and releases that affect UART support.</p><a class="action-link" href="https://github.com/huytran1120/ESP32-OmniBus" rel="noopener" target="_blank">Open GitHub repository</a></article>
+</div>
+</section>
+<section aria-labelledby="faq-title" class="protocol-band">
+<div class="section-head">
+<h2 id="faq-title">UART debugging FAQ</h2>
+<p class="section-intro">Short answers for common questions before moving into a detailed workflow.</p>
+</div>
+<div class="faq-list">
+<details>
+<summary>Can ESP32 OmniBus detect an unknown UART baud rate?</summary>
+<p>Yes. ESP32 OmniBus can listen for serial activity with autobaud and use the detected rate as a starting point for reading or bridging a target console.</p>
+</details>
+<details>
+<summary>Can ESP32 OmniBus bridge a UART console?</summary>
+<p>Yes. After RX, TX, ground, voltage and serial format are known, bridge mode lets your terminal interact with the target UART.</p>
+</details>
+<details>
+<summary>Can ESP32 OmniBus sniff UART traffic passively?</summary>
+<p>Yes. Use a read-only sniffing workflow when you need to observe serial traffic between two boards without injecting bytes.</p>
+</details>
+</div>
+</section>
+<footer class="site-footer">
+<p class="site-footer-title">ESP32 OmniBus</p>
+<nav aria-label="Project links">
+<a href="../../">Home</a>
+<a href="../../webflasher/">Web Flasher</a>
+<a href="../../recipes/">Recipes</a>
+<a href="../../web-tools/">Web Tools</a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus" rel="noopener" target="_blank">GitHub</a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus/wiki/03-UART" rel="noopener" target="_blank">UART Wiki</a>
+</nav>
+</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html class="notranslate" lang="en" translate="no">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Flash, read, merge and erase ESP firmware images from your browser with Web Serial and esptool-js." name="description"/>
+<meta content="notranslate" name="google"/>
+<meta content="index,follow,max-snippet:-1,max-image-preview:large" name="robots"/>
+<meta content="#121212" name="theme-color"/>
+<meta content="website" property="og:type"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="Web Serial Tools" property="og:site_name"/>
+<meta content="Web ESP Tool with Web Serial and esptool-js" property="og:title"/>
+<meta content="Flash, read, merge and erase ESP firmware images from your browser with Web Serial and esptool-js." property="og:description"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/web-tools/esp-tool/" property="og:url"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/web-tools/assets/esp-tool-og.png" property="og:image"/><meta content="Web ESP Tool with Web Serial and esptool-js preview card." property="og:image:alt"/>
+<meta content="image/png" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Web ESP Tool with Web Serial and esptool-js" name="twitter:title"/>
+<meta content="Flash, read, merge and erase ESP firmware images from your browser with Web Serial and esptool-js." name="twitter:description"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/web-tools/assets/esp-tool-og.png" name="twitter:image"/><meta content="Web ESP Tool with Web Serial and esptool-js preview card." name="twitter:image:alt"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/web-tools/esp-tool/" rel="canonical"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Web ESP Tool","url":"https://huytran1120.github.io/ESP32-OmniBus/web-tools/esp-tool/","description":"Flash, read, merge and erase ESP firmware from the browser with Web Serial.","applicationCategory":"DeveloperApplication","operatingSystem":"Web","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"ESP32 OmniBus","url":"https://github.com/huytran1120/ESP32-OmniBus"}}</script>
+<title>Web ESP Tool with Web Serial and esptool-js</title>
+<link href="../styles/main.css" rel="stylesheet"/>
+<link href="src/styles.css" rel="stylesheet"/>
+<script defer="" src="../../assets/theme-toggle.js?v=20260702-desktop-sober2"></script>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.ico" rel="icon" sizes="any"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.png" rel="icon" sizes="48x48" type="image/png"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/apple-touch-icon.png" rel="apple-touch-icon"/>
+</head>
+<body>
+<main class="wrap esp-wrap">
+<noscript>
+<section class="notice error">This Web ESP Tool requires JavaScript and Web Serial for device operations.</section>
+</noscript>
+<section class="notice error" hidden="" id="serialUnsupported">
+      Web Serial is not available in this browser. Merge still works offline; flashing, reading and erasing require Chrome, Edge or another compatible Chromium browser over HTTPS or localhost.
+    </section>
+<section aria-label="Web ESP Tool" class="esp-shell">
+<div class="toolbar">
+<div aria-label="Web ESP Tool" class="toolbar-brand">
+<a aria-label="ESP32 OmniBus home" class="brand-mark" href="../">B</a>
+<h1>Web ESP Tool</h1>
+</div>
+<div class="toolbar-actions">
+<button aria-expanded="false" aria-label="Open Web ESP Tool help" class="help-icon-button" data-help-open="" type="button">
+<svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"></path><path d="M12 7h.01"></path></svg>
+</button>
+<select aria-label="Baudrate" class="inline-select" id="baudRate">
+<option value="115200">115200</option>
+<option value="230400">230400</option>
+<option value="460800">460800</option>
+<option selected="" value="921600">921600</option>
+<option value="1500000">1500000</option>
+</select>
+<button class="button action-button primary" id="connectButton" type="button">Connect</button>
+<button class="button action-button" disabled="" hidden="" id="disconnectButton" type="button">Disconnect</button>
+<span class="status-pill" id="connectionStatus">Disconnected</span>
+</div>
+</div>
+<div aria-label="ESP operations" class="mode-tabs" role="tablist">
+<button aria-selected="true" class="mode-tab is-active" data-mode-tab="flash" role="tab" type="button">
+<svg aria-hidden="true" class="tab-icon" viewbox="0 0 24 24"><path d="M12 20V9"></path><path d="M8 13l4-4 4 4"></path><path d="M5 4h14"></path></svg>
+          Flash
+        </button>
+<button aria-selected="false" class="mode-tab" data-mode-tab="read" role="tab" type="button">
+<svg aria-hidden="true" class="tab-icon" viewbox="0 0 24 24"><path d="M12 4v11"></path><path d="M8 11l4 4 4-4"></path><path d="M5 20h14"></path></svg>
+          Read
+        </button>
+<button aria-selected="false" class="mode-tab" data-mode-tab="nvs" role="tab" type="button">
+<svg aria-hidden="true" class="tab-icon" viewbox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="M8 9h8M8 13h8M8 17h5"></path></svg>
+          NVS
+        </button>
+<button aria-selected="false" class="mode-tab" data-mode-tab="littlefs" role="tab" type="button">
+<svg aria-hidden="true" class="tab-icon" viewbox="0 0 24 24"><path d="M3 6h7l2 2h9v11H3z"></path><path d="M7 12h10M7 16h7"></path></svg>
+          LittleFS
+        </button>
+<button aria-selected="false" class="mode-tab" data-mode-tab="merge" role="tab" type="button">
+<svg aria-hidden="true" class="tab-icon" viewbox="0 0 24 24"><path d="M6 4v5a3 3 0 0 0 3 3h6"></path><path d="M6 20v-5a3 3 0 0 1 3-3"></path><path d="M15 8l4 4-4 4"></path></svg>
+          Merge
+        </button>
+<button aria-selected="false" class="mode-tab danger-tab" data-mode-tab="erase" role="tab" type="button">
+<svg aria-hidden="true" class="tab-icon" viewbox="0 0 24 24"><path d="M4 7h16"></path><path d="M9 7V4h6v3"></path><path d="M7 7l1 13h8l1-13"></path><path d="M10 11v5"></path><path d="M14 11v5"></path></svg>
+          Erase
+        </button>
+<span id="bootModeHint">Connect ESP in boot mode</span>
+</div>
+<div class="workspace">
+<section aria-label="Configuration" class="work-panel">
+<section class="boot-help" hidden="" id="bootHelp">
+<div>
+<strong>Boot mode needed</strong>
+<span>Hold BOOT, tap RESET, release BOOT when Connecting starts. Then press Connect again.</span>
+</div>
+<button class="button action-button subtle" id="dismissBootHelpButton" type="button">Dismiss</button>
+</section>
+<section class="mode-panel is-active" data-mode-panel="flash">
+<div class="panel-header">
+<div>
+<p class="eyebrow">Flash</p>
+<h2>Firmware files</h2>
+</div>
+<div class="preset-row">
+<select aria-label="Flash layout preset" class="inline-select" id="flashPreset">
+<option value="">Preset layout</option>
+<option selected="" value="merged-bin">Merged BIN @ 0x0</option>
+<option value="esp8266-bin">ESP8266 / NodeMCU</option>
+<option value="esp32-app">ESP32 / WROOM</option>
+<option value="esp32-s2-app">ESP32-S2</option>
+<option value="esp32-s3-app">ESP32-S3</option>
+<option value="esp32-c2-app">ESP32-C2</option>
+<option value="esp32-c3-app">ESP32-C3</option>
+<option value="esp32-c5-app">ESP32-C5</option>
+<option value="esp32-c6-app">ESP32-C6</option>
+<option value="esp32-h2-app">ESP32-H2</option>
+<option value="esp32-p4-app">ESP32-P4</option>
+<option value="esp32-factory">ESP32 Factory</option>
+</select>
+<button class="button action-button subtle" id="addFlashRowButton" type="button">Add Row</button>
+</div>
+</div>
+<div class="drop-zone" id="flashDropZone" tabindex="0">
+<strong>Drop BIN files here</strong>
+<span>or use Add Row and choose files manually.</span>
+</div>
+<div class="file-table-wrap">
+<table class="file-table">
+<thead>
+<tr>
+<th>Address</th>
+<th>File</th>
+<th>Size</th>
+<th>Status</th>
+<th></th>
+</tr>
+</thead>
+<tbody id="flashFileRows"></tbody>
+</table>
+</div>
+<div class="options-grid">
+<label><input checked="" id="eraseBeforeFlash" type="checkbox"/> Erase before flash</label>
+<label><input checked="" id="verifyAfterFlash" type="checkbox"/> Verify after write</label>
+<label><input checked="" id="rebootAfterFlash" type="checkbox"/> Reboot after flash</label>
+<label>
+                Flash size
+                <select class="inline-select" id="flashSizeSelect">
+<option selected="" value="detect">Detect</option>
+<option value="4MB">4 MB</option>
+<option value="8MB">8 MB</option>
+<option value="16MB">16 MB</option>
+<option value="32MB">32 MB</option>
+</select>
+</label>
+</div>
+</section>
+<section class="mode-panel" data-mode-panel="read" hidden="">
+<div class="panel-header">
+<div>
+<p class="eyebrow">Read / Backup</p>
+<h2>Flash region</h2>
+</div>
+<select aria-label="Read preset" class="inline-select" id="readPreset">
+<option value="full">Full Flash</option>
+<option value="bootloader">Bootloader</option>
+<option value="partitions">Partition Table</option>
+<option value="app">Application</option>
+<option value="custom">Custom Region</option>
+</select>
+</div>
+<div class="form-grid read-grid">
+<label for="readStart">Start address</label>
+<input id="readStart" spellcheck="false" value="0x000000"/>
+<label for="readSize">Size</label>
+<input id="readSize" spellcheck="false" value="4MB"/>
+<label for="readFilename">Output filename</label>
+<input id="readFilename" spellcheck="false" value="esp-flash-backup.bin"/>
+</div>
+<div class="metric-grid">
+<div><span>Progress</span><strong id="readPercent">0%</strong></div>
+<div><span>Speed</span><strong id="readSpeed">-</strong></div>
+<div><span>Read</span><strong id="readAmount">0 B</strong></div>
+<div><span>Elapsed</span><strong id="readElapsed">0s</strong></div>
+</div>
+</section>
+<section class="mode-panel nvs-panel" data-mode-panel="nvs" hidden="">
+<div class="panel-header">
+<div>
+<p class="eyebrow">Non-volatile storage</p>
+<h2>NVS Explorer</h2>
+</div>
+<button class="button action-button subtle" id="nvsDetectButton" type="button">Detect partitions</button>
+</div>
+<p class="nvs-description">Read the ESP-IDF partition table, extract NVS data and decode stored namespaces, keys and values. All decoding happens locally in your browser.</p>
+<div class="nvs-config">
+<label for="nvsPartition">NVS partition</label>
+<select class="inline-select" id="nvsPartition"><option value="">Auto-detect</option></select>
+<details class="nvs-advanced">
+<summary>Partition table offset</summary>
+<div class="nvs-offset-row"><label for="nvsTableOffset">Address</label><input id="nvsTableOffset" value="0x8000" spellcheck="false"/><span>ESP-IDF default: 0x8000</span></div>
+</details>
+</div>
+<div class="nvs-summary" id="nvsSummary" aria-live="polite">Connect an ESP, then extract its NVS partition.</div>
+<div class="nvs-output-header">
+<strong>Decoded keys</strong>
+<div class="nvs-export-actions">
+<button class="button action-button subtle" id="nvsDownloadTxt" disabled type="button">Download TXT</button>
+<button class="button action-button subtle" id="nvsDownloadBin" disabled type="button">Download BIN</button>
+</div>
+</div>
+<pre class="nvs-output" id="nvsOutput" tabindex="0" aria-label="Decoded NVS keys">No data extracted yet.</pre>
+<p class="nvs-warning">NVS may contain Wi-Fi passwords, tokens and other secrets. Downloads stay on your computer. Encrypted NVS cannot be decoded without the appropriate keys.</p>
+</section>
+<section class="mode-panel littlefs-panel" data-mode-panel="littlefs" hidden="">
+<div class="panel-header">
+<div><p class="eyebrow">File system / Backup</p><h2>LittleFS Explorer</h2></div>
+<button class="button action-button subtle" id="littlefsDetectButton" type="button">Detect partitions</button>
+</div>
+<p class="nvs-description">Read a LittleFS partition directly from ESP flash, browse its files and folders, or download the complete tree as ZIP. Read-only, entirely local.</p>
+<div class="nvs-config">
+<label for="littlefsPartition">Partition</label>
+<select class="inline-select" id="littlefsPartition"><option value="">Auto-detect</option></select>
+<details class="nvs-advanced"><summary>Partition table offset</summary>
+<div class="nvs-offset-row"><label for="littlefsTableOffset">Address</label><input id="littlefsTableOffset" value="0x8000" spellcheck="false"/><span>ESP-IDF default: 0x8000</span></div>
+</details>
+</div>
+<div class="nvs-summary" id="littlefsSummary" aria-live="polite">Connect an ESP, then extract its LittleFS filesystem.</div>
+<div class="nvs-output-header">
+<strong>Files and folders</strong>
+<div class="nvs-export-actions">
+<button class="button action-button subtle" id="littlefsDownloadZip" disabled type="button">Download ZIP</button>
+<button class="button action-button subtle" id="littlefsDownloadBin" disabled type="button">Download BIN</button>
+</div>
+</div>
+<div class="littlefs-tree" id="littlefsTree" aria-label="LittleFS file explorer"><p class="littlefs-empty">No files extracted yet.</p></div>
+<p class="nvs-warning">Some data partitions use SPIFFS or another format. LittleFS needs a valid superblock; encrypted flash or unsupported layouts cannot be decoded. Raw BIN remains available after extraction.</p>
+</section>
+<section class="mode-panel" data-mode-panel="merge" hidden="">
+<div class="panel-header">
+<div>
+<p class="eyebrow">Merge Firmware</p>
+<h2>Offline image builder</h2>
+</div>
+<div class="preset-row">
+<select aria-label="Merge layout preset" class="inline-select" id="mergeLayoutPreset">
+<option value="esp8266-bin">ESP8266 / NodeMCU single BIN</option>
+<option value="esp32-app">ESP32 / WROOM layout</option>
+<option value="esp32-s2-app">ESP32-S2 layout</option>
+<option selected="" value="esp32-s3-app">ESP32-S3 layout</option>
+<option value="esp32-c2-app">ESP32-C2 layout</option>
+<option value="esp32-c3-app">ESP32-C3 layout</option>
+<option value="esp32-c5-app">ESP32-C5 layout</option>
+<option value="esp32-c6-app">ESP32-C6 layout</option>
+<option value="esp32-h2-app">ESP32-H2 layout</option>
+<option value="esp32-p4-app">ESP32-P4 layout</option>
+<option value="esp32-factory">ESP32 factory + boot_app0</option>
+<option value="custom">Custom layout</option>
+</select>
+<button class="button action-button subtle" id="addMergeRowButton" type="button">Add Row</button>
+</div>
+</div>
+<div class="drop-zone" id="mergeDropZone" tabindex="0">
+<strong id="mergeDropTitle">Drop ESP32-S3 parts here</strong>
+<span id="mergeDropHint">bootloader @ 0x0, partitions @ 0x8000, firmware @ 0x10000.</span>
+</div>
+<div class="file-table-wrap">
+<table class="file-table">
+<thead>
+<tr>
+<th>Address</th>
+<th>File</th>
+<th>Size</th>
+<th>Status</th>
+<th></th>
+</tr>
+</thead>
+<tbody id="mergeFileRows"></tbody>
+</table>
+</div>
+</section>
+<section class="mode-panel" data-mode-panel="erase" hidden="">
+<div class="erase-panel">
+<p class="eyebrow">Erase</p>
+<h2>Entire flash</h2>
+<dl class="info-list">
+<div><dt>Device</dt><dd id="eraseDevice">Not connected</dd></div>
+<div><dt>Operation</dt><dd>Full chip erase</dd></div>
+<div><dt>Confirmation</dt><dd>Required before erase starts</dd></div>
+</dl>
+<label class="confirm-line"><input checked="" id="rebootAfterErase" type="checkbox"/> Reboot after erase</label>
+<label class="confirm-line danger-line"><input id="eraseConfirm" type="checkbox"/> I understand this deletes the entire flash</label>
+</div>
+</section>
+</section>
+<aside aria-label="Memory and device information" class="side-panel">
+<article class="tool-card compact-card device-card">
+<p class="eyebrow">Device information</p>
+<dl class="info-list">
+<div><dt>Chip</dt><dd id="chipModel">-</dd></div>
+<div><dt>MAC</dt><dd id="macAddress">-</dd></div>
+<div><dt>Flash ID</dt><dd id="flashId">-</dd></div>
+<div><dt>Flash size</dt><dd id="flashDetectedSize">-</dd></div>
+<div><dt>Loader</dt><dd id="loaderStatus">Not loaded</dd></div>
+</dl>
+</article>
+<article class="tool-card compact-card memory-card">
+<div class="panel-header tight">
+<p class="eyebrow">Memory</p>
+<strong id="memorySizeLabel">4 MB view</strong>
+</div>
+<div class="memory-visual">
+<div aria-hidden="true" class="memory-axis">
+<span id="memoryStartLabel">0x000000</span>
+<span id="memoryMiddleLabel">0x200000</span>
+<span id="memoryEndLabel">0x400000</span>
+</div>
+<div aria-label="Vertical flash memory preview" class="memory-map" id="memoryMap"></div>
+</div>
+<div class="validation-list" id="validationList">No files loaded.</div>
+</article>
+</aside>
+</div>
+<article class="content-card action-strip">
+<div class="primary-area">
+<button class="button action-button primary" id="primaryAction" type="button">Flash Firmware</button>
+<span id="operationStatus">Idle</span>
+<span class="action-hint" id="actionHint">Connect first.</span>
+</div>
+<div class="progress-stack">
+<div class="progress-row">
+<progress id="operationProgress" max="100" value="0"></progress>
+<span id="progressValue">0%</span>
+</div>
+</div>
+</article>
+<details class="content-card log-card">
+<summary>Technical log</summary>
+<div class="log-header">
+<h2>esptool-js output</h2>
+<div class="toolbar-actions">
+<button class="button action-button subtle" id="copyLogButton" type="button">Copy</button>
+<button class="button action-button subtle" id="clearLogButton" type="button">Clear</button>
+</div>
+</div>
+<pre aria-live="polite" class="log-output" id="technicalLog"></pre>
+</details>
+</section>
+</main>
+<section class="tool-help-source" hidden="" id="toolHelpContent">
+<h2 id="toolHelpTitle">Web ESP Tool help</h2>
+<section>
+<h3>What it does</h3>
+<p>Flash, read, erase and merge firmware images, and inspect ESP-IDF NVS and LittleFS partitions through the ROM serial bootloader.</p>
+</section>
+<section>
+<h3>NVS explorer</h3>
+<p>Open the NVS tab, connect in download mode and click Extract NVS. The tool locates NVS partitions using the ESP-IDF partition table (usually at 0x8000), then decodes active entries locally.</p>
+</section>
+<section>
+<h3>LittleFS explorer</h3>
+<p>Connect an ESP in download mode, open LittleFS, and select Extract LittleFS. Files are reconstructed from the flash image without writing to the device. Expand folders to download individual files or choose Download ZIP for a complete archive.</p>
+</section>
+<section>
+<h3>Adapter</h3>
+<ul>
+<li>Use a USB serial adapter or a development board with built-in USB-UART.</li>
+<li>Connect TX to RX, RX to TX and share GND. Keep 3.3 V logic levels.</li>
+<li>For bare modules, wire EN/RESET and BOOT/GPIO0 so the chip can enter download mode.</li>
+</ul>
+</section>
+<section>
+<h3>Connection</h3>
+<ol>
+<li>Hold BOOT/GPIO0 low, reset or power-cycle the ESP, then release reset.</li>
+<li>Click Connect and select the serial port.</li>
+<li>Load firmware files, choose the matching layout and run the operation.</li>
+</ol>
+</section>
+</section>
+<script src="../shared/help-modal.js" type="module"></script>
+<script src="src/App.js" type="module"></script>
+</body>
+</html>

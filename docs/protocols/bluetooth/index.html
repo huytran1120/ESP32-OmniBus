@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Use OmniBus as an ESP32 BLE workbench to scan devices, test HID keyboard or mouse behavior, pair with a host and recover BLE state." name="description"/>
+<meta content="index,follow,max-snippet:-1,max-image-preview:large" name="robots"/>
+<meta content="#121212" name="theme-color"/>
+<meta content="ESP32 OmniBus" property="og:site_name"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="ESP32 BLE Scanner and HID Debugging" property="og:title"/>
+<meta content="Use OmniBus as an ESP32 BLE workbench to scan devices, test HID keyboard or mouse behavior, pair with a host and recover BLE state." property="og:description"/>
+<meta content="article" property="og:type"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/protocols/bluetooth/" property="og:url"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/recipes/assets/covers/visual-ble.png" property="og:image"/>
+<meta content="Bluetooth and BLE debugging visual with an ESP32 board, wireless signal and paired host." property="og:image:alt"/>
+<meta content="image/png" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="ESP32 BLE Scanner and HID Debugging" name="twitter:title"/>
+<meta content="Scan BLE devices, test HID keyboard or mouse workflows, pair with a host and recover BLE state from the ESP32 OmniBus CLI." name="twitter:description"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/recipes/assets/covers/visual-ble.png" name="twitter:image"/>
+<meta content="Bluetooth and BLE debugging visual with an ESP32 board, wireless signal and paired host." name="twitter:image:alt"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/protocols/bluetooth/" rel="canonical"/>
+<title>ESP32 BLE Scanner and HID Debugging | OmniBus</title>
+<link href="../protocols.css" rel="stylesheet"/>
+<script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "name": "ESP32 BLE Scanner and HID Debugging",
+      "description": "Use OmniBus as an ESP32 BLE workbench to scan devices, test HID keyboard or mouse behavior, pair with a host and recover BLE state.",
+      "url": "https://huytran1120.github.io/ESP32-OmniBus/protocols/bluetooth/",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "ESP32 OmniBus",
+        "url": "https://huytran1120.github.io/ESP32-OmniBus/"
+      },
+      "about": [
+        "ESP32 BLE scanner",
+        "ESP32 BLE HID keyboard",
+        "ESP32 BLE mouse",
+        "Bluetooth debugging",
+        "ESP32-S3 BLE workbench"
+      ],
+      "inLanguage": "en",
+      "dateModified": "2026-06-28"
+    },
+    {
+      "@type": "ItemList",
+      "name": "ESP32 OmniBus Bluetooth recipes",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Scan nearby Bluetooth devices",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-bluetooth-devices/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Test BLE HID keyboard and mouse mode",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/use-ble-hid-server/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Start a BLE HID keyboard server",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/start-ble-hid-keyboard-server/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Use BLE mouse movement",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/use-ble-mouse-movement/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can ESP32 OmniBus scan nearby Bluetooth devices?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Bluetooth mode can scan nearby BLE advertisements so you can see which devices are visible before pairing or HID testing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can ESP32 OmniBus act as a BLE HID keyboard or mouse?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. ESP32 OmniBus can start a BLE HID server and send controlled keyboard or mouse actions to your own paired test host."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I use BLE HID commands on someone else's device?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Use BLE HID workflows only with hosts you own or are explicitly allowed to test, and start with small controlled actions."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ESP32 OmniBus",
+          "item": "https://huytran1120.github.io/ESP32-OmniBus/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Supported protocols",
+          "item": "https://huytran1120.github.io/ESP32-OmniBus/protocols/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Bluetooth and BLE debugging",
+          "item": "https://huytran1120.github.io/ESP32-OmniBus/protocols/bluetooth/"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "headline": "Scan BLE devices and test Bluetooth HID with ESP32",
+      "description": "Use OmniBus as an ESP32 BLE workbench to scan devices, test HID keyboard or mouse behavior, pair with a host and recover BLE state.",
+      "url": "https://huytran1120.github.io/ESP32-OmniBus/protocols/bluetooth/",
+      "inLanguage": "en",
+      "dateModified": "2026-06-28",
+      "author": {
+        "@type": "Organization",
+        "name": "ESP32 OmniBus"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ESP32 OmniBus"
+      },
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "ESP32 OmniBus",
+        "url": "https://huytran1120.github.io/ESP32-OmniBus/"
+      },
+      "about": [
+        "ESP32 BLE scanner",
+        "ESP32 BLE HID keyboard",
+        "ESP32 BLE mouse",
+        "Bluetooth debugging",
+        "ESP32-S3 BLE workbench"
+      ]
+    }
+  ]
+}
+
+</script>
+<script defer="" src="../../assets/theme-toggle.js?v=20260702-desktop-sober2"></script>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.ico" rel="icon" sizes="any"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.png" rel="icon" sizes="48x48" type="image/png"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/apple-touch-icon.png" rel="apple-touch-icon"/>
+</head>
+<body>
+<main class="protocol-page">
+<header class="protocol-header">
+<a aria-label="ESP32 OmniBus home" class="brand" href="../../"><span aria-hidden="true" class="brand-mark">B</span><span>ESP32 OmniBus</span></a>
+<nav aria-label="Primary destinations" class="page-top-nav top-nav">
+<a href="../../"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><circle cx="6" cy="12" r="2"></circle><circle cx="18" cy="6" r="2"></circle><circle cx="18" cy="18" r="2"></circle><path d="m7.8 11 8.4-4M7.8 13l8.4 4"></path></svg>Site index</a>
+<a href="../"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>Protocols</a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus" rel="noopener" target="_blank"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-1-2.6c3.2-.4 6.5-1.6 6.5-7A5.4 5.4 0 0 0 20 4.8 5 5 0 0 0 19.9 2s-1.2-.4-4 1.5a13.7 13.7 0 0 0-7.3 0C5.8 1.6 4.6 2 4.6 2a5 5 0 0 0-.1 2.8A5.4 5.4 0 0 0 3 8.5c0 5.4 3.3 6.6 6.5 7a3.4 3.4 0 0 0-1 2.6V22"></path></svg>GitHub</a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus/wiki/13-BLUETOOTH" rel="noopener" target="_blank"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z"></path><path d="M8 6h8M8 10h8"></path></svg>Bluetooth wiki</a>
+</nav>
+</header>
+<section aria-labelledby="page-title" class="protocol-hero">
+<div>
+<p class="eyebrow">ESP32-S3 Bluetooth and BLE debugging</p>
+<h1 id="page-title">Scan BLE devices and test Bluetooth HID with ESP32</h1>
+<p class="lead">ESP32 OmniBus turns a compatible ESP32-S3 board into a Bluetooth and BLE scanning workbench. Use it to scan nearby devices, test BLE HID keyboard and mouse workflows, pair with your own host and troubleshoot BLE state from the serial CLI.</p>
+<div class="hero-actions">
+<a class="action-link" href="../../recipes/scan-bluetooth-devices/"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0M8 12a4 4 0 0 1 8 0M10 16a2 2 0 0 1 4 0"></path><path d="M12 18h.01"></path></svg>Start with Bluetooth scanning</a>
+<a class="action-link" href="../../webflasher/"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"></path></svg>Flash ESP32 OmniBus</a>
+</div>
+</div>
+<figure class="hero-visual">
+<img alt="Bluetooth and BLE debugging visual with an ESP32 board, wireless signal and paired host" height="600" src="../../recipes/assets/visual-ble.svg" width="1040"/>
+</figure>
+</section>
+<section aria-labelledby="workflow-title" class="protocol-band">
+<div class="section-head">
+<h2 id="workflow-title">Quick Bluetooth workflow</h2>
+<p class="section-intro">Start passively with a scan, then move to BLE HID only with a host you own and can safely pair for small controlled tests.</p>
+</div>
+<div class="workflow-layout">
+<ol class="step-list">
+<li><span>01</span><p>Start Bluetooth mode from the serial CLI.</p></li>
+<li><span>02</span><p>Scan nearby BLE advertisements to see which devices are visible.</p></li>
+<li><span>03</span><p>Start the BLE HID server with a recognizable test name.</p></li>
+<li><span>04</span><p>Pair from your own computer or phone before sending any keyboard or mouse command.</p></li>
+<li><span>05</span><p>Use <code>reset</code> before changing server mode, pairing state or workflow.</p></li>
+</ol>
+<div class="command-panel">
+<pre class="command-block"><code>mode bluetooth
+scan
+server My-BLE-Test
+keyboard hello
+mouse 10 0
+reset</code></pre>
+<p class="command-note">Example CLI flow. See the Bluetooth wiki for exact syntax, pairing behavior and firmware-specific options.</p>
+</div>
+</div>
+</section>
+<section aria-labelledby="coverage-title" class="protocol-band">
+<div class="section-head">
+<h2 id="coverage-title">Bluetooth workflows covered by ESP32 OmniBus</h2>
+<p class="section-intro">Use this overview to choose the right BLE workflow before opening a detailed recipe.</p>
+</div>
+<div class="intent-grid">
+<article class="intent-card"><span>Scan</span><h3>BLE device discovery</h3><p>List nearby advertising devices before pairing, HID testing or troubleshooting signal visibility.</p></article>
+<article class="intent-card"><span>Server</span><h3>BLE HID server setup</h3><p>Start a named BLE HID service so your own host can pair with the ESP32 OmniBus.</p></article>
+<article class="intent-card"><span>Keyboard</span><h3>Controlled BLE keyboard tests</h3><p>Send a short known text string to validate keyboard input without writing a BLE sketch.</p></article>
+<article class="intent-card"><span>Mouse</span><h3>Small BLE mouse movement</h3><p>Send tiny relative mouse movements or clicks only on a safe paired host.</p></article>
+<article class="intent-card"><span>Reset</span><h3>Bluetooth state recovery</h3><p>Clear stale mode or pairing state before repeating tests or switching HID behavior.</p></article>
+<article class="intent-card"><span>Compare</span><h3>BLE versus USB HID</h3><p>Use USB HID recipes when wired input is easier to debug than wireless pairing.</p></article>
+</div>
+</section>
+<section aria-labelledby="recipes-title" class="protocol-band">
+<div class="section-head">
+<h2 id="recipes-title">Detailed Bluetooth recipes</h2>
+<p class="section-intro">These pages are the task-level Bluetooth and BLE workflows. This overview keeps the protocol-level guidance here, while each recipe covers commands and troubleshooting in detail.</p>
+</div>
+<nav aria-label="ESP32 OmniBus Bluetooth recipes" class="recipe-index-grid">
+<a href="../../recipes/scan-bluetooth-devices/"><span>Scan</span><strong>Scan nearby Bluetooth devices</strong><small>List nearby BLE advertisements before pairing or HID testing.</small></a>
+<a href="../../recipes/use-ble-hid-server/"><span>HID</span><strong>Test BLE HID keyboard and mouse mode</strong><small>Start the BLE HID server and send controlled input to your own paired host.</small></a>
+<a href="../../recipes/start-ble-hid-keyboard-server/"><span>Keys</span><strong>Start a BLE HID keyboard server</strong><small>Send a short keyboard text string to a paired BLE host.</small></a>
+<a href="../../recipes/use-ble-mouse-movement/"><span>Mouse</span><strong>Use BLE mouse movement</strong><small>Send a small relative movement or click to a safe paired host.</small></a>
+</nav>
+</section>
+<section aria-labelledby="references-title" class="protocol-band">
+<div class="section-head">
+<h2 id="references-title">Useful Bluetooth references</h2>
+<p class="section-intro">This page is a protocol overview. Use the site index for the full web experience, or GitHub for source code, firmware documentation and the Bluetooth command reference.</p>
+</div>
+<div class="destination-grid">
+<article class="destination-card"><h3>Flash ESP32 OmniBus</h3><p>Flash a supported ESP32-S3 board before testing Bluetooth mode from the browser.</p><a class="action-link" href="../../webflasher/">Open Web Flasher</a></article>
+<article class="destination-card"><h3>Bluetooth command reference</h3><p>Open the maintained firmware wiki for Bluetooth scan, BLE HID server, keyboard, mouse and reset commands.</p><a class="action-link" href="https://github.com/huytran1120/ESP32-OmniBus/wiki/13-BLUETOOTH" rel="noopener" target="_blank">Open Bluetooth command reference</a></article>
+<article class="destination-card"><h3>Supported ESP32-S3 boards</h3><p>Check compatible boards before relying on Bluetooth or BLE HID workflows.</p><a class="action-link" href="../../boards/">Compare supported ESP32-S3 boards</a></article>
+<article class="destination-card"><h3>Web Serial Terminal</h3><p>Open Web Serial for Bluetooth commands after the matching firmware is running.</p><a class="action-link" href="../../web-tools/web-serial-terminal/">Open Web Serial Terminal for ESP32 OmniBus</a></article>
+<article class="destination-card"><h3>USB HID workflow</h3><p>Compare BLE HID with wired USB HID when pairing adds too much uncertainty.</p><a class="action-link" href="../../recipes/use-usb-hid-keyboard-mouse/">Open USB HID keyboard and mouse recipe</a></article>
+<article class="destination-card"><h3>All hardware debugging recipes</h3><p>Browse recipes that connect Bluetooth work to wiring, commands, captures and troubleshooting.</p><a class="action-link" href="../../recipes/">Browse all hardware debugging recipes</a></article>
+<article class="destination-card"><h3>ESP32 OmniBus GitHub</h3><p>Check firmware source, issues and releases that affect Bluetooth support.</p><a class="action-link" href="https://github.com/huytran1120/ESP32-OmniBus" rel="noopener" target="_blank">Open GitHub repository</a></article>
+</div>
+</section>
+<section aria-labelledby="faq-title" class="protocol-band">
+<div class="section-head">
+<h2 id="faq-title">Bluetooth debugging FAQ</h2>
+<p class="section-intro">Short answers for common questions before moving into a detailed workflow.</p>
+</div>
+<div class="faq-list">
+<details>
+<summary>Can ESP32 OmniBus scan nearby Bluetooth devices?</summary>
+<p>Yes. Bluetooth mode can scan nearby BLE advertisements so you can see which devices are visible before pairing or HID testing.</p>
+</details>
+<details>
+<summary>Can ESP32 OmniBus act as a BLE HID keyboard or mouse?</summary>
+<p>Yes. ESP32 OmniBus can start a BLE HID server and send controlled keyboard or mouse actions to your own paired test host.</p>
+</details>
+<details>
+<summary>Should I use BLE HID commands on someone else's device?</summary>
+<p>No. Use BLE HID workflows only with hosts you own or are explicitly allowed to test, and start with small controlled actions.</p>
+</details>
+</div>
+</section>
+<footer class="site-footer">
+<p class="site-footer-title">ESP32 OmniBus</p>
+<nav aria-label="Project links">
+<a href="../../">Home</a>
+<a href="../../webflasher/">Web Flasher</a>
+<a href="../../recipes/">Recipes</a>
+<a href="../../web-tools/">Web Tools</a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus" rel="noopener" target="_blank">GitHub</a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus/wiki/13-BLUETOOTH" rel="noopener" target="_blank">Bluetooth Wiki</a>
+</nav>
+</footer>
+</main>
+</body>
+</html>

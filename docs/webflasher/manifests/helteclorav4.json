@@ -1,0 +1,13 @@
+{
+  "name": "ESP32 OmniBus - Heltec WiFi LoRa 32 V4",
+  "version": "1.8",
+  "new_install_prompt_erase": false,
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "parts": [
+        { "path": "https://huytran1120.github.io/ESP32-OmniBus/webflasher/firmwares/bit_pirate_18_heltec_wifi_lora_32_V4.bin", "offset": 0 }
+      ]
+    }
+  ]
+}

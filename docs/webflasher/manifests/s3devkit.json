@@ -1,0 +1,13 @@
+{
+  "name": "ESP32 OmniBus - ESP32-S3 DevKit",
+  "version": "1.8",
+  "new_install_prompt_erase": false,
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "parts": [
+        { "path": "https://huytran1120.github.io/ESP32-OmniBus/webflasher/firmwares/bit_pirate_18_s3-devkit.bin", "offset": 0 }
+      ]
+    }
+  ]
+}

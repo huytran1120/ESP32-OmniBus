@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Use ESP32 OmniBus JTAG mode to scan a group of GPIOs and look for SWDIO/SWCLK on your own target board." name="description"/>
+<meta content="index,follow,max-snippet:-1,max-image-preview:large" name="robots"/>
+<meta content="#121212" name="theme-color"/>
+<meta content="ESP32 OmniBus" property="og:site_name"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="How to scan for SWD pins with ESP32 OmniBus" property="og:title"/>
+<meta content="Use ESP32 OmniBus JTAG mode to scan a group of GPIOs and look for SWDIO/SWCLK on your own target board." property="og:description"/>
+<meta content="article" property="og:type"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-swd-pinout/" property="og:url"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-swd-pinout/assets/cover.png" property="og:image"/><meta content="SWD debug pins with scan lines." property="og:image:alt"/><meta content="image/png" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="2026-06-23" property="article:published_time"/>
+<meta content="2026-06-23" property="article:modified_time"/>
+<meta content="Geo" property="article:author">
+<meta content="summary_large_image" name="twitter:card">
+<meta content="How to scan for SWD pins with ESP32 OmniBus" name="twitter:title"/>
+<meta content="Use ESP32 OmniBus JTAG mode to scan a group of GPIOs and look for SWDIO/SWCLK on your own target board." name="twitter:description"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-swd-pinout/assets/cover.png" name="twitter:image"/><meta content="SWD debug pins with scan lines." name="twitter:image:alt"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-swd-pinout/" rel="canonical"/>
+<title>Scan for SWD Pins | ESP32 OmniBus</title>
+<link href="../recipes.css?v=20260702-mobileclone2" rel="stylesheet"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "How to scan for SWD pins with ESP32 OmniBus",
+      "description": "Use ESP32 OmniBus JTAG mode to scan a group of GPIOs and look for SWDIO/SWCLK on your own target board.",
+      "image": "https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-swd-pinout/assets/cover.png",
+      "datePublished": "2026-06-23",
+      "dateModified": "2026-06-23",
+      "author": {
+        "@type": "Person",
+        "name": "Geo"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ESP32 OmniBus",
+        "url": "https://github.com/huytran1120/ESP32-OmniBus"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-swd-pinout/"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ESP32 OmniBus",
+          "item": "https://huytran1120.github.io/ESP32-OmniBus/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Recipes",
+          "item": "https://huytran1120.github.io/ESP32-OmniBus/recipes/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "How to scan for SWD pins with ESP32 OmniBus",
+          "item": "https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-swd-pinout/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<script defer="" src="../../assets/theme-toggle.js?v=20260702-desktop-sober2"></script>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.ico" rel="icon" sizes="any"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.png" rel="icon" sizes="48x48" type="image/png"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/apple-touch-icon.png" rel="apple-touch-icon"/>
+</meta></meta></head>
+<body>
+<main class="wrap">
+<header class="hero"><div class="article-hero-top"><div class="article-brand-tags"><a aria-label="ESP32 OmniBus home" class="brand" href="../"><span aria-hidden="true" class="brand-mark">B</span><span class="visually-hidden">ESP32 OmniBus home</span></a><ul aria-label="Recipe tags" class="article-hero-tags"><li>JTAG/SWD</li><li>Advanced</li><li>5 min</li><li>Serial CLI</li></ul></div><nav aria-label="Section navigation" class="article-top-nav"><a href="../../"><svg aria-hidden="true" class="article-nav-icon" viewbox="0 0 24 24"><path d="M3 11l9-8 9 8"></path><path d="M5 10v10h14V10"></path><path d="M9 20v-6h6v6"></path></svg>Home</a><a href="../">Recipes</a>
+<a href="../../web-tools/">Web Tools</a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus/wiki" rel="noopener" target="_blank">Wiki</a>
+
+</nav></div>
+<p class="eyebrow">Recipe · Advanced · JTAG/SWD</p>
+<h1>How to scan for SWD pins</h1>
+<p>When a board has unlabelled test pads, SWD pin scanning can help identify SWDIO and SWCLK candidates. Use this only on your own board or a board you are authorized to test.</p>
+</header>
+<figure class="recipe-banner">
+<img alt="SWD debug pins with scan lines." height="600" src="../assets/visual-swd.svg" width="1040"/>
+<figcaption>Configure the candidate pins first, then run the SWD scan.</figcaption>
+</figure>
+<div class="recipe-layout">
+<article class="recipe-article"><section aria-label="Generated wiring diagram" class="recipe-section wiring-visual-section">
+<p class="wiring-visual-label">Wiring View</p><figure class="wiring-diagram wiring-diagram-main">
+<svg aria-label="Generated wiring diagram" role="img" viewbox="0 0 920 320">
+<rect class="wiring-node wiring-node-left" height="224" rx="8" width="220" x="34" y="48"></rect>
+<rect class="wiring-node wiring-node-right" height="224" rx="8" width="220" x="666" y="48"></rect>
+<text class="wiring-title" text-anchor="middle" x="144" y="86"></text>
+<text class="wiring-title" text-anchor="middle" x="776" y="86">BP</text>
+<line class="wiring-line wire-0" x1="254" x2="666" y1="122" y2="122"></line><text class="wiring-pin" text-anchor="end" x="232" y="126">Pads</text><text class="wiring-pin" x="688" y="126">BP GPIOs</text><line class="wiring-line wire-1" x1="254" x2="666" y1="144" y2="144"></line><text class="wiring-pin" text-anchor="end" x="232" y="148">GND</text><text class="wiring-pin" x="688" y="148">BP GND</text><line class="wiring-line wire-2" x1="254" x2="666" y1="166" y2="166"></line><text class="wiring-pin" text-anchor="end" x="232" y="170">VREF</text><text class="wiring-pin" x="688" y="170">check only</text>
+</svg>
+<div aria-hidden="true" class="wiring-mobile-list"><div class="wiring-mobile-row wire-0"><span>Pads</span><span class="wiring-mobile-arrow">-&gt;</span><span>BP GPIOs</span></div><div class="wiring-mobile-row wire-1"><span>GND</span><span class="wiring-mobile-arrow">-&gt;</span><span>BP GND</span></div><div class="wiring-mobile-row wire-2"><span>VREF</span><span class="wiring-mobile-arrow">-&gt;</span><span>check only</span></div></div>
+<figcaption>Generated from the wiring summary:  to BP.</figcaption>
+</figure>
+</section>
+<section class="recipe-section command-step-section">
+<span class="step-label">Step 1</span><h2>Commands</h2>
+<p>Run the commands below after selecting the right OmniBus mode and confirming the wiring.</p>
+<div data-cli-commands="mode jtag
+scan swd" data-cli-mode="BitPirate" data-cli-result="Candidate GPIO set selected
+Scanning SWD combinations
+SWDIO/SWCLK candidate found or no device detected" data-cli-session=""></div>
+</section><section class="recipe-section result-section">
+<h2>Result</h2>
+<div class="callout success"><h3>What success looks like</h3><p>A detected pair gives you pins to verify with OpenOCD or a normal debugger. A failure does not prove SWD is absent; reset, power state and locks can matter.</p></div>
+</section><section class="recipe-section troubleshooting-section">
+<h2>Troubleshooting</h2>
+<ul class="mistake-list">
+<li>Target not powered or held in reset.</li>
+<li>No common ground.</li>
+<li>Wrong candidate pin set.</li>
+<li>Target debug interface disabled or locked.</li>
+</ul>
+</section><section class="recipe-section next-steps-section">
+<h2>Next steps</h2>
+<ul class="hardware-list">
+<li>Verify the detected pair with a real debug session.</li>
+<li>Use <code>openocd</code> adapter mode only after pinout is confirmed.</li>
+<li>Document pad order and voltage before repeating the test.</li>
+</ul>
+</section><section aria-labelledby="faq-title" class="recipe-section recipe-faq"><h2 id="faq-title">SWD pinout scan FAQ</h2><div class="recipe-faq-list"><details class="recipe-faq-item"><summary>What does SWD scan look for?</summary><p>It tries candidate GPIO pairs to find SWDIO and SWCLK on a target that exposes an ARM-style Serial Wire Debug interface.</p></details><details class="recipe-faq-item"><summary>Why should SWD usually be tried before JTAG on ARM boards?</summary><p>Many modern ARM microcontrollers expose SWD with only two signal pins, so a targeted SWD scan can be faster than a full four-signal JTAG search.</p></details><details class="recipe-faq-item"><summary>What does an SWD scan result give me next?</summary><p>A scan result gives candidate SWDIO, SWCLK and reset-related wiring to test with a debugger workflow. It is a mapping aid, not a guarantee that the target will allow debug access.</p></details></div></section><section class="recipe-section">
+<h2>Go deeper</h2>
+<nav aria-label="Related links" class="link-card-list">
+<a href="https://github.com/huytran1120/ESP32-OmniBus/wiki/15-JTAG" rel="noopener" target="_blank"><span>Wiki</span><strong>JTAG mode</strong></a>
+<a href="../use-openocd-jtag-adapter/"><span>Related</span><strong>Use OpenOCD adapter mode</strong></a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus" rel="noopener" target="_blank"><span>Repository</span><strong>ESP32 OmniBus</strong></a>
+</nav>
+</section></article>
+<aside aria-label="Recipe setup and details" class="content-card aside-card"><dl><dt class="aside-dt-requirements">Requirements</dt><dd class="aside-setup-dd"><ul class="hardware-list setup-list aside-setup-list">
+<li>ESP32 OmniBus firmware</li>
+<li>Own target board</li>
+<li>Candidate test pads</li>
+<li>Shared ground and known voltage level</li>
+</ul></dd><dt class="aside-dt-wiring">Wiring</dt><dd class="aside-setup-dd"><ul class="wiring-list setup-list aside-setup-list" data-wiring-left="Target" data-wiring-right="BP">
+<li>Pads → BP GPIOs</li><li>GND → BP GND</li><li>VREF → check only</li>
+</ul></dd><dt class="aside-dt-protocol">Protocol</dt><dd>JTAG/SWD</dd><dt class="aside-dt-hardware">Hardware</dt><dd>Own target board with suspected SWD pins</dd><dt class="aside-dt-wiki">Wiki source</dt><dd><a href="https://github.com/huytran1120/ESP32-OmniBus/wiki/15-JTAG">15-JTAG</a></dd><dt class="aside-dt-date">Date</dt><dd>2026-06-23</dd></dl></aside>
+</div>
+</main>
+<script src="../recipes.js?v=20260629-recipesfix1"></script>
+</body>
+</html>

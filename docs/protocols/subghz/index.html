@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Use OmniBus with CC1101 as an ESP32 Sub-GHz workbench for wiring, RSSI scan, frequency sweep, frame receive and .sub files." name="description"/>
+<meta content="index,follow,max-snippet:-1,max-image-preview:large" name="robots"/>
+<meta content="#121212" name="theme-color"/>
+<meta content="ESP32 OmniBus" property="og:site_name"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="ESP32 CC1101 Sub-GHz Signal Debugging" property="og:title"/>
+<meta content="Use OmniBus with CC1101 as an ESP32 Sub-GHz workbench for wiring, RSSI scan, frequency sweep, frame receive and .sub files." property="og:description"/>
+<meta content="article" property="og:type"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/protocols/subghz/" property="og:url"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/recipes/assets/covers/visual-subghz.png" property="og:image"/>
+<meta content="Sub-GHz radio debugging visual with an ESP32 board, CC1101 module, antenna and radio wave activity." property="og:image:alt"/>
+<meta content="image/png" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="ESP32 CC1101 Sub-GHz Signal Debugging" name="twitter:title"/>
+<meta content="Wire CC1101 to ESP32 OmniBus, scan RSSI, sweep frequencies, receive frames, trace raw pulses and handle .sub files." name="twitter:description"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/recipes/assets/covers/visual-subghz.png" name="twitter:image"/>
+<meta content="Sub-GHz radio debugging visual with an ESP32 board, CC1101 module, antenna and radio wave activity." name="twitter:image:alt"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/protocols/subghz/" rel="canonical"/>
+<title>ESP32 CC1101 Sub-GHz Signal Debugging | OmniBus</title>
+<link href="../protocols.css" rel="stylesheet"/>
+<script type="application/ld+json">
+
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "name": "ESP32 CC1101 Sub-GHz Signal Debugging",
+      "description": "Use OmniBus with CC1101 as an ESP32 Sub-GHz workbench for wiring, RSSI scan, frequency sweep, frame receive and .sub files.",
+      "url": "https://huytran1120.github.io/ESP32-OmniBus/protocols/subghz/",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "ESP32 OmniBus",
+        "url": "https://huytran1120.github.io/ESP32-OmniBus/"
+      },
+      "about": [
+        "ESP32 Sub-GHz debugging",
+        "CC1101 module wiring",
+        "Sub-GHz RSSI scan",
+        "Flipper SubGHz .sub files",
+        "ESP32-S3 radio workbench"
+      ],
+      "inLanguage": "en",
+      "dateModified": "2026-06-28"
+    },
+    {
+      "@type": "ItemList",
+      "name": "ESP32 OmniBus Sub-GHz recipes",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Wire a CC1101 Sub-GHz module",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/wire-cc1101-subghz-module/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Find active Sub-GHz frequencies",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-subghz-frequency-cc1101/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Sweep SubGHz frequency activity",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/sweep-subghz-frequency-activity/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Receive and analyze a Sub-GHz frame",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/receive-subghz-frame/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Record a SubGHz signal to LittleFS",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/record-subghz-signal-littlefs/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "Load a Flipper SubGHz .sub file",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/load-subghz-flipper-sub-file/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "name": "Use the SubGHz Raw CDC adapter",
+          "url": "https://huytran1120.github.io/ESP32-OmniBus/recipes/use-subghz-raw-cdc-adapter/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can ESP32 OmniBus work with CC1101 Sub-GHz modules?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. SubGHz mode is built around an external CC1101 module connected through SPI plus the required GDO signal, with common ground and board-specific GPIO configuration."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can ESP32 OmniBus find active Sub-GHz frequencies?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. SubGHz scan, sweep and waterfall workflows help locate RSSI peaks before moving to receive, trace, record, ear or file-based workflows."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can ESP32 OmniBus use Flipper-style .sub files?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The firmware can use LittleFS file workflows for compatible SubGHz .sub files so captured or prepared signals can be loaded for controlled lab tests."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ESP32 OmniBus",
+          "item": "https://huytran1120.github.io/ESP32-OmniBus/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Supported protocols",
+          "item": "https://huytran1120.github.io/ESP32-OmniBus/protocols/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Sub-GHz CC1101 debugging",
+          "item": "https://huytran1120.github.io/ESP32-OmniBus/protocols/subghz/"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "headline": "ESP32 CC1101 Sub-GHz Capture and Replay",
+      "description": "Use OmniBus with CC1101 as an ESP32 Sub-GHz workbench for wiring, RSSI scan, frequency sweep, frame receive and .sub files.",
+      "url": "https://huytran1120.github.io/ESP32-OmniBus/protocols/subghz/",
+      "inLanguage": "en",
+      "dateModified": "2026-06-28",
+      "author": {
+        "@type": "Organization",
+        "name": "ESP32 OmniBus"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ESP32 OmniBus"
+      },
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "ESP32 OmniBus",
+        "url": "https://huytran1120.github.io/ESP32-OmniBus/"
+      },
+      "about": [
+        "ESP32 Sub-GHz debugging",
+        "CC1101 module wiring",
+        "Sub-GHz RSSI scan",
+        "Flipper SubGHz .sub files",
+        "ESP32-S3 radio workbench"
+      ]
+    }
+  ]
+}
+
+</script>
+<script defer="" src="../../assets/theme-toggle.js?v=20260702-desktop-sober2"></script>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.ico" rel="icon" sizes="any"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.png" rel="icon" sizes="48x48" type="image/png"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/apple-touch-icon.png" rel="apple-touch-icon"/>
+</head>
+<body>
+<main class="protocol-page">
+<header class="protocol-header">
+<a aria-label="ESP32 OmniBus home" class="brand" href="../../"><span aria-hidden="true" class="brand-mark">B</span><span>ESP32 OmniBus</span></a>
+<nav aria-label="Primary destinations" class="page-top-nav top-nav">
+<a href="../../"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><circle cx="6" cy="12" r="2"></circle><circle cx="18" cy="6" r="2"></circle><circle cx="18" cy="18" r="2"></circle><path d="m7.8 11 8.4-4M7.8 13l8.4 4"></path></svg>Site index</a>
+<a href="../"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>Protocols</a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus" rel="noopener" target="_blank"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-1-2.6c3.2-.4 6.5-1.6 6.5-7A5.4 5.4 0 0 0 20 4.8 5 5 0 0 0 19.9 2s-1.2-.4-4 1.5a13.7 13.7 0 0 0-7.3 0C5.8 1.6 4.6 2 4.6 2a5 5 0 0 0-.1 2.8A5.4 5.4 0 0 0 3 8.5c0 5.4 3.3 6.6 6.5 7a3.4 3.4 0 0 0-1 2.6V22"></path></svg>GitHub</a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus/wiki/19-SUBGHZ" rel="noopener" target="_blank"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z"></path><path d="M8 6h8M8 10h8"></path></svg>Sub-GHz wiki</a>
+</nav>
+</header>
+<section aria-labelledby="page-title" class="protocol-hero">
+<div>
+<p class="eyebrow">ESP32-S3 Sub-GHz and CC1101 debugging</p>
+<h1 id="page-title">CC1101 Sub-GHz capture and replay</h1>
+<p class="lead">ESP32 OmniBus turns a compatible ESP32-S3 board plus a CC1101 module into a Sub-GHz signal debugging workbench. Use it to wire the radio, scan RSSI, sweep frequencies, receive frames, trace raw pulses, record signals to LittleFS and load Flipper-style .sub files.</p>
+<div class="hero-actions">
+<a class="action-link" href="../../recipes/wire-cc1101-subghz-module/"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><path d="M4 12h6M14 12h6M10 8v8M14 8v8"></path><circle cx="4" cy="12" r="2"></circle><circle cx="20" cy="12" r="2"></circle></svg>Start with CC1101 wiring</a>
+<a class="action-link" href="../../recipes/scan-subghz-frequency-cc1101/"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><path d="M3 12h3l2-5 4 10 3-7 2 2h4"></path></svg>Find active Sub-GHz frequencies</a>
+</div>
+</div>
+<figure class="hero-visual">
+<img alt="Sub-GHz radio debugging visual with an ESP32 board, CC1101 module, antenna and radio wave activity" height="600" src="../../recipes/assets/visual-subghz.svg" width="1040"/>
+</figure>
+</section>
+<section aria-labelledby="workflow-title" class="protocol-band">
+<div class="section-head">
+<h2 id="workflow-title">Quick Sub-GHz workflow</h2>
+<p class="section-intro">Start with wiring and passive discovery. Only move to receive, record, load or transmit-style checks when the module, antenna, frequency and legal test context are clear.</p>
+</div>
+<div class="workflow-layout">
+<ol class="step-list">
+<li><span>01</span><p>Wire the CC1101 module with SPI, chip select, GDO0, 3.3 V power and common ground.</p></li>
+<li><span>02</span><p>Open SubGHz mode, confirm the pin mapping and set a frequency that matches your own test device or lab signal.</p></li>
+<li><span>03</span><p>Use <code>scan</code>, <code>sweep</code> or <code>waterfall</code> to find activity before trying to receive a frame.</p></li>
+<li><span>04</span><p>Use <code>receive</code> and <code>trace</code> to inspect payloads, raw pulses or likely encoding details.</p></li>
+<li><span>05</span><p>Use <code>record</code>, <code>load</code>, <code>ear</code> and LittleFS file workflows when a signal needs to be reused or inspected in an authorized bench test.</p></li>
+</ol>
+<div class="command-panel">
+<pre class="command-block"><code>mode subghz
+config
+setfrequency
+scan
+sweep
+waterfall
+receive
+trace
+record
+load
+ear</code></pre>
+<p class="command-note">Example CLI flow. See the SubGHz wiki for exact syntax, CC1101 pin prompts, supported commands and firmware-specific behavior.</p>
+</div>
+</div>
+</section>
+<section aria-labelledby="coverage-title" class="protocol-band">
+<div class="section-head">
+<h2 id="coverage-title">Sub-GHz workflows covered by ESP32 OmniBus</h2>
+<p class="section-intro">Use this overview to choose the right CC1101 and Sub-GHz workflow before opening a detailed recipe.</p>
+</div>
+<div class="intent-grid">
+<article class="intent-card"><span>Wire</span><h3>CC1101 module setup</h3><p>Connect SPI, chip select, GDO0, 3.3 V and ground, then confirm the selected board exposes safe GPIOs for the radio module.</p></article>
+<article class="intent-card"><span>Scan</span><h3>RSSI peak discovery</h3><p>Use scan, sweep or waterfall to check whether a known band has visible activity before decoding or recording anything.</p></article>
+<article class="intent-card"><span>Sweep</span><h3>Frequency activity map</h3><p>Sweep a frequency range to locate useful areas for a known own transmitter, remote, sensor or lab generator.</p></article>
+<article class="intent-card"><span>Receive</span><h3>Frame capture and analysis</h3><p>Receive frames, inspect likely encoding and use trace workflows when a simple decoded result is not enough.</p></article>
+<article class="intent-card"><span>Record</span><h3>LittleFS signal storage</h3><p>Record symbols or raw timing into device storage so a working bench capture can be reused later.</p></article>
+<article class="intent-card"><span>.sub</span><h3>Flipper-style file workflows</h3><p>Upload and load compatible <code>.sub</code> files for repeatable CC1101 playback tests on systems you own or are allowed to test.</p></article>
+</div>
+</section>
+<section aria-labelledby="fit-title" class="protocol-band">
+<div class="section-head">
+<h2 id="fit-title">When an ESP32-S3 Sub-GHz workbench helps</h2>
+<p class="section-intro">Sub-GHz debugging is usually about confirming hardware, frequency, signal quality and file handling before building a custom radio workflow.</p>
+</div>
+<div class="signal-grid">
+<article class="signal-card"><span>Unknown activity</span><h3>Before trying a decoder</h3><p>Use scan, sweep or waterfall first to confirm that the antenna and CC1101 are seeing real activity on the expected band.</p></article>
+<article class="signal-card"><span>Known own device</span><h3>Before recording a signal</h3><p>Use receive and trace against a device you own or are explicitly authorized to test, then decide whether recording is useful.</p></article>
+<article class="signal-card"><span>File workflow</span><h3>Before repeating manual tests</h3><p>Use LittleFS and compatible <code>.sub</code> files when the same signal needs to be loaded across multiple sessions; reserve send, replay, jam or bruteforce-style transmit tests for legal, controlled lab targets only.</p></article>
+</div>
+</section>
+<section aria-labelledby="hardware-title" class="protocol-band">
+<div class="section-head">
+<h2 id="hardware-title">CC1101 hardware reminders</h2>
+<p class="section-intro">These notes stay short. The detailed command references live in the project documentation and firmware repository.</p>
+</div>
+<div class="note-grid">
+<article class="note-card"><span>3.3 V logic</span><p>Use 3.3 V power and logic-compatible wiring. Do not feed 5 V logic directly into ESP32 GPIO or CC1101 signal pins.</p></article>
+<article class="note-card"><span>SPI plus GDO0</span><p>The module needs SPI wiring plus the interrupt/data signal expected by the firmware. Check board-specific pins before testing.</p></article>
+<article class="note-card"><span>Antenna</span><p>Use an antenna matched to the test band. A missing or wrong antenna can make scan and receive results look broken.</p></article>
+<article class="note-card"><span>Frequency and region</span><p>Choose frequencies that match your local regulations and your own test device. The page is intended for authorized lab work.</p></article>
+<article class="note-card"><span>Storage</span><p>Record and load workflows use LittleFS, so confirm available space and file names before relying on a saved capture.</p></article>
+</div>
+</section>
+<section aria-labelledby="problems-title" class="protocol-band">
+<div class="section-head">
+<h2 id="problems-title">Common Sub-GHz problems</h2>
+<p class="section-intro">Most CC1101 failures come from wrong pin mapping, missing ground, weak antenna, frequency mismatch, bad power or trying to decode before confirming RSSI activity.</p>
+</div>
+<div class="problem-grid">
+<article class="problem-card"><span>No module</span><p>Check 3.3 V, ground, SPI pins, chip select and GDO0. Start from the CC1101 wiring recipe before scanning.</p></article>
+<article class="problem-card"><span>No activity</span><p>Confirm the frequency, antenna, distance and transmitter state. Try scan or sweep before receive.</p></article>
+<article class="problem-card"><span>Bad receive</span><p>Move closer, reduce noise, confirm the exact band and use trace when the decoded frame does not look stable.</p></article>
+<article class="problem-card"><span>File not found</span><p>Upload the <code>.sub</code> file to the expected LittleFS location, keep names simple and confirm it appears before loading.</p></article>
+<article class="problem-card"><span>Desktop tool mismatch</span><p>Use the SubGHz Raw CDC adapter only when a simple USB serial transport is the right fit for the external tool.</p></article>
+</div>
+</section>
+<section aria-labelledby="board-choice-title" class="protocol-band">
+<div class="section-head">
+<h2 id="board-choice-title">Board choice for Sub-GHz</h2>
+<p class="section-intro">For integrated CC1101 workflows, use a T-Embed CC1101 firmware target. For an external CC1101 module on raw pins, use a GPIO-friendly board and verify the SPI/GDO mapping first.</p>
+</div>
+<div class="note-grid">
+<article class="note-card"><span>T-Embed CC1101</span><p><a href="../../boards/t-embed-cc1101/">Use the T-Embed CC1101 board page</a> for the integrated CC1101 and CC1101 Plus variants.</p></article>
+<article class="note-card"><span>ESP32-S3 DevKit</span><p><a href="../../boards/esp32-s3-devkit/">Use the DevKit board page</a> when wiring an external CC1101 module through the Dock or raw GPIO.</p></article>
+</div>
+</section>
+<section aria-labelledby="recipes-title" class="protocol-band">
+<div class="section-head">
+<h2 id="recipes-title">Detailed Sub-GHz recipes</h2>
+<p class="section-intro">These pages are the task-level CC1101 and Sub-GHz workflows. This overview keeps the protocol-level guidance here, while each recipe covers setup, commands and troubleshooting in detail.</p>
+</div>
+<nav aria-label="ESP32 OmniBus Sub-GHz recipes" class="recipe-index-grid">
+<a href="../../recipes/wire-cc1101-subghz-module/"><span>Wire</span><strong>Wire a CC1101 Sub-GHz module</strong><small>Connect SPI plus GDO0 and confirm board-specific pins before opening SubGHz mode.</small></a>
+<a href="../../recipes/scan-subghz-frequency-cc1101/"><span>Scan</span><strong>Find active Sub-GHz frequencies</strong><small>Use scan and sweep workflows to find RSSI peaks in known test bands.</small></a>
+<a href="../../recipes/sweep-subghz-frequency-activity/"><span>Sweep</span><strong>Sweep SubGHz frequency activity</strong><small>Map activity areas before receiving or decoding frames.</small></a>
+<a href="../../recipes/receive-subghz-frame/"><span>Receive</span><strong>Receive and analyze a Sub-GHz frame</strong><small>Tune the CC1101 receiver, capture raw pulses and inspect likely encoding.</small></a>
+<a href="../../recipes/record-subghz-signal-littlefs/"><span>Record</span><strong>Record a SubGHz signal to LittleFS</strong><small>Save a known bench capture for repeatable tests.</small></a>
+<a href="../../recipes/load-subghz-flipper-sub-file/"><span>Load</span><strong>Load a Flipper SubGHz .sub file</strong><small>Upload a compatible .sub file and load it from SubGHz mode.</small></a>
+<a href="../../recipes/use-subghz-raw-cdc-adapter/"><span>CDC</span><strong>Use the SubGHz Raw CDC adapter</strong><small>Expose a raw USB serial transport for external Sub-GHz tooling.</small></a>
+</nav>
+</section>
+<section aria-labelledby="references-title" class="protocol-band">
+<div class="section-head">
+<h2 id="references-title">Useful Sub-GHz references</h2>
+<p class="section-intro">This page is a protocol overview. Use the site index for the full web experience, or GitHub for source code, firmware documentation and the SubGHz command reference.</p>
+</div>
+<div class="destination-grid">
+<article class="destination-card"><h3>Flash ESP32 OmniBus</h3><p>Flash a supported ESP32-S3 board before testing Sub-GHz mode from the browser.</p><a class="action-link" href="../../webflasher/">Open Web Flasher</a></article>
+<article class="destination-card"><h3>SubGHz command reference</h3><p>Open the maintained firmware wiki for SubGHz mode commands, CC1101 setup, scan, sweep, receive, trace, record, load and ear workflows.</p><a class="action-link" href="https://github.com/huytran1120/ESP32-OmniBus/wiki/19-SUBGHZ" rel="noopener" target="_blank">Open SubGHz command reference</a></article>
+<article class="destination-card"><h3>SPI protocol overview</h3><p>CC1101 uses SPI for the radio module link, so SPI wiring checks are useful before debugging radio behavior.</p><a class="action-link" href="../spi/">Open SPI debugging guide</a></article>
+<article class="destination-card"><h3>USB adapter overview</h3><p>Use the USB adapter page when the Raw CDC path is a better fit than the interactive CLI.</p><a class="action-link" href="../usb-adapters/">Open USB adapter guide</a></article>
+<article class="destination-card"><h3>Supported ESP32-S3 boards</h3><p>Check compatible boards and exposed GPIOs before wiring a CC1101 module.</p><a class="action-link" href="../../boards/">Compare supported ESP32-S3 boards</a></article>
+<article class="destination-card"><h3>Web Serial Terminal</h3><p>Open Web Serial for Sub-GHz commands after the matching firmware is running.</p><a class="action-link" href="../../web-tools/web-serial-terminal/">Open Web Serial Terminal for ESP32 OmniBus</a></article>
+<article class="destination-card"><h3>LittleFS file manager</h3><p>Use the Web UI file tools when you need to upload or manage <code>.sub</code> files on the device.</p><a class="action-link" href="../../recipes/manage-littlefs-files-webui/">Manage LittleFS files from the Web UI</a></article>
+<article class="destination-card"><h3>All hardware debugging recipes</h3><p>Browse recipes that connect Sub-GHz work to wiring, commands, captures and troubleshooting.</p><a class="action-link" href="../../recipes/">Browse all hardware debugging recipes</a></article>
+<article class="destination-card"><h3>ESP32 OmniBus GitHub</h3><p>Check firmware source, issues and releases that affect Sub-GHz support.</p><a class="action-link" href="https://github.com/huytran1120/ESP32-OmniBus" rel="noopener" target="_blank">Open GitHub repository</a></article>
+</div>
+</section>
+<section aria-labelledby="faq-title" class="protocol-band">
+<div class="section-head">
+<h2 id="faq-title">Sub-GHz debugging FAQ</h2>
+<p class="section-intro">Short answers for common questions before moving into a detailed workflow.</p>
+</div>
+<div class="faq-list">
+<details>
+<summary>Can ESP32 OmniBus work with CC1101 Sub-GHz modules?</summary>
+<p>Yes. SubGHz mode is built around an external CC1101 module connected through SPI plus the required GDO signal, with common ground and board-specific GPIO configuration.</p>
+</details>
+<details>
+<summary>Can ESP32 OmniBus find active Sub-GHz frequencies?</summary>
+<p>Yes. SubGHz scan, sweep and waterfall workflows help locate RSSI peaks before moving to receive, trace, record, ear or file-based workflows.</p>
+</details>
+<details>
+<summary>Can ESP32 OmniBus use Flipper-style .sub files?</summary>
+<p>Yes. The firmware can use LittleFS file workflows for compatible SubGHz <code>.sub</code> files so captured or prepared signals can be loaded for controlled lab tests.</p>
+</details>
+</div>
+</section>
+<footer class="site-footer">
+<p class="site-footer-title">ESP32 OmniBus</p>
+<nav aria-label="Project links">
+<a href="../../">Home</a>
+<a href="../../webflasher/">Web Flasher</a>
+<a href="../../recipes/">Recipes</a>
+<a href="../../web-tools/">Web Tools</a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus" rel="noopener" target="_blank">GitHub</a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus/wiki/19-SUBGHZ" rel="noopener" target="_blank">Sub-GHz Wiki</a>
+</nav>
+</footer>
+</main>
+</body>
+</html>

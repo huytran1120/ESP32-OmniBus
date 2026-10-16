@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html class="notranslate" lang="en" translate="no">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Capture and inspect digital signals directly in your browser using a SUMP-compatible logic analyzer. No PulseView or sigrok installation required." name="description"/>
+<meta content="notranslate" name="google"/>
+<meta content="index,follow,max-snippet:-1,max-image-preview:large" name="robots"/>
+<meta content="#101214" name="theme-color"/>
+<meta content="website" property="og:type"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="Web Serial Tools" property="og:site_name"/>
+<meta content="Web Logic Analyzer for SUMP-Compatible Hardware" property="og:title"/>
+<meta content="Capture and inspect digital signals directly in your browser using a SUMP-compatible logic analyzer." property="og:description"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/web-tools/logic-analyzer/" property="og:url"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/web-tools/assets/logic-analyzer-og.png" property="og:image"/><meta content="Web Logic Analyzer for SUMP-Compatible Hardware preview card." property="og:image:alt"/>
+<meta content="image/png" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Web Logic Analyzer for SUMP-Compatible Hardware" name="twitter:title"/>
+<meta content="Capture and inspect digital signals directly in your browser using a SUMP-compatible logic analyzer." name="twitter:description"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/web-tools/assets/logic-analyzer-og.png" name="twitter:image"/><meta content="Web Logic Analyzer for SUMP-Compatible Hardware preview card." name="twitter:image:alt"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/web-tools/logic-analyzer/" rel="canonical"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Web Logic Analyzer for SUMP-Compatible Hardware","url":"https://huytran1120.github.io/ESP32-OmniBus/web-tools/logic-analyzer/","description":"Capture and inspect digital signals directly in your browser using a SUMP-compatible logic analyzer.","applicationCategory":"DeveloperApplication","operatingSystem":"Web","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"ESP32 OmniBus","url":"https://github.com/huytran1120/ESP32-OmniBus"}}</script>
+<title>Web Logic Analyzer for SUMP-Compatible Hardware</title>
+<link href="../styles/main.css" rel="stylesheet"/>
+<link href="src/styles.css" rel="stylesheet"/>
+<script defer="" src="../../assets/theme-toggle.js?v=20260702-desktop-sober2"></script>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.ico" rel="icon" sizes="any"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.png" rel="icon" sizes="48x48" type="image/png"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/apple-touch-icon.png" rel="apple-touch-icon"/>
+</head>
+<body>
+<main class="wrap analyzer-wrap">
+<noscript>
+<section class="notice error">This Web Logic Analyzer requires JavaScript and Web Serial.</section>
+</noscript>
+<section class="notice error" hidden="" id="serialUnsupported">
+      Web Serial is not available in this browser. Use Chrome, Edge, or another compatible browser over HTTPS or localhost.
+    </section>
+<section aria-label="SUMP web logic analyzer" class="analyzer-shell">
+<div class="toolbar analyzer-toolbar">
+<div aria-label="Web Logic Analyzer" class="toolbar-brand">
+<a aria-label="ESP32 OmniBus home" class="brand-mark" href="../">B</a>
+<h1>Web Logic Analyzer</h1>
+</div>
+<div class="toolbar-actions">
+<button aria-expanded="false" aria-label="Open Web Logic Analyzer help" class="help-icon-button" data-help-open="" type="button">
+<svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"></path><path d="M12 7h.01"></path></svg>
+</button>
+<button class="button action-button primary" id="connectButton" type="button">Connect</button>
+<button class="button action-button" disabled="" hidden="" id="disconnectButton" type="button">Disconnect</button>
+<span class="status-pill" id="connectionStatus">Disconnected</span>
+</div>
+</div>
+<article aria-label="Capture controls" class="control-strip">
+<label>
+<span>Sample rate</span>
+<select id="sampleRate"></select>
+</label>
+<label>
+<span>Depth</span>
+<select id="sampleDepth"></select>
+</label>
+<div class="estimate-cell">
+<span>Duration</span>
+<strong id="durationEstimate">-</strong>
+</div>
+<div class="capture-actions">
+<button class="button action-button primary primary-action" disabled="" id="captureButton" type="button">Start Capture</button>
+<button class="button action-button" disabled="" id="cancelButton" type="button">Cancel</button>
+</div>
+</article>
+<progress hidden="" id="progress" max="1" value="0"></progress>
+<section aria-label="Waveform viewer" class="viewer-panel">
+<iframe id="viewerFrame" src="viewer/local-vcd-viewer.html" title="Waveform viewer"></iframe>
+</section>
+<section aria-label="Analyzer details" class="lower-grid">
+<article class="tool-card compact-card">
+<p class="eyebrow">Adapter</p>
+<dl class="info-list">
+<div><dt>Device</dt><dd id="deviceName">-</dd></div>
+<div><dt>Firmware</dt><dd id="firmwareVersion">-</dd></div>
+<div><dt>Probes</dt><dd id="probeCount">-</dd></div>
+<div><dt>Memory</dt><dd id="sampleMemory">-</dd></div>
+<div><dt>Max rate</dt><dd id="maxSampleRate">-</dd></div>
+<div><dt>Effective</dt><dd id="effectiveRate">-</dd></div>
+</dl>
+</article>
+<article class="tool-card compact-card channels-card">
+<p class="eyebrow">Channels</p>
+<div class="channel-list" id="channelList"></div>
+</article>
+<article class="tool-card compact-card export-card">
+<p class="eyebrow">Export</p>
+<div class="exports">
+<button class="button action-button" disabled="" id="exportVcdButton" type="button">VCD</button>
+<button class="button action-button" disabled="" id="exportCsvButton" type="button">CSV</button>
+<button class="button action-button" disabled="" id="exportRawButton" type="button">Raw</button>
+<button class="button action-button" disabled="" id="exportJsonButton" type="button">Session JSON</button>
+</div>
+</article>
+</section>
+</section>
+<details class="content-card technical">
+<summary>Technical log</summary>
+<pre class="log-output" id="technicalLog"></pre>
+</details>
+</main>
+<section class="tool-help-source" hidden="" id="toolHelpContent">
+<h2 id="toolHelpTitle">Web Logic Analyzer help</h2>
+<section>
+<h3>What it does</h3>
+<p>Capture digital signals from SUMP-compatible logic analyzer firmware, then inspect timing, triggers and exported waveforms in the browser.</p>
+</section>
+<section>
+<h3>Adapter</h3>
+<ul>
+<li>Connect OmniBus in SUMP Logic USB adater or use a SUMP-compatible device.</li>
+<li>Connect the analyzer ground to the target ground before connecting signal channels.</li>
+<li>Keep input voltages within the analyzer hardware limits.</li>
+</ul>
+</section>
+<section>
+<h3>Connection</h3>
+<ol>
+<li>Click Connect and select the analyzer serial port.</li>
+<li>Choose sample rate, channel mask and trigger settings.</li>
+<li>Start capture, then review or export the waveform.</li>
+</ol>
+</section>
+</section>
+<script src="../shared/help-modal.js" type="module"></script>
+<script src="src/App.js" type="module"></script>
+</body>
+</html>

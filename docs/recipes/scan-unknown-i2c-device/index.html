@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Use ESP32 OmniBus to scan an I2C bus, find the address of an unknown module, and confirm it responds with ACK." name="description"/>
+<meta content="index,follow,max-snippet:-1,max-image-preview:large" name="robots"/>
+<meta content="#121212" name="theme-color"/>
+<meta content="ESP32 OmniBus" property="og:site_name"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="How to scan an I2C bus with ESP32 OmniBus" property="og:title"/>
+<meta content="A practical ESP32 OmniBus recipe for finding unknown I2C devices with scan, ping and wiring checks." property="og:description"/>
+<meta content="article" property="og:type"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-unknown-i2c-device/" property="og:url"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-unknown-i2c-device/assets/cover.png" property="og:image"/><meta content="I2C bus with SDA and SCL signal lines." property="og:image:alt"/><meta content="image/png" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="2026-06-23" property="article:published_time"/>
+<meta content="2026-06-29" property="article:modified_time"/>
+<meta content="Geo" property="article:author">
+<meta content="summary_large_image" name="twitter:card">
+<meta content="How to scan an I2C bus with ESP32 OmniBus" name="twitter:title"/>
+<meta content="Use ESP32 OmniBus to scan an I2C bus, find an unknown module address, and confirm it responds with ACK." name="twitter:description"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-unknown-i2c-device/assets/cover.png" name="twitter:image"/><meta content="I2C bus with SDA and SCL signal lines." name="twitter:image:alt"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-unknown-i2c-device/" rel="canonical"/>
+<title>Scan I2C Bus | ESP32 OmniBus</title>
+<link href="../recipes.css" rel="stylesheet"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "How to scan an I2C bus with ESP32 OmniBus",
+      "description": "Use ESP32 OmniBus to scan an I2C bus, find the address of an unknown module, and confirm it responds with ACK.",
+      "image": "https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-unknown-i2c-device/assets/cover.png",
+      "datePublished": "2026-06-23",
+      "dateModified": "2026-06-29",
+      "author": { "@type": "Person", "name": "Geo" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ESP32 OmniBus",
+        "url": "https://github.com/huytran1120/ESP32-OmniBus"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-unknown-i2c-device/"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "ESP32 OmniBus", "item": "https://huytran1120.github.io/ESP32-OmniBus/" },
+        { "@type": "ListItem", "position": 2, "name": "Recipes", "item": "https://huytran1120.github.io/ESP32-OmniBus/recipes/" },
+        { "@type": "ListItem", "position": 3, "name": "How to scan an I2C bus with ESP32 OmniBus", "item": "https://huytran1120.github.io/ESP32-OmniBus/recipes/scan-unknown-i2c-device/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does an I2C scan identify the exact chip on the bus?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. An I2C scan only proves that something acknowledged a 7-bit address. Use it as a starting point, then confirm the part with markings, registers, module documentation or a safe device-specific command."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why can an I2C scan find no devices even when wiring looks correct?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Common causes are swapped SDA and SCL, missing shared ground, missing pull-up resistors, wrong supply voltage, a bus speed the target cannot handle, or a target holding SDA low after an interrupted transaction."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What address format should I use after an I2C scan?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use the 7-bit address printed by the scan, such as 0x3C or 0x50. Do not shift it into an 8-bit read/write address unless a separate tool explicitly asks for that format."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+<script defer="" src="../../assets/theme-toggle.js?v=20260702-desktop-sober2"></script>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.ico" rel="icon" sizes="any"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.png" rel="icon" sizes="48x48" type="image/png"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/apple-touch-icon.png" rel="apple-touch-icon"/>
+</meta></meta></head>
+<body>
+<main class="wrap">
+<header class="hero"><div class="article-hero-top"><div class="article-brand-tags"><a aria-label="ESP32 OmniBus home" class="brand" href="../"><span aria-hidden="true" class="brand-mark">B</span><span class="visually-hidden">ESP32 OmniBus home</span></a><ul aria-label="Recipe tags" class="article-hero-tags"><li>I2C</li><li>Beginner</li><li>5 min</li><li>Serial CLI or Web Serial Terminal</li></ul></div><nav aria-label="Section navigation" class="article-top-nav"><a href="../../"><svg aria-hidden="true" class="article-nav-icon" viewbox="0 0 24 24"><path d="M3 11l9-8 9 8"></path><path d="M5 10v10h14V10"></path><path d="M9 20v-6h6v6"></path></svg>Home</a><a href="../">Recipes</a>
+<a href="../../web-tools/">Web Tools</a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus/wiki" rel="noopener" target="_blank">Wiki</a>
+
+</nav></div>
+<p class="eyebrow">Recipe · Beginner · I2C</p>
+<h1>How to scan an I2C bus</h1>
+<p>I pulled a tiny sensor board from a parts box. No label, no datasheet, just four pins. Before writing code, I wanted to know if it was alive and which I2C address it used.</p>
+</header>
+<figure class="recipe-banner">
+<img alt="I2C bus with SDA and SCL signal lines." height="600" src="../assets/visual-i2c.svg" width="1040"/>
+<figcaption>The useful first test is not a driver. It is: power, ground, SDA/SCL, scan for ACK.</figcaption>
+</figure>
+<div class="recipe-layout">
+<article class="recipe-article"><section aria-label="Generated wiring diagram" class="recipe-section wiring-visual-section">
+<p class="wiring-visual-label">Wiring View</p><figure class="wiring-diagram wiring-diagram-main">
+<svg aria-label="Generated wiring diagram" role="img" viewbox="0 0 920 320">
+<rect class="wiring-node wiring-node-left" height="224" rx="8" width="220" x="34" y="48"></rect>
+<rect class="wiring-node wiring-node-right" height="224" rx="8" width="220" x="666" y="48"></rect>
+<text class="wiring-title" text-anchor="middle" x="144" y="86">I2C board</text>
+<text class="wiring-title" text-anchor="middle" x="776" y="86">BP</text>
+<line class="wiring-line wire-0" x1="254" x2="666" y1="122" y2="122"></line><text class="wiring-pin" text-anchor="end" x="232" y="126">Module SDA</text><text class="wiring-pin" x="688" y="126">I2C SDA GPIO</text><line class="wiring-line wire-1" x1="254" x2="666" y1="144" y2="144"></line><text class="wiring-pin" text-anchor="end" x="232" y="148">Module SCL</text><text class="wiring-pin" x="688" y="148">I2C SCL GPIO</text><line class="wiring-line wire-2" x1="254" x2="666" y1="166" y2="166"></line><text class="wiring-pin" text-anchor="end" x="232" y="170">Module VCC</text><text class="wiring-pin" x="688" y="170">correct supply</text><line class="wiring-line wire-3" x1="254" x2="666" y1="188" y2="188"></line><text class="wiring-pin" text-anchor="end" x="232" y="192">Module GND</text><text class="wiring-pin" x="688" y="192">BP GND</text>
+</svg>
+<div aria-hidden="true" class="wiring-mobile-list"><div class="wiring-mobile-row wire-0"><span>Module SDA</span><span class="wiring-mobile-arrow">-&gt;</span><span>I2C SDA GPIO</span></div><div class="wiring-mobile-row wire-1"><span>Module SCL</span><span class="wiring-mobile-arrow">-&gt;</span><span>I2C SCL GPIO</span></div><div class="wiring-mobile-row wire-2"><span>Module VCC</span><span class="wiring-mobile-arrow">-&gt;</span><span>correct supply</span></div><div class="wiring-mobile-row wire-3"><span>Module GND</span><span class="wiring-mobile-arrow">-&gt;</span><span>BP GND</span></div></div>
+<figcaption>Generated from the wiring summary: I2C board to BP.</figcaption>
+</figure>
+</section>
+<section class="recipe-section command-step-section">
+<span class="step-label">Step 1</span><h2>Commands</h2>
+<p>The firmware I2C controller implements <code>scan</code> to check every valid address and print devices that ACK. The first time you enter I2C mode, OmniBus opens the configuration prompts automatically for SDA GPIO, SCL GPIO and frequency.</p>
+<div data-cli-commands="mode I2C
+scan
+ping 0x3C" data-cli-mode="BitPirate" data-cli-session=""></div>
+</section><section class="recipe-section result-section">
+<h2>Result</h2>
+<div class="callout success">
+<h3>What success looks like</h3>
+<p><code>Found device at 0x3C</code> and <code>Found device at 0x68</code> mean two targets acknowledged on the bus. Those addresses are common for OLED displays and RTC/IMU parts, but the scan is not full identification. It tells you where to probe next.</p>
+</div>
+<div data-cli-commands="scan" data-cli-mode="I2C" data-cli-result="Found device at 0x3C
+Found device at 0x68
+Bus wiring and pull-ups are good enough for both devices to ACK." data-cli-session=""></div>
+</section><section class="recipe-section troubleshooting-section">
+<h2>Troubleshooting</h2>
+<p>If the scan prints <code>I2C Scan: No I2C devices found.</code>, do not jump straight to “dead board”. Check shared ground, swapped SDA/SCL, wrong voltage, missing pull-ups, and whether another controller is holding the bus. The I2C wiki also documents <code>recover</code>, which attempts to release SDA by clocking the bus.</p>
+<ul class="mistake-list">
+<li>SDA and SCL are swapped.</li>
+<li>Ground is not shared between the module and OmniBus.</li>
+<li>The module needs pull-ups that are not present on the board.</li>
+<li>The target board is holding SDA low after a failed transaction.</li>
+</ul>
+</section><section class="recipe-section next-steps-section">
+<h2>Next steps</h2>
+<ul>
+<li>Run <code>identify &lt;addr&gt;</code> to browse known address mappings.</li>
+<li>Use <code>read &lt;addr&gt; &lt;reg&gt;</code> only after you know which register is safe to query.</li>
+<li>For EEPROM-looking devices, use the dedicated <code>eeprom [addr]</code> shell instead of raw dumps.</li>
+</ul>
+</section><section aria-labelledby="faq-title" class="recipe-section recipe-faq">
+<h2 id="faq-title">I2C scan FAQ</h2>
+<div class="recipe-faq-list">
+<details class="recipe-faq-item">
+<summary>Does a scan identify the exact I2C chip?</summary>
+<p>No. A scan only tells you that a device acknowledged a 7-bit address. It narrows the search, but you still need markings, module documentation, safe register reads or the OmniBus <code>identify</code> helper before treating the target as a known part.</p>
+</details>
+<details class="recipe-faq-item"><summary>What does a successful I2C scan prove?</summary><p>A successful scan proves that at least one device acknowledges a 7-bit address on the bus. It does not prove the register map, command set, memory size or voltage tolerance of that device.</p></details>
+<details class="recipe-faq-item">
+<summary>Should I use 7-bit or 8-bit I2C addresses?</summary>
+<p>Use the 7-bit address printed by the scan, for example <code>0x3C</code> or <code>0x50</code>. Some datasheets also show shifted 8-bit read/write values, but OmniBus commands in this recipe expect the normal 7-bit address form.</p>
+</details>
+</div>
+</section><section class="recipe-section">
+<h2>Go deeper</h2>
+<nav aria-label="Related links" class="link-card-list"><a href="../../modules/i2c-eeprom/"><span>Module</span><strong>I2C EEPROM module overview</strong></a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus/wiki/05-I2C"><span>Wiki</span><strong>I2C mode commands</strong></a>
+<a href="../../protocols/i2c/"><span>Protocols</span><strong>More I2C workflows: I2C debugging with ESP32 OmniBus</strong></a>
+<a href="../../web-tools/web-serial-terminal/"><span>Web Tool</span><strong>Open Web Serial Terminal</strong></a>
+<a href="../read-ibutton-id/"><span>Related</span><strong>Read a 1-Wire iButton ID</strong></a>
+</nav>
+</section></article>
+<aside aria-label="Recipe setup and details" class="content-card aside-card">
+<dl><dt class="aside-dt-requirements">Requirements</dt><dd class="aside-setup-dd"><ul class="hardware-list setup-list aside-setup-list">
+<li>ESP32 OmniBus firmware</li>
+<li>Unknown I2C module</li>
+<li>4 jumper wires</li>
+<li>USB Serial or Web Serial Terminal</li>
+<li>Known-safe target supply voltage before connecting VCC</li>
+</ul></dd><dt class="aside-dt-wiring">Wiring</dt><dd class="aside-setup-dd"><ul class="wiring-list setup-list aside-setup-list" data-wiring-left="I2C board" data-wiring-right="BP">
+<li>Module SDA → I2C SDA GPIO</li>
+<li>Module SCL → I2C SCL GPIO</li>
+<li>Module VCC → correct supply</li>
+<li>Module GND → BP GND</li>
+</ul></dd><dt class="aside-dt-protocol">Protocol</dt><dd>I2C</dd><dt class="aside-dt-command">Firmware commands checked</dt><dd><code>scan</code><code>ping</code></dd><dt class="aside-dt-wiki">Wiki source</dt><dd><a href="https://github.com/huytran1120/ESP32-OmniBus/wiki/05-I2C">05-I2C</a></dd><dt class="aside-dt-date">Date</dt><dd>2026-06-23</dd></dl>
+</aside>
+</div>
+</main>
+<script src="../recipes.js?v=20260629-recipesfix1"></script>
+</body>
+</html>

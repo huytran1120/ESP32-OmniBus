@@ -1,0 +1,13 @@
+{
+  "name": "ESP32 OmniBus - T-Display S3",
+  "version": "1.8",
+  "new_install_prompt_erase": false,
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "parts": [
+        { "path": "https://huytran1120.github.io/ESP32-OmniBus/webflasher/firmwares/bit_pirate_18_t-display-s3.bin", "offset": 0 }
+      ]
+    }
+  ]
+}

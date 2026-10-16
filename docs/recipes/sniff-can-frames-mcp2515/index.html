@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Use CAN mode with an MCP2515 module to configure bitrate, check status and capture CAN frames." name="description"/>
+<meta content="index,follow,max-snippet:-1,max-image-preview:large" name="robots"/>
+<meta content="#121212" name="theme-color"/>
+<meta content="ESP32 OmniBus" property="og:site_name"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="How to sniff CAN frames with ESP32 OmniBus and MCP2515" property="og:title"/>
+<meta content="Use CAN mode with an MCP2515 module to configure bitrate, check status and capture CAN frames." property="og:description"/>
+<meta content="article" property="og:type"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/recipes/sniff-can-frames-mcp2515/" property="og:url"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/recipes/sniff-can-frames-mcp2515/assets/cover.png" property="og:image"/><meta content="CAN bus connected to an MCP2515 controller module." property="og:image:alt"/><meta content="image/png" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="2026-06-23" property="article:published_time"/>
+<meta content="2026-06-29" property="article:modified_time"/>
+<meta content="Geo" property="article:author">
+<meta content="summary_large_image" name="twitter:card">
+<meta content="How to sniff CAN frames with ESP32 OmniBus and MCP2515" name="twitter:title"/>
+<meta content="Use CAN mode with an MCP2515 module to configure bitrate, check status and capture CAN frames." name="twitter:description"/>
+<meta content="https://huytran1120.github.io/ESP32-OmniBus/recipes/sniff-can-frames-mcp2515/assets/cover.png" name="twitter:image"/><meta content="CAN bus connected to an MCP2515 controller module." name="twitter:image:alt"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/recipes/sniff-can-frames-mcp2515/" rel="canonical"/>
+<title>Sniff CAN Frames with MCP2515 | ESP32 OmniBus</title>
+<link href="../recipes.css" rel="stylesheet"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "How to sniff CAN frames with ESP32 OmniBus and MCP2515",
+      "description": "Use CAN mode with an MCP2515 module to configure bitrate, check status and capture CAN frames.",
+      "image": "https://huytran1120.github.io/ESP32-OmniBus/recipes/sniff-can-frames-mcp2515/assets/cover.png",
+      "datePublished": "2026-06-23",
+      "dateModified": "2026-06-29",
+      "author": { "@type": "Person", "name": "Geo" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ESP32 OmniBus",
+        "url": "https://github.com/huytran1120/ESP32-OmniBus"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://huytran1120.github.io/ESP32-OmniBus/recipes/sniff-can-frames-mcp2515/"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "ESP32 OmniBus", "item": "https://huytran1120.github.io/ESP32-OmniBus/" },
+        { "@type": "ListItem", "position": 2, "name": "Recipes", "item": "https://huytran1120.github.io/ESP32-OmniBus/recipes/" },
+        { "@type": "ListItem", "position": 3, "name": "How to sniff CAN frames with ESP32 OmniBus and MCP2515", "item": "https://huytran1120.github.io/ESP32-OmniBus/recipes/sniff-can-frames-mcp2515/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why does CAN sniff mode show no frames?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The bus may be silent, the bitrate may be wrong, CANH and CANL may be swapped, termination may be missing, or the MCP2515 may not be connected to a transceiver and real CAN bus."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I use status before sniffing CAN traffic?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Status gives a quick baseline for controller state and error flags. If status already shows problems, fix bitrate, wiring and termination before trusting captures."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can sniffing affect the CAN bus?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A passive receive workflow is much safer than transmitting, but a connected CAN node can still affect electrical loading and acknowledgements depending on mode and transceiver wiring. Use a lab or authorized bus."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+<script defer="" src="../../assets/theme-toggle.js?v=20260702-desktop-sober2"></script>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.ico" rel="icon" sizes="any"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.png" rel="icon" sizes="48x48" type="image/png"/>
+<link href="https://huytran1120.github.io/ESP32-OmniBus/apple-touch-icon.png" rel="apple-touch-icon"/>
+</meta></meta></head>
+<body>
+<main class="wrap">
+<header class="hero"><div class="article-hero-top"><div class="article-brand-tags"><a aria-label="ESP32 OmniBus home" class="brand" href="../"><span aria-hidden="true" class="brand-mark">B</span><span class="visually-hidden">ESP32 OmniBus home</span></a><ul aria-label="Recipe tags" class="article-hero-tags"><li>CAN</li><li>Intermediate</li><li>5 min</li><li>Serial CLI</li></ul></div><nav aria-label="Section navigation" class="article-top-nav"><a href="../../"><svg aria-hidden="true" class="article-nav-icon" viewbox="0 0 24 24"><path d="M3 11l9-8 9 8"></path><path d="M5 10v10h14V10"></path><path d="M9 20v-6h6v6"></path></svg>Home</a><a href="../">Recipes</a>
+<a href="../../web-tools/">Web Tools</a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus/wiki" rel="noopener" target="_blank">Wiki</a>
+
+</nav></div>
+<p class="eyebrow">Recipe · Intermediate · CAN</p>
+<h1>How to sniff CAN frames with MCP2515</h1>
+<p>CAN support uses an MCP2515 module. The first good workflow is configure, status, then passive sniff.</p>
+</header>
+<figure class="recipe-banner">
+<img alt="CAN bus connected to an MCP2515 controller module." height="600" src="../assets/visual-can.svg" width="1040"/>
+<figcaption>Configure bitrate and verify controller status before trusting captured CAN frames.</figcaption>
+</figure>
+<div class="recipe-layout">
+<article class="recipe-article"><section aria-label="Generated wiring diagram" class="recipe-section wiring-visual-section">
+<p class="wiring-visual-label">Wiring View</p><figure class="wiring-diagram wiring-diagram-main">
+<svg aria-label="Generated wiring diagram" role="img" viewbox="0 0 920 320">
+<rect class="wiring-node wiring-node-left" height="224" rx="8" width="220" x="34" y="48"></rect>
+<rect class="wiring-node wiring-node-right" height="224" rx="8" width="220" x="666" y="48"></rect>
+<text class="wiring-title" text-anchor="middle" x="144" y="86">MCP2515</text>
+<text class="wiring-title" text-anchor="middle" x="776" y="86">BP</text>
+<line class="wiring-line wire-0" x1="254" x2="666" y1="122" y2="122"></line><text class="wiring-pin" text-anchor="end" x="232" y="126">CS</text><text class="wiring-pin" x="688" y="126">SPI CS</text><line class="wiring-line wire-1" x1="254" x2="666" y1="144" y2="144"></line><text class="wiring-pin" text-anchor="end" x="232" y="148">SCK</text><text class="wiring-pin" x="688" y="148">SPI CLK</text><line class="wiring-line wire-2" x1="254" x2="666" y1="166" y2="166"></line><text class="wiring-pin" text-anchor="end" x="232" y="170">SI</text><text class="wiring-pin" x="688" y="170">SPI MOSI</text><line class="wiring-line wire-3" x1="254" x2="666" y1="188" y2="188"></line><text class="wiring-pin" text-anchor="end" x="232" y="192">SO</text><text class="wiring-pin" x="688" y="192">SPI MISO</text><line class="wiring-line wire-0" x1="254" x2="666" y1="210" y2="210"></line><text class="wiring-pin" text-anchor="end" x="232" y="214">GND</text><text class="wiring-pin" x="688" y="214">BP GND</text>
+</svg>
+<div aria-hidden="true" class="wiring-mobile-list"><div class="wiring-mobile-row wire-0"><span>CS</span><span class="wiring-mobile-arrow">-&gt;</span><span>SPI CS</span></div><div class="wiring-mobile-row wire-1"><span>SCK</span><span class="wiring-mobile-arrow">-&gt;</span><span>SPI CLK</span></div><div class="wiring-mobile-row wire-2"><span>SI</span><span class="wiring-mobile-arrow">-&gt;</span><span>SPI MOSI</span></div><div class="wiring-mobile-row wire-3"><span>SO</span><span class="wiring-mobile-arrow">-&gt;</span><span>SPI MISO</span></div><div class="wiring-mobile-row wire-0"><span>GND</span><span class="wiring-mobile-arrow">-&gt;</span><span>BP GND</span></div></div>
+<figcaption>Generated from the wiring summary: MCP2515 to BP.</figcaption>
+</figure>
+</section>
+<section class="recipe-section command-step-section">
+<span class="step-label">Step 1</span><h2>Commands</h2>
+<p>Run the typed commands first. If the command opens an interactive shell, select the named action from the shell menu instead of treating it as another CLI command.</p>
+<div data-cli-commands="mode can
+status
+sniff
+receive 0x123" data-cli-mode="BitPirate" data-cli-session=""></div>
+</section><section class="recipe-section result-section">
+<h2>Result</h2>
+<div class="callout success">
+<h3>What success looks like</h3>
+<p>A visible frame means the controller and bus settings are close enough to receive data. If status shows errors, fix bitrate and wiring first.</p>
+</div>
+<div data-cli-commands="sniff" data-cli-mode="CAN" data-cli-result="CAN frame captured
+ID: 0x123
+DLC: 8
+DATA: AA BB 01 02 03 04 05 06" data-cli-session=""></div>
+</section><section class="recipe-section troubleshooting-section">
+<h2>Troubleshooting</h2>
+<ul class="mistake-list">
+<li>Wrong bitrate.</li>
+<li>No CAN transceiver or wrong module wiring.</li>
+<li>Missing CAN bus termination.</li>
+<li>Sniffing a silent bus and assuming the adapter failed.</li>
+</ul>
+</section><section class="recipe-section next-steps-section">
+<h2>Next steps</h2>
+<ul>
+<li>Use <code>status</code> after the bitrate and MCP2515 wiring are selected.</li>
+<li>Use <code>receive &lt;id&gt;</code> to focus on one frame ID.</li>
+<li>Use <code>send &lt;id&gt;</code> only on a bus you control.</li>
+</ul>
+</section><section aria-labelledby="faq-title" class="recipe-section recipe-faq">
+<h2 id="faq-title">CAN sniffing FAQ</h2>
+<div class="recipe-faq-list">
+<details class="recipe-faq-item"><summary>What does passive CAN sniffing tell me?</summary><p>Passive sniffing shows observed CAN identifiers, payload bytes and bus activity without intentionally injecting frames. It is the right first step before active send tests.</p></details>
+<details class="recipe-faq-item">
+<summary>Should I use <code>status</code> before sniffing?</summary>
+<p>Yes. Status gives a quick baseline for controller state and error flags. If status already shows problems, fix bitrate, wiring and termination before trusting captures.</p>
+</details>
+<details class="recipe-faq-item">
+<summary>Can sniffing affect the CAN bus?</summary>
+<p>A passive receive workflow is much safer than transmitting, but a connected CAN node can still affect electrical loading and acknowledgements depending on mode and transceiver wiring. Use a lab or authorized bus.</p>
+</details>
+</div>
+</section><section class="recipe-section">
+<h2>Go deeper</h2>
+<nav aria-label="Related links" class="link-card-list"><a href="../../modules/mcp2515/"><span>Module</span><strong>MCP2515 CAN module overview</strong></a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus/wiki/17-CAN"><span>Wiki</span><strong>CAN mode commands</strong></a>
+<a href="../../protocols/can/"><span>Protocols</span><strong>More CAN workflows: CAN bus debugging with ESP32 OmniBus</strong></a>
+<a href="../measure-gpio-frequency/"><span>Related</span><strong>Measure a GPIO signal frequency</strong></a>
+<a href="../../web-tools/web-serial-terminal/"><span>Web Tool</span><strong>Open Web Serial Terminal</strong></a>
+</nav>
+</section></article>
+<aside aria-label="Recipe setup and details" class="content-card aside-card">
+<dl><dt class="aside-dt-requirements">Requirements</dt><dd class="aside-setup-dd"><ul class="hardware-list setup-list aside-setup-list">
+<li>ESP32 OmniBus firmware</li>
+<li>MCP2515 CAN module</li>
+<li>CAN transceiver wiring</li>
+<li>Known bus bitrate if possible</li>
+</ul></dd><dt class="aside-dt-wiring">Wiring</dt><dd class="aside-setup-dd"><ul class="wiring-list setup-list aside-setup-list" data-wiring-left="MCP2515" data-wiring-right="BP">
+<li>CS → SPI CS</li>
+<li>SCK → SPI CLK</li>
+<li>SI → SPI MOSI</li>
+<li>SO → SPI MISO</li>
+<li>GND → BP GND</li>
+</ul></dd><dt class="aside-dt-protocol">Protocol</dt><dd>CAN</dd><dt class="aside-dt-hardware">Hardware</dt><dd>MCP2515 CAN module, transceiver, CAN target</dd><dt class="aside-dt-wiki">Wiki source</dt><dd><a href="https://github.com/huytran1120/ESP32-OmniBus/wiki/17-CAN">17-CAN</a></dd><dt class="aside-dt-date">Date</dt><dd>2026-06-23</dd></dl>
+</aside>
+</div>
+</main>
+<script src="../recipes.js?v=20260629-recipesfix1"></script>
+</body>
+</html>
