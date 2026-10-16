@@ -124,49 +124,53 @@
   }
   </script>
 <link href="style.css?v=20260702-mobileclone2" rel="stylesheet"/>
-<script defer="" src="../assets/theme-toggle.js?v=20260702-desktop-sober2"></script>
+<script defer src="../assets/theme-toggle.js?v=20260702-desktop-sober2"></script>
+<script defer src="../assets/omnibus-i18n.js"></script>
 <script src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module" type="module"></script>
 </head>
 <body class="webflasher-page">
-<a class="skip-link" href="#flash-workflow">Skip to firmware selection</a>
+<a class="skip-link" href="#flash-workflow">Bỏ qua đến danh sách bo mạch</a>
 <main class="wrap">
 <header class="hero">
 <div class="page-hero-top">
 <a aria-label="ESP32 OmniBus home" class="brand" href="../">
-<span aria-hidden="true" class="brand-mark">B</span>
+<span aria-hidden="true" class="brand-mark">⚡</span>
 <span>ESP32 OmniBus</span>
 </a>
+<div class="page-hero-right">
+<div class="lang-switch" id="lang-switch">
+  <button id="lang-vi-btn" type="button" class="lang-btn active" onclick="setLanguage('vi')">🇻🇳 Tiếng Việt</button>
+  <button id="lang-en-btn" type="button" class="lang-btn" onclick="setLanguage('en')">🇬🇧 English</button>
+</div>
 <nav aria-label="ESP32 OmniBus pages" class="page-top-nav">
+<a href="../demo/" style="color:#00ffcc;font-weight:700;"><svg aria-hidden="true" class="page-nav-icon" viewbox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg><span data-i18n="nav_demo">Web Demo ⚡</span></a>
 <a href="../web-tools/">
 <svg aria-hidden="true" class="page-nav-icon" viewbox="0 0 24 24"><path d="M4 6h16v12H4z"></path><path d="M8 10l2 2-2 2M13 14h3"></path></svg>
-            Web Tools
-          </a>
+<span data-i18n="nav_tools">Web Tools</span>
+</a>
 <a href="../hardware/">
 <svg aria-hidden="true" class="page-nav-icon" viewbox="0 0 24 24"><rect height="14" rx="2" width="10" x="7" y="5"></rect><path d="M4 8h3M4 12h3M4 16h3M17 8h3M17 12h3M17 16h3"></path></svg>
-            Hardware
-          </a>
+<span data-i18n="nav_hardware">Hardware</span>
+</a>
 <a href="../recipes/">
 <svg aria-hidden="true" class="page-nav-icon" viewbox="0 0 24 24"><path d="M6 4h12v16H6z"></path><path d="M9 8h6M9 12h6M9 16h4"></path></svg>
-            Recipes
-          </a>
-<a href="https://github.com/huytran1120/ESP32-OmniBus/wiki" rel="noopener" target="_blank">
-<svg aria-hidden="true" class="page-nav-icon" viewbox="0 0 24 24"><path d="M5 5h11a3 3 0 0 1 3 3v11H8a3 3 0 0 1-3-3z"></path><path d="M8 5v14"></path></svg>
-            Docs
-          </a>
+<span data-i18n="nav_recipes">Recipes</span>
+</a>
 <a href="https://github.com/huytran1120/ESP32-OmniBus" rel="noopener" target="_blank">
 <svg aria-hidden="true" class="page-nav-icon" viewbox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-1-2.6c3.2-.4 6.5-1.6 6.5-7A5.4 5.4 0 0 0 20 4.8 5 5 0 0 0 19.9 2s-1.2-.4-4 1.5a13.7 13.7 0 0 0-7.3 0C5.8 1.6 4.6 2 4.6 2a5 5 0 0 0-.1 2.8A5.4 5.4 0 0 0 3 8.5c0 5.4 3.3 6.6 6.5 7a3.4 3.4 0 0 0-1 2.6V22"></path></svg>
-            GitHub
-          </a>
+GitHub
+</a>
 </nav>
+</div>
 </div>
 <div class="hero-layout">
 <div class="hero-copy">
-<p class="eyebrow"><span aria-hidden="true" class="eyebrow-text-mark">⚡</span> Browser firmware installer</p>
-<h1>Flash the firmware in one click, then start using it.</h1>
-<p class="lead">Install ESP32 OmniBus firmware on supported ESP32-S3 boards and the ESP32-C5/C6 Bus Expander directly from your browser. This page is organized as a simple flow: flash the device, open the Web Serial terminal, then continue with practical recipes or theoretical documentation.</p>
+<p class="eyebrow" data-i18n="wf_eyebrow"><span aria-hidden="true" class="eyebrow-text-mark">⚡</span> Trình nạp firmware qua trình duyệt</p>
+<h1 data-i18n="wf_title">Nạp Firmware Một Chạm, Bắt Đầu Sử Dụng Ngay.</h1>
+<p class="lead" data-i18n="wf_lead">Cài đặt firmware ESP32 OmniBus lên các dòng bo mạch ESP32-S3 và ESP32-C5/C6 Bus Expander trực tiếp từ trình duyệt web. Quy trình tinh gọn: chọn bo mạch, nạp firmware, mở Web Serial terminal và làm theo hướng dẫn thực hành.</p>
 <div aria-label="Primary actions" class="hero-actions">
-<a class="button" href="#flash-workflow"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><path d="M13 2 5 13h6l-1 9 8-12h-6z"></path></svg>Select board and flash</a>
-<a class="button secondary-button" href="../web-tools/web-serial-terminal/"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><rect height="15" rx="2" width="18" x="3" y="4"></rect><path d="M3 8h18M8 13l2 2-2 2M13 17h4"></path></svg>Open Web terminal</a>
+<a class="button" href="#flash-workflow" data-i18n="wf_btn_flash"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><path d="M13 2 5 13h6l-1 9 8-12h-6z"></path></svg>Chọn bo mạch &amp; Nạp ngay</a>
+<a class="button secondary-button" href="../web-tools/web-serial-terminal/" data-i18n="wf_btn_term"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><rect height="15" rx="2" width="18" x="3" y="4"></rect><path d="M3 8h18M8 13l2 2-2 2M13 17h4"></path></svg>Mở Web Terminal</a>
 </div>
 </div>
 <a aria-label="Jump to ESP32 OmniBus board selection" class="hero-visual-link" href="#flash-workflow">
@@ -179,41 +183,41 @@
 </header>
 <section aria-labelledby="guide-title" class="content-card guide-card">
 <div class="section-heading">
-<p class="eyebrow"><span aria-hidden="true" class="eyebrow-text-mark">Start</span> step by step</p>
-<h2 id="guide-title">Recommended browser workflow</h2>
+<p class="eyebrow"><span aria-hidden="true" class="eyebrow-text-mark">Start</span> <span data-i18n="qs_eyebrow">HƯỚNG DẪN TỪNG BƯỚC</span></p>
+<h2 id="guide-title" data-i18n="qs_title">Quy trình nạp và sử dụng trên trình duyệt</h2>
 </div>
 <div aria-label="ESP32 OmniBus first run steps" class="guide-steps">
 <a class="guide-step" href="#flash-workflow">
 <span class="guide-step-number">01</span>
-<strong>Flash firmware</strong>
-<span>Select the exact board and launch the Web Serial installer.</span>
+<strong data-i18n="wf_step1_name">Nạp Firmware</strong>
+<span data-i18n="wf_step1_text">Chọn đúng bo mạch bên dưới và khởi chạy trình nạp Web Serial.</span>
 </a>
 <a class="guide-step" href="#terminal-workflow">
 <span class="guide-step-number">02</span>
-<strong>Open terminal</strong>
-<span>Connect to the flashed board and check the ESP32 OmniBus CLI.</span>
+<strong data-i18n="wf_step2_name">Mở Terminal</strong>
+<span data-i18n="wf_step2_text">Kết nối với bo mạch vừa nạp để xác nhận firmware đã khởi động thành công.</span>
 </a>
 <a class="guide-step" href="#docs-workflow">
 <span class="guide-step-number">03</span>
-<strong>Try a recipe</strong>
-<span>Use practical examples for I2C, SPI, UART, GPIO, USB and more.</span>
+<strong data-i18n="wf_step3_name">Thử Nghiệm</strong>
+<span data-i18n="wf_step3_text">Áp dụng các bài hướng dẫn mẫu cho I2C, SPI, UART, GPIO, USB...</span>
 </a>
 <a class="guide-step" href="https://github.com/huytran1120/ESP32-OmniBus/wiki" rel="noopener" target="_blank">
 <span class="guide-step-number">04</span>
-<strong>Read the reference</strong>
-<span>Use the wiki for commands, modes and theoretical documentation.</span>
+<strong data-i18n="wf_step4_name">Tra Cứu Lệnh</strong>
+<span data-i18n="wf_step4_text">Đọc Wiki để nắm rõ cú pháp và các thông số nâng cao.</span>
 </a>
 </div>
 </section>
 <section aria-labelledby="flash-workflow-title" class="content-card flash-panel" id="flash-workflow">
 <div class="section-heading">
-<p class="eyebrow"><span aria-hidden="true" class="eyebrow-text-mark">01</span> Choose firmware</p>
-<h2 id="flash-workflow-title">Select your ESP32 OmniBus target</h2>
-<p>Plug in your board with a USB cable and select the corresponding firmware below. The installer will guide you through the flashing process.</p>
-<p class="flash-compat-note"><span aria-hidden="true" class="flash-compat-icon">ⓘ</span> Any ESP32-S3 with at least 4 MB of flash can run OmniBus with the S3 DevKit or S3 Super Mini firmware. Default pin mapping may vary by board.</p>
+<p class="eyebrow"><span aria-hidden="true" class="eyebrow-text-mark">01</span> CHỌN BO MẠCH</p>
+<h2 id="flash-workflow-title" data-i18n="wf_select_title">Chọn loại bo mạch ESP32 OmniBus của bạn</h2>
+<p data-i18n="wf_select_desc">Cắm bo mạch vào máy tính qua cáp USB và chọn dòng firmware tương ứng bên dưới. Trình nạp sẽ hướng dẫn bạn từng bước.</p>
+<p class="flash-compat-note" data-i18n="wf_compat_note"><span aria-hidden="true" class="flash-compat-icon">ⓘ</span> Mọi bo mạch ESP32-S3 có ít nhất 4 MB Flash đều có thể chạy OmniBus với bản firmware S3 DevKit hoặc S3 Super Mini. Sơ đồ chân mặc định có thể khác nhau tùy bo mạch.</p>
 </div>
 <div aria-labelledby="master-board-title" class="board-section">
-<h3 id="master-board-title">ESP32 OmniBus firmware (ESP32-S3)</h3>
+<h3 id="master-board-title" data-i18n="wf_master_group">Firmware ESP32 OmniBus (Dành cho ESP32-S3)</h3>
 <div aria-label="Choose an ESP32-S3 board" class="boards-grid" id="boards-master" role="listbox">
 <button aria-selected="false" class="card master-card" data-key="cardputeradv" role="option" type="button">Cardputer ADV</button>
 <button aria-selected="false" class="card master-card" data-key="cardputer" role="option" type="button">Cardputer</button>
@@ -235,7 +239,7 @@
 </div>
 </div>
 <div aria-labelledby="expander-board-title" class="board-section">
-<h3 id="expander-board-title">ESP32 Bus Expander firmware (ESP32-C5 / ESP32-C6)</h3>
+<h3 id="expander-board-title" data-i18n="wf_expander_group">Firmware Bus Expander (Dành cho ESP32-C5 / ESP32-C6)</h3>
 <div aria-label="Choose an ESP32-C5 or ESP32-C6 expander board" class="boards-grid expander-grid" id="boards-expander" role="listbox">
 <button aria-selected="false" class="card expander-card" data-key="c5expander" role="option" title="Compatible with most ESP32-C5 boards, including the official DevKit, Super Mini-style boards, and other C5 variants." type="button">ESP32-C5 Expander</button>
 <button aria-selected="false" class="card expander-card" data-key="c6expander" role="option" title="Compatible with most ESP32-C6 boards, including the official DevKit, Super Mini-style boards, and other C6 variants." type="button">ESP32-C6 Expander</button>
@@ -243,16 +247,16 @@
 </div>
 <div aria-live="polite" class="flash-area">
 <esp-web-install-button id="flashEl">
-<button class="flash-btn" disabled="" id="flashBtn" slot="activate" type="button">⚡ Flash selected firmware</button>
-<span slot="unsupported">Your web browser does not support Web Serial. Use a compatible desktop browser.</span>
-<span slot="not-allowed">This flasher needs HTTPS or localhost.</span>
+<button class="flash-btn" disabled="" id="flashBtn" slot="activate" type="button" data-i18n="wf_flash_btn">⚡ Nạp Firmware đã chọn</button>
+<span slot="unsupported">Trình duyệt của bạn không hỗ trợ Web Serial. Vui lòng dùng Chrome, Edge, Brave trên máy tính.</span>
+<span slot="not-allowed">Trình nạp yêu cầu giao thức bảo mật HTTPS hoặc localhost.</span>
 </esp-web-install-button>
-<small class="muted" id="flashHint">Select a board above.</small>
+<small class="muted" id="flashHint" data-i18n="wf_hint_select">Vui lòng chọn loại bo mạch ở trên.</small>
 </div>
 </section>
 <section aria-labelledby="terminal-title" class="content-card terminal-card" id="terminal-workflow">
 <div class="section-heading">
-<p class="eyebrow"><span aria-hidden="true" class="eyebrow-text-mark">02</span> Verify install</p>
+<p class="eyebrow"><span aria-hidden="true" class="eyebrow-text-mark">02</span> XÁC NHẬN CÀI ĐẶT</p>
 <h2 id="terminal-title">Open the Web Serial terminal after flashing</h2>
 <p>After the install, reconnect the board normally and open the terminal from the browser. Select USB Serial if the firmware asks for a terminal mode. It is the quickest way to confirm that the firmware booted and to start trying commands.</p>
 </div>
@@ -300,63 +304,63 @@
 </section>
 <section aria-labelledby="before-flashing-title" class="content-card">
 <div class="section-heading">
-<p class="eyebrow"><span aria-hidden="true" class="eyebrow-text-mark">Before</span> quick checklist</p>
-<h2 id="before-flashing-title">Make the first flash predictable</h2>
+<p class="eyebrow"><span aria-hidden="true" class="eyebrow-text-mark">Before</span> LƯU Ý TRƯỚC KHI NẠP</p>
+<h2 id="before-flashing-title" data-i18n="wf_before_title">Lưu ý quan trọng để nạp thành công</h2>
 </div>
 <div class="capability-grid checklist-grid">
 <article>
-<h3>Use a data USB cable</h3>
-<p>Charging-only cables can power the board without exposing a serial port. Use a known working data cable.</p>
+<h3 data-i18n="wf_tip_cable_title">Dùng cáp USB truyền dữ liệu</h3>
+<p data-i18n="wf_tip_cable_desc">Nhiều loại cáp chỉ có 2 lõi sạc nguồn sẽ không hiện cổng COM. Hãy chắc chắn bạn đang dùng cáp USB có đường truyền dữ liệu.</p>
 </article>
 <article>
-<h3>Select the right USB port</h3>
-<p>Some ESP32-S3 boards expose native USB and a separate UART bridge. Use the board port intended for flashing.</p>
+<h3 data-i18n="wf_tip_port_title">Chọn đúng cổng USB</h3>
+<p data-i18n="wf_tip_port_desc">Một số bo mạch ESP32-S3 có 2 cổng Type-C (1 cổng USB-to-UART và 1 cổng Native USB). Chọn đúng cổng kết nối dùng để nạp.</p>
 </article>
 <article>
-<h3>Close other serial tools</h3>
-<p>Serial monitors, IDEs or previous browser tabs can keep the port busy and prevent the installer from connecting.</p>
+<h3 data-i18n="wf_tip_busy_title">Đóng các ứng dụng đang giữ cổng Serial</h3>
+<p data-i18n="wf_tip_busy_desc">Arduino IDE, PlatformIO, PuTTY hoặc các tab trình duyệt khác đang mở cổng Serial sẽ làm xung đột và khiến việc nạp bị lỗi.</p>
 </article>
 </div>
 </section>
 <section aria-labelledby="boot-mode-title" class="content-card">
 <div class="section-heading">
-<p class="eyebrow"><span aria-hidden="true" class="eyebrow-text-mark">Boot</span> board tips</p>
-<h2 id="boot-mode-title">Board-specific flashing tips</h2>
-<p>Use these hints when the browser cannot detect the target or the board does not enter download mode automatically.</p>
+<p class="eyebrow"><span aria-hidden="true" class="eyebrow-text-mark">Boot</span> MẸO VÀO BOOTLOADER</p>
+<h2 id="boot-mode-title" data-i18n="wf_boot_title">Mẹo đưa bo mạch vào chế độ nạp (Bootloader)</h2>
+<p>Sử dụng các hướng dẫn dưới đây nếu trình duyệt không tự nhận diện được thiết bị hoặc bo mạch không tự động chuyển sang chế độ nạp flash.</p>
 </div>
 <div class="tips-grid">
-<article class="tip-card"><h3>Cardputer</h3><p>Power off and unplug USB. Hold <strong>G0</strong>, then plug USB while still holding.</p></article>
-<article class="tip-card"><h3>Stamp-S3</h3><p>Hold <strong>BOOT</strong> before powering on or plugging in USB to enable flashing mode.</p></article>
-<article class="tip-card"><h3>Atom-S3 Lite</h3><p>Power on and press <strong>RESET</strong> for 3 seconds or until the LED blinks green.</p></article>
-<article class="tip-card"><h3>Stick-S3</h3><p>Hold <strong>POWER</strong> until the LED blinks green to enable flashing mode.</p></article>
-<article class="tip-card"><h3>T-Embed</h3><p>Hold the encoder <strong>center button</strong>, then press <strong>RESET</strong>. On CC1101 variants, the button is near the ESP32-S3.</p></article>
-<article class="tip-card"><h3>S3 DevKit</h3><p>Use the COM programming port. Hold <strong>BOOT</strong>, then power on or reset.</p></article>
-<article class="tip-card"><h3>Xiao ESP32-S3</h3><p>Hold <strong>BOOT</strong> before powering on or plugging in USB to enable flashing mode.</p></article>
-<article class="tip-card"><h3>Linux users</h3><p>If flashing fails, grant serial access with <code>sudo setfacl -m u:$USER:rw /dev/ttyACM0</code> and adjust the device path if needed.</p></article>
+<article class="tip-card"><h3>Cardputer</h3><p>Tắt nguồn và rút cáp USB. Nhấn giữ phím <strong>G0</strong>, sau đó cắm cáp USB vào trong khi vẫn giữ phím.</p></article>
+<article class="tip-card"><h3>Stamp-S3</h3><p>Nhấn giữ nút <strong>BOOT</strong> trước khi cấp nguồn hoặc cắm cáp USB để bật chế độ nạp.</p></article>
+<article class="tip-card"><h3>Atom-S3 Lite</h3><p>Cấp nguồn và nhấn giữ nút <strong>RESET</strong> trong 3 giây cho đến khi đèn LED nhấp nháy xanh lá.</p></article>
+<article class="tip-card"><h3>Stick-S3</h3><p>Nhấn giữ nút <strong>POWER</strong> cho đến khi đèn LED nhấp nháy xanh lá để kích hoạt chế độ nạp.</p></article>
+<article class="tip-card"><h3>T-Embed</h3><p>Nhấn giữ <strong>nút giữa núm xoay (encoder)</strong>, sau đó nhấn nút <strong>RESET</strong>. Với bản CC1101, nút nằm gần chip ESP32-S3.</p></article>
+<article class="tip-card"><h3>S3 DevKit &amp; Super Mini</h3><p>Cắm vào cổng COM. Nhấn giữ nút <strong>BOOT</strong>, sau đó bấm nút <strong>RESET</strong> và thả nút <strong>BOOT</strong>.</p></article>
+<article class="tip-card"><h3>Xiao ESP32-S3</h3><p>Nhấn giữ nút <strong>BOOT</strong> trước khi cấp nguồn hoặc cắm USB để kích hoạt bootloader.</p></article>
+<article class="tip-card"><h3>Người dùng Linux</h3><p>Nếu báo lỗi quyền truy cập cổng, chạy lệnh: <code>sudo setfacl -m u:$USER:rw /dev/ttyACM0</code> (hoặc <code>/dev/ttyUSB0</code>).</p></article>
 </div>
 </section>
 <section aria-labelledby="faq-title" class="content-card faq-section">
 <div class="section-heading">
-<p class="eyebrow"><span aria-hidden="true" class="eyebrow-text-mark">FAQ</span> troubleshooting</p>
-<h2 id="faq-title">Common Web Flasher issues</h2>
-<p>These checks cover the most frequent problems when using a browser-based ESP32-S3 firmware installer.</p>
+<p class="eyebrow"><span aria-hidden="true" class="eyebrow-text-mark">FAQ</span> GIẢI QUYẾT SỰ CỐ</p>
+<h2 id="faq-title" data-i18n="wf_faq_title">Câu hỏi thường gặp khi nạp Firmware</h2>
+<p>Tổng hợp các sự cố thường gặp nhất khi sử dụng trình nạp firmware ESP32-S3 qua trình duyệt Web.</p>
 </div>
 <div class="faq-grid">
 <details class="faq-item">
-<summary>The browser does not show a serial port.</summary>
-<p>Use a desktop browser with Web Serial support, reconnect the board, try another data cable and close tools that may already own the serial port.</p>
+<summary>Trình duyệt không hiển thị cổng Serial nào để chọn.</summary>
+<p>Hãy đảm bảo sử dụng trình duyệt trên máy tính (Chrome, Edge, Brave), cắm lại bo mạch, thử đổi dây cáp dữ liệu khác và tắt các phần mềm đang chiếm cổng COM (như Arduino IDE, PuTTY).</p>
 </details>
 <details class="faq-item">
-<summary>The board is visible but flashing fails.</summary>
-<p>Put the board in bootloader mode, select the exact board variant, then retry. On Linux, also check serial permissions for the active <code>/dev/ttyACM*</code> or <code>/dev/ttyUSB*</code> device.</p>
+<summary>Nhìn thấy cổng COM nhưng bấm nạp bị báo lỗi thất bại.</summary>
+<p>Hãy đưa bo mạch vào chế độ Bootloader thủ công (nhấn giữ BOOT → bấm RESET → nhả BOOT), kiểm tra chọn đúng phiên bản bo mạch rồi bấm Nạp lại.</p>
 </details>
 <details class="faq-item">
-<summary>The terminal opens but no text appears.</summary>
-<p>Reset the board after flashing, reconnect from the Web Serial terminal and confirm that the correct USB port is selected.</p>
+<summary>Nạp xong 100% nhưng mở Terminal không thấy chữ nào xuất hiện.</summary>
+<p>Sau khi nạp xong, bạn cần bấm nút RESET trên bo mạch (hoặc rút cáp cắm lại) để vi điều khiển khởi động firmware mới, sau đó kết nối lại terminal với tốc độ 115200 baud.</p>
 </details>
 <details class="faq-item">
-<summary>I selected the wrong board.</summary>
-<p>Return to the board selector and put your board in bootloader mode, choose the correct target and flash again.</p>
+<summary>Tôi lỡ chọn sai loại bo mạch thì có bị hỏng mạch không?</summary>
+<p>Không lo hỏng mạch. Bạn chỉ cần đưa bo mạch vào chế độ Bootloader lại, chọn đúng tên bo mạch tương ứng và tiến hành nạp đè firmware mới.</p>
 </details>
 </div>
 </section>

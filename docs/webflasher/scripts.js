@@ -4,6 +4,14 @@ const flashHint = document.getElementById("flashHint");
 const grids = document.querySelectorAll(".boards-grid");
 let selected = null;
 
+function getI18nText(key, fallback) {
+  const lang = localStorage.getItem("omnibus_lang") || "vi";
+  if (typeof OMNIBUS_I18N !== "undefined" && OMNIBUS_I18N[lang] && OMNIBUS_I18N[lang][key]) {
+    return OMNIBUS_I18N[lang][key];
+  }
+  return fallback;
+}
+
 function setActiveCard(key) {
   const cards = document.querySelectorAll(".card");
   for (const el of cards) {
@@ -23,10 +31,17 @@ function setDisabled(state) {
 }
 
 function updateUI() {
+  const lang = localStorage.getItem("omnibus_lang") || "vi";
+  const selectHint = lang === "vi" ? "Vui lòng chọn loại bo mạch ở trên." : "Select a board above.";
+  const readyHint = lang === "vi" ? "Sẵn sàng: Nhấn nút Nạp Firmware." : "Ready: Click Flash.";
+  const flashText = lang === "vi" ? "⚡ Nạp Firmware đã chọn" : "⚡ Flash selected firmware";
+
+  flashBtn.textContent = flashText;
+
   if (!selected) {
     flashEl.removeAttribute("manifest");
     setDisabled(true);
-    flashHint.textContent = "Select a board above.";
+    flashHint.textContent = selectHint;
     setActiveCard(null);
     return;
   }
@@ -34,7 +49,7 @@ function updateUI() {
   const manifestUrl = `./manifests/${selected}.json`;
   flashEl.setAttribute("manifest", manifestUrl);
   setDisabled(false);
-  flashHint.textContent = "Ready: Click Flash.";
+  flashHint.textContent = readyHint;
   setActiveCard(selected);
 }
 
@@ -46,6 +61,11 @@ for (const grid of grids) {
     updateUI();
   });
 }
+
+// Hook into global language changes
+window.onLanguageChange = function() {
+  updateUI();
+};
 
 // Init
 updateUI();

@@ -89,6 +89,47 @@ code {
   margin-bottom: 16px;
 }
 
+.page-hero-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lang-btn {
+  padding: 5px 11px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  font-weight: 700;
+  border-radius: 6px;
+  background: #161616;
+  border: 1px solid #334433;
+  color: #8da498;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.lang-btn:hover {
+  color: #b8ffb8;
+  border-color: #00ffcc88;
+  background: #202820;
+}
+
+.lang-btn.active {
+  background: linear-gradient(145deg, #005f4e, #00382d);
+  color: #00ffcc;
+  border-color: #00ffcc;
+  box-shadow: 0 0 10px rgba(0, 255, 204, 0.25);
+}
+
 .brand {
   display: inline-flex;
   align-items: center;

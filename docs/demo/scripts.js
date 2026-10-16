@@ -530,7 +530,9 @@ const I18N = {
     sendCmdBtn: "Gửi",
     notesLabel: "Ghi chú:",
     bannerVersion: "Phiên bản 1.0 (OmniBus)    ⚡ Sẵn sàng",
-    bannerTip: "Gõ 'mode' để bắt đầu hoặc 'help' để xem danh sách lệnh"
+    bannerTip: "Gõ 'mode' để bắt đầu hoặc 'help' để xem danh sách lệnh",
+    guideBadge: "💡 MẸO",
+    demoGuideText: "Gõ lệnh hoặc bấm nút nhanh (<strong>help</strong>, <strong>mode</strong>, <strong>scan</strong>). Bấm <strong>✨ AI</strong> để nhờ Trợ lý OmniBus AI dịch câu hỏi tiếng Việt sang tập lệnh phần cứng."
   },
   en: {
     commandPlaceholder: "Enter command (e.g. help, mode, scan...)",
@@ -582,7 +584,9 @@ const I18N = {
     sendCmdBtn: "Send",
     notesLabel: "Notes:",
     bannerVersion: "Version 1.0 (OmniBus)       ⚡ Ready",
-    bannerTip: "Type 'mode' to start or 'help' for commands"
+    bannerTip: "Type 'mode' to start or 'help' for commands",
+    guideBadge: "💡 TIP",
+    demoGuideText: "Type commands or click quick buttons (<strong>help</strong>, <strong>mode</strong>, <strong>scan</strong>). Click <strong>✨ AI</strong> for the OmniBus AI Assistant to translate plain text into hardware commands."
   }
 };
 
@@ -654,6 +658,11 @@ function updateUiLanguage() {
 
   const aiEmptyMsg = byId("ai-empty-msg");
   if (aiEmptyMsg) aiEmptyMsg.textContent = t.aiEmpty;
+
+  const guideBadge = byId("guide-badge");
+  if (guideBadge && t.guideBadge) guideBadge.textContent = t.guideBadge;
+  const demoGuideText = byId("demo-guide-text");
+  if (demoGuideText && t.demoGuideText) demoGuideText.innerHTML = t.demoGuideText;
 }
 
 function setLanguage(lang) {

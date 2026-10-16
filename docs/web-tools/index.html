@@ -26,7 +26,8 @@
 <title>Web Serial tools for ESP32, STM32, AVR, flashing and hardware testing</title>
 <link href="styles/main.css?v=20260707-webtools-seo-width" rel="stylesheet"/>
 <link href="styles/home.css?v=20261004-spacing-restored" rel="stylesheet"/>
-<script defer="" src="../assets/theme-toggle.js?v=20260702-desktop-sober2"></script>
+<script defer src="../assets/theme-toggle.js?v=20260702-desktop-sober2"></script>
+<script defer src="../assets/omnibus-i18n.js"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -123,25 +124,55 @@
 <main class="wrap">
 <header class="hero">
 <div class="page-hero-top"><a aria-label="ESP32 OmniBus home" class="brand" href="../">
-<span aria-hidden="true" class="brand-mark">B</span>
+<span aria-hidden="true" class="brand-mark">⚡</span>
 <span>ESP32 OmniBus</span>
-</a><nav aria-label="Primary navigation" class="page-top-nav"><a href="../#start"><svg aria-hidden="true" class="page-nav-icon" viewbox="0 0 24 24"><path d="M5 4v16M5 5h11l-1.5 4L16 13H5"></path></svg>Start here</a><a href="../protocols/"><svg aria-hidden="true" class="page-nav-icon" viewbox="0 0 24 24"><circle cx="6" cy="12" r="2"></circle><circle cx="18" cy="6" r="2"></circle><circle cx="18" cy="18" r="2"></circle><path d="m7.8 11 8.4-4M7.8 13l8.4 4"></path></svg>Protocols</a><a href="../recipes/"><svg aria-hidden="true" class="page-nav-icon" viewbox="0 0 24 24"><path d="M5 4.5h11a3 3 0 0 1 3 3v12H8a3 3 0 0 0-3 3z"></path><path d="M5 4.5v18M8 9h7M8 13h5"></path></svg>Recipes</a><a href="https://github.com/huytran1120/ESP32-OmniBus" rel="noopener" target="_blank"><svg aria-hidden="true" class="page-nav-icon" viewbox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-1-2.6c3.2-.4 6.5-1.6 6.5-7A5.4 5.4 0 0 0 20 4.8 5 5 0 0 0 19.9 2s-1.2-.4-4 1.5a13.7 13.7 0 0 0-7.3 0C5.8 1.6 4.6 2 4.6 2a5 5 0 0 0-.1 2.8A5.4 5.4 0 0 0 3 8.5c0 5.4 3.3 6.6 6.5 7a3.4 3.4 0 0 0-1 2.6V22"></path></svg>GitHub</a></nav></div>
+</a>
+<div class="page-hero-right">
+<div class="lang-switch" id="lang-switch">
+  <button id="lang-vi-btn" type="button" class="lang-btn active" onclick="setLanguage('vi')">🇻🇳 Tiếng Việt</button>
+  <button id="lang-en-btn" type="button" class="lang-btn" onclick="setLanguage('en')">🇬🇧 English</button>
+</div>
+<nav aria-label="Primary navigation" class="page-top-nav">
+<a href="../demo/" style="color:#00ffcc;font-weight:700;"><svg aria-hidden="true" class="page-nav-icon" viewbox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg><span data-i18n="nav_demo">Web Demo ⚡</span></a>
+<a href="../webflasher/"><svg aria-hidden="true" class="page-nav-icon" viewbox="0 0 24 24"><path d="M13 2 5 13h6l-1 9 8-12h-6z"></path></svg><span data-i18n="nav_flasher">Web Flasher</span></a>
+<a href="../protocols/"><svg aria-hidden="true" class="page-nav-icon" viewbox="0 0 24 24"><circle cx="6" cy="12" r="2"></circle><circle cx="18" cy="6" r="2"></circle><circle cx="18" cy="18" r="2"></circle><path d="m7.8 11 8.4-4M7.8 13l8.4 4"></path></svg><span data-i18n="nav_ecosystem">Protocols</span></a>
+<a href="../recipes/"><svg aria-hidden="true" class="page-nav-icon" viewbox="0 0 24 24"><path d="M5 4.5h11a3 3 0 0 1 3 3v12H8a3 3 0 0 0-3 3z"></path><path d="M5 4.5v18M8 9h7M8 13h5"></path></svg><span data-i18n="nav_recipes">Recipes</span></a>
+<a href="https://github.com/huytran1120/ESP32-OmniBus" rel="noopener" target="_blank"><svg aria-hidden="true" class="page-nav-icon" viewbox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-1-2.6c3.2-.4 6.5-1.6 6.5-7A5.4 5.4 0 0 0 20 4.8 5 5 0 0 0 19.9 2s-1.2-.4-4 1.5a13.7 13.7 0 0 0-7.3 0C5.8 1.6 4.6 2 4.6 2a5 5 0 0 0-.1 2.8A5.4 5.4 0 0 0 3 8.5c0 5.4 3.3 6.6 6.5 7a3.4 3.4 0 0 0-1 2.6V22"></path></svg>GitHub</a>
+</nav>
+</div>
+</div>
 <div class="web-tools-banner">
 <svg aria-hidden="true" class="web-tools-banner-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6M12 7h.01"></path></svg>
 <div>
-<h1>Web Tools:</h1>
-<p>Use with OmniBus or other compatible devices. For OmniBus, switch to the correct USB adapter mode before using a tool.</p>
+<h1 data-i18n="wt_banner_title">Bộ Công Cụ Web Tools:</h1>
+<p data-i18n="wt_banner_desc">Sử dụng trực tiếp trên trình duyệt với ESP32 OmniBus hoặc các thiết bị phần cứng tương thích. Hãy chuyển đổi vi điều khiển sang đúng chế độ adapter trước khi sử dụng từng công cụ.</p>
 </div>
 </div>
 </header>
+
+<!-- Quick Usage & Connection Guide for Vietnamese Users -->
+<div style="background:linear-gradient(145deg, #161f1c, #0e1412);border:1px solid #00ffcc55;border-radius:8px;padding:16px 20px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;box-shadow:0 0 20px rgba(0,255,204,0.05);">
+  <div style="display:flex;align-items:center;gap:12px;max-width:780px;">
+    <span style="font-size:1.6rem;">💡</span>
+    <div>
+      <strong style="color:#00ffcc;font-size:0.96rem;">Hướng Dẫn Sử Dụng &amp; Kết Nối Cổng Web Serial</strong>
+      <p style="color:#b2d8d0;font-size:0.84rem;margin-top:3px;line-height:1.45;">Cắm cáp USB Type-C vào ESP32 &bull; Sử dụng trình duyệt Chrome hoặc Edge trên máy tính &bull; Bấm mở công cụ bên dưới và chọn cổng COM tương ứng (baudrate mặc định 115200) để bắt đầu làm việc.</p>
+    </div>
+  </div>
+  <a href="../demo/" class="button" style="padding:7px 15px;font-size:0.82rem;background:linear-gradient(135deg, #00ffcc, #00a8ff);color:#090d16;font-weight:700;text-decoration:none;border-radius:6px;white-space:nowrap;">Chưa có mạch? Thử Web Demo ⚡</a>
+</div>
+
 <section aria-label="Available ESP32 OmniBus web tools" class="tool-grid featured-tools">
+<!-- Web Serial Terminal -->
 <a aria-labelledby="web-serial-terminal-title" class="tool-card" href="web-serial-terminal/">
 <img alt="Web Serial Terminal interface for opening the ESP32 OmniBus CLI." class="tool-image" height="300" loading="lazy" src="assets/web-serial-terminal.svg" width="520"/>
 <p class="eyebrow"><span aria-hidden="true" class="eyebrow-text-mark">&gt;_</span> Web Serial</p>
-<h2 id="web-serial-terminal-title">Serial terminal</h2>
-<p>Read logs, send commands and save serial sessions. Connect an ESP32, Arduino, Bus Pirate or any compatible USB-UART or CDC-ACM device.</p>
-<span class="button" aria-hidden="true">Open terminal<span aria-hidden="true">↗</span></span>
+<h2 id="web-serial-terminal-title" data-i18n="wt_term_title">Web Serial Terminal</h2>
+<p data-i18n="wt_term_desc">Đọc log dữ liệu, gửi câu lệnh và lưu phiên làm việc. Kết nối ESP32, Arduino, Bus Pirate hoặc bất kỳ thiết bị USB-UART/CDC-ACM nào.</p>
+<span class="button" aria-hidden="true"><span data-i18n="wt_term_btn">Mở Terminal ↗</span></span>
 </a>
+
+<!-- SPI Flash Programmer -->
 <a aria-labelledby="spi-flash-programmer-title" class="tool-card" href="spi-flash-programmer/">
 <img alt="SPI Flash Programmer interface for reading and writing flash chips." class="tool-image" height="300" loading="lazy" src="assets/spi-flash-programmer.svg" width="520"/>
 <p class="eyebrow">
@@ -151,10 +182,12 @@
 </svg>
           SPI Flash
         </p>
-<h2 id="spi-flash-programmer-title">SPI flash programmer</h2>
-<p>Identify, read and write SPI NOR flash chips with flashrom and a serprog-compatible adapter. Save firmware dumps straight to your computer.</p>
-<span class="button" aria-hidden="true">Open flash programmer<span aria-hidden="true">↗</span></span>
+<h2 id="spi-flash-programmer-title" data-i18n="wt_flash_title">Lập trình Chip nhớ SPI Flash</h2>
+<p data-i18n="wt_flash_desc">Nhận diện, đọc và ghi chip nhớ SPI NOR Flash (W25Qxx, GD25Qxx...) qua flashrom và adapter serprog. Sao lưu bản dump trực tiếp về máy tính.</p>
+<span class="button" aria-hidden="true"><span data-i18n="wt_flash_btn">Mở SPI Flash Programmer ↗</span></span>
 </a>
+
+<!-- Logic Analyzer -->
 <a aria-labelledby="logic-analyzer-title" class="tool-card" href="logic-analyzer/">
 <img alt="Logic Analyzer interface for capturing digital signal traces." class="tool-image" height="300" loading="lazy" src="assets/logic-analyzer.svg" width="520"/>
 <p class="eyebrow">
@@ -163,17 +196,21 @@
 </svg>
           SUMP Logic
         </p>
-<h2 id="logic-analyzer-title">Logic analyzer</h2>
-<p>Capture digital signals with SUMP-compatible hardware and inspect the waveforms. Export your captures as VCD, CSV, raw binary or session JSON.</p>
-<span class="button" aria-hidden="true">Open logic analyzer<span aria-hidden="true">↗</span></span>
+<h2 id="logic-analyzer-title" data-i18n="wt_logic_title">Máy Phân Tích Logic (SUMP)</h2>
+<p data-i18n="wt_logic_desc">Thu thập tín hiệu số với phần cứng chuẩn SUMP và phân tích dạng sóng trực quan. Xuất file VCD, CSV, binary thô hoặc JSON.</p>
+<span class="button" aria-hidden="true"><span data-i18n="wt_logic_btn">Mở Logic Analyzer ↗</span></span>
 </a>
+
+<!-- ESP SDR -->
 <a aria-labelledby="esp-sdr-title" class="tool-card" href="esp-sdr/">
 <img alt="SDR waterfall with diffuse packet-like bursts centered on 2437 MHz and a matching spectrum, with an illustrative 40 MHz RX span." class="tool-image" height="300" loading="lazy" src="assets/esp-sdr.svg?v=20261003-esp-sdr" width="520"/>
 <p class="eyebrow"><svg aria-hidden="true" class="eyebrow-icon" viewBox="0 0 24 24"><path d="M2 16h4l3-9 4 12 3-14 3 11h3"></path></svg>ESP32-S3 SDR · 2.4 GHz</p>
-<h2 id="esp-sdr-title">ESP SDR</h2>
-<p>Wideband SDR covering roughly 2.2–2.8 GHz, with spectrum and waterfall views, peak and occupancy tracking, signal cleaning, and live signal inspection with the built-in ESP32-S3 radio.</p>
-<span class="button" aria-hidden="true">Open ESP SDR<span aria-hidden="true">↗</span></span>
+<h2 id="esp-sdr-title" data-i18n="wt_sdr_title">Máy Thu Phát Sóng SDR (2.4 GHz)</h2>
+<p data-i18n="wt_sdr_desc">Bộ thu SDR dải rộng khoảng 2.2–2.8 GHz với biểu đồ phổ và thác nước (waterfall), theo dõi đỉnh xung và phân tích tín hiệu bằng sóng vô tuyến nội bộ của ESP32-S3.</p>
+<span class="button" aria-hidden="true"><span data-i18n="wt_sdr_btn">Mở ESP SDR ↗</span></span>
 </a>
+
+<!-- ESP Tool -->
 <a aria-labelledby="esp-tool-title" class="tool-card" href="esp-tool/">
 <img alt="ESP Tool interface for flashing and inspecting ESP devices." class="tool-image" height="300" loading="lazy" src="assets/esp-tool.svg" width="520"/>
 <p class="eyebrow">
@@ -184,10 +221,12 @@
 </svg>
           ESP Tool
         </p>
-<h2 id="esp-tool-title">ESP tool</h2>
-<p>Flash firmware, read NVS, extract littleFS, back up memory or erase an ESP chip. Merge binaries offline and work with standard ESP32 layouts or custom offsets.</p>
-<span class="button" aria-hidden="true">Open ESP tool<span aria-hidden="true">↗</span></span>
+<h2 id="esp-tool-title" data-i18n="wt_esptool_title">Công Cụ Quản Lý &amp; Nạp ESP</h2>
+<p data-i18n="wt_esptool_desc">Nạp firmware, đọc dữ liệu NVS, trích xuất bộ nhớ LittleFS, sao lưu hoặc xóa trắng chip ESP. Ghép nối file nhị phân offline với esptool-js.</p>
+<span class="button" aria-hidden="true"><span data-i18n="wt_esptool_btn">Mở ESP Tool ↗</span></span>
 </a>
+
+<!-- STM32 Tool -->
 <a aria-labelledby="stm32-tool-title" class="tool-card" href="stm32-tool/">
 <img alt="STM32 Tool interface for bootloader flashing workflows." class="tool-image" height="300" loading="lazy" src="assets/stm32-tool.svg" width="520"/>
 <p class="eyebrow">
@@ -198,10 +237,12 @@
 </svg>
           STM32 ST-LINK
         </p>
-<h2 id="stm32-tool-title">STM32 programmer</h2>
-<p>Flash BIN or Intel HEX firmware, back up memory and erase STM32 targets. Connect through the ROM UART bootloader or an ST-Link adapter.</p>
-<span class="button" aria-hidden="true">Open STM32 programmer<span aria-hidden="true">↗</span></span>
+<h2 id="stm32-tool-title" data-i18n="wt_stm32_title">Nạp Vi Điều Khiển STM32</h2>
+<p data-i18n="wt_stm32_desc">Nạp file firmware BIN hoặc Intel HEX, sao lưu bộ nhớ và xóa chip STM32. Kết nối qua bootloader ROM UART hoặc adapter ST-Link WebUSB.</p>
+<span class="button" aria-hidden="true"><span data-i18n="wt_stm32_btn">Mở STM32 Programmer ↗</span></span>
 </a>
+
+<!-- AVR Programmer -->
 <a aria-labelledby="avr-programmer-title" class="tool-card" href="avr-programmer/">
 <img alt="AVR Programmer interface for avrdude flashing workflows." class="tool-image" height="300" loading="lazy" src="assets/avr-programmer.svg" width="520"/>
 <p class="eyebrow">
@@ -212,10 +253,12 @@
 </svg>
           AVR ISP
         </p>
-<h2 id="avr-programmer-title">AVR programmer</h2>
-<p>Detect ATmega and ATtiny chips, read memory and write HEX files with AVRDUDE. An experimental tool for the ESP32 OmniBus AVRDUDE adapter.</p>
-<span class="button" aria-hidden="true">Open AVR programmer<span aria-hidden="true">↗</span></span>
+<h2 id="avr-programmer-title" data-i18n="wt_avr_title">Nạp Vi Điều Khiển AVR (AVRDUDE)</h2>
+<p data-i18n="wt_avr_desc">Nhận diện chip ATmega và ATtiny, đọc bộ nhớ và nạp file HEX bằng AVRDUDE WebAssembly qua adapter ESP32 OmniBus AVRDUDE.</p>
+<span class="button" aria-hidden="true"><span data-i18n="wt_avr_btn">Mở AVR Programmer ↗</span></span>
 </a>
+
+<!-- Bit Bang BPIO2 -->
 <a aria-labelledby="bpio2-title" class="tool-card" href="bpio2/">
 <img alt="Bit Bang interface for remote GPIO, I2C and SPI control." class="tool-image" height="300" loading="lazy" src="assets/bpio2-remote-io.svg" width="520"/>
 <p class="eyebrow">
@@ -225,10 +268,12 @@
 </svg>
           Bit Bang · BPIO2
         </p>
-<h2 id="bpio2-title">Bit Bang controller</h2>
-<p>Control GPIOs, scan I2C devices and exchange SPI data with BPIO2-compatible hardware. Build visual sequences to repeat common operations.</p>
-<span class="button" aria-hidden="true">Open Bit Bang controller<span aria-hidden="true">↗</span></span>
+<h2 id="bpio2-title" data-i18n="wt_bpio_title">Điều Khiển Bit Bang Ngoại Vi (BPIO2)</h2>
+<p data-i18n="wt_bpio_desc">Điều khiển trực quan các chân GPIO, quét địa chỉ thiết bị I2C và trao đổi byte SPI từ xa với phần cứng tương thích BPIO2.</p>
+<span class="button" aria-hidden="true"><span data-i18n="wt_bpio_btn">Mở Bit Bang Controller ↗</span></span>
 </a>
+
+<!-- Python Lab -->
 <a aria-labelledby="python-lab-title" class="tool-card" href="python-lab/">
 <img alt="Python Lab interface for automating serial workflows." class="tool-image" height="300" loading="lazy" src="assets/python-lab.svg" width="520"/>
 <p class="eyebrow">
@@ -238,16 +283,17 @@
 </svg>
           Python · Pyodide
         </p>
-<h2 id="python-lab-title">Python lab</h2>
-<p>Run Python with Pyodide and control OmniBus over Web Serial. Start from the ESP32-OmniBus-Scripts examples or write your own CLI and BPIO2 scripts.</p>
-<span class="button" aria-hidden="true">Open Python lab<span aria-hidden="true">↗</span></span>
+<h2 id="python-lab-title" data-i18n="wt_py_title">Phòng Thí Nghiệm Python (Pyodide)</h2>
+<p data-i18n="wt_py_desc">Chạy Python trực tiếp trên trình duyệt bằng Pyodide và điều khiển ESP32 OmniBus qua Web Serial. Viết kịch bản tự động hóa hoặc dùng mẫu có sẵn.</p>
+<span class="button" aria-hidden="true"><span data-i18n="wt_py_btn">Mở Python Lab ↗</span></span>
 </a>
+
 <a aria-labelledby="suggest-web-tool-title" class="tool-card" href="https://github.com/huytran1120/ESP32-OmniBus/issues" rel="noopener" target="_blank">
 <img alt="A new browser tool idea ready to be shared with the project." class="tool-image" height="300" loading="lazy" src="assets/suggest-web-tool.svg" width="520"/>
-<p class="eyebrow"><svg aria-hidden="true" class="eyebrow-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>Ideas &amp; requests</p>
-<h2 id="suggest-web-tool-title">Something missing?</h2>
-<p>Have a tool in mind? Open a GitHub issue with your device or protocol, what you need to do and any useful references.</p>
-<span class="button" aria-hidden="true">Suggest a tool on GitHub<span aria-hidden="true">↗</span></span>
+<p class="eyebrow"><svg aria-hidden="true" class="eyebrow-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>Ý tưởng &amp; Đề xuất</p>
+<h2 id="suggest-web-tool-title">Bạn muốn thêm công cụ mới?</h2>
+<p>Bạn cần thêm tính năng hoặc hỗ trợ giao thức nào? Mở issue trên GitHub kèm mô tả thiết bị và tài liệu tham khảo.</p>
+<span class="button" aria-hidden="true">Đề xuất trên GitHub ↗</span>
 </a>
 </section>
 <section aria-labelledby="companion-web-tools-title" class="companion-tools-card">

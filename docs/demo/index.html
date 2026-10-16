@@ -26,6 +26,17 @@
       </div>
     </header>
 
+    <!-- Quick Guide Banner for Simulator -->
+    <div id="demo-guide" class="demo-guide">
+      <div class="demo-guide-content">
+        <span class="guide-badge" id="guide-badge">💡 MẸO</span>
+        <span id="demo-guide-text">
+          Gõ lệnh hoặc bấm nút nhanh (<strong>help</strong>, <strong>mode</strong>, <strong>scan</strong>). Bấm <strong>✨ AI</strong> để nhờ Trợ lý OmniBus AI dịch câu hỏi tiếng Việt sang tập lệnh phần cứng.
+        </span>
+      </div>
+      <button type="button" class="guide-close" onclick="document.getElementById('demo-guide').style.display='none'" title="Đóng" aria-label="Đóng">×</button>
+    </div>
+
     <!-- Terminal Output Screen -->
     <div class="terminal-container">
       <textarea id="output" readonly spellcheck="false"></textarea>

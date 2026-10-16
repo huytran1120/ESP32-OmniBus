@@ -1248,3 +1248,52 @@ button:hover {
     width: calc(100vw - 16px);
   }
 }
+
+/* Quick Guide Banner */
+.demo-guide {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 12px;
+  background: linear-gradient(135deg, rgba(0, 255, 204, 0.12), rgba(0, 168, 255, 0.08));
+  border: 1px solid rgba(0, 255, 204, 0.35);
+  border-radius: 6px;
+  color: #c9ede4;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  flex-shrink: 0;
+}
+
+.demo-guide-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.guide-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #00ffcc22;
+  color: #00ffcc;
+  border: 1px solid #00ffcc55;
+  white-space: nowrap;
+}
+
+.guide-close {
+  background: transparent;
+  border: none;
+  color: #8da498;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.guide-close:hover {
+  color: #00ffcc;
+}
+

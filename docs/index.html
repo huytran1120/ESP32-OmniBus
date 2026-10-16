@@ -2182,41 +2182,87 @@
       .project-supporters-list li:last-child { grid-column: 1 / -1; }
       .project-supporters-list a { min-height: 124px; padding: 20px 12px; }
       .project-supporters-list li:last-child a { flex-direction: row; min-height: 88px; }
+
+      /* Language switcher */
+      .lang-switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .lang-btn {
+        padding: 5px 11px;
+        font-size: 0.8rem;
+        font-family: inherit;
+        font-weight: 700;
+        border-radius: 6px;
+        background: #161616;
+        border: 1px solid #334433;
+        color: #8da498;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.2s ease;
+      }
+      .lang-btn:hover {
+        color: #b8ffb8;
+        border-color: #00ffcc88;
+        background: #202820;
+      }
+      .lang-btn.active {
+        background: linear-gradient(145deg, #005f4e, #00382d);
+        color: #00ffcc;
+        border-color: #00ffcc;
+        box-shadow: 0 0 10px rgba(0, 255, 204, 0.25);
+      }
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
     }
   </style>
 <link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.ico" rel="icon" sizes="any"/>
 <link href="https://huytran1120.github.io/ESP32-OmniBus/favicon.png" rel="icon" sizes="48x48" type="image/png"/>
 <link href="https://huytran1120.github.io/ESP32-OmniBus/apple-touch-icon.png" rel="apple-touch-icon"/>
+<script defer src="assets/omnibus-i18n.js"></script>
 </head>
 <body>
 <main class="wrap">
 <header class="site-header">
 <a aria-label="ESP32 OmniBus home" class="brand" href="./"><span aria-hidden="true" class="brand-mark">⚡</span><span>ESP32 OmniBus</span></a>
+<div class="header-right">
+<div class="lang-switch" id="lang-switch">
+  <button id="lang-vi-btn" type="button" class="lang-btn active" onclick="setLanguage('vi')">🇻🇳 Tiếng Việt</button>
+  <button id="lang-en-btn" type="button" class="lang-btn" onclick="setLanguage('en')">🇬🇧 English</button>
+</div>
 <nav aria-label="Primary navigation" class="site-nav">
-<a href="demo/" style="color:#00ffcc;font-weight:700;"><svg aria-hidden="true" class="site-nav-icon" viewbox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>Web Demo ⚡</a>
-<a href="webflasher/"><svg aria-hidden="true" class="site-nav-icon" viewbox="0 0 24 24"><path d="M13 2 5 13h6l-1 9 8-12h-6z"></path></svg>Web Flasher</a>
-<a href="web-tools/"><svg aria-hidden="true" class="site-nav-icon" viewbox="0 0 24 24"><rect height="15" rx="2" width="18" x="3" y="4"></rect><path d="M3 8h18M7 6h.01M10 6h.01"></path></svg>Web Tools</a>
-<a href="#ecosystem"><svg aria-hidden="true" class="site-nav-icon" viewbox="0 0 24 24"><circle cx="6" cy="12" r="2"></circle><circle cx="18" cy="6" r="2"></circle><circle cx="18" cy="18" r="2"></circle><path d="m7.8 11 8.4-4M7.8 13l8.4 4"></path></svg>Ecosystem</a>
-<a href="boards/"><svg aria-hidden="true" class="site-nav-icon" viewbox="0 0 24 24"><rect height="13" rx="2" width="16" x="4" y="5"></rect><path d="M8 9h8M8 13h5M7 21h10"></path></svg>Boards</a>
-<a href="hardware/"><svg aria-hidden="true" class="site-nav-icon" viewbox="0 0 24 24"><rect height="14" rx="2" width="10" x="7" y="5"></rect><path d="M4 8h3M4 12h3M4 16h3M17 8h3M17 12h3M17 16h3"></path></svg>Hardware</a>
-<a href="recipes/"><svg aria-hidden="true" class="site-nav-icon" viewbox="0 0 24 24"><path d="M5 4.5h11a3 3 0 0 1 3 3v12H8a3 3 0 0 0-3 3z"></path><path d="M5 4.5v18M8 9h7M8 13h5"></path></svg>Recipes</a>
+<a href="demo/" style="color:#00ffcc;font-weight:700;"><svg aria-hidden="true" class="site-nav-icon" viewbox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg><span data-i18n="nav_demo">Web Demo ⚡</span></a>
+<a href="webflasher/"><svg aria-hidden="true" class="site-nav-icon" viewbox="0 0 24 24"><path d="M13 2 5 13h6l-1 9 8-12h-6z"></path></svg><span data-i18n="nav_flasher">Nạp Firmware</span></a>
+<a href="web-tools/"><svg aria-hidden="true" class="site-nav-icon" viewbox="0 0 24 24"><rect height="15" rx="2" width="18" x="3" y="4"></rect><path d="M3 8h18M7 6h.01M10 6h.01"></path></svg><span data-i18n="nav_tools">Web Tools</span></a>
+<a href="#quickstart" style="color:#b8ffb8;"><svg aria-hidden="true" class="site-nav-icon" viewbox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg><span data-i18n="nav_quickstart">Hướng Dẫn</span></a>
+<a href="#ecosystem"><svg aria-hidden="true" class="site-nav-icon" viewbox="0 0 24 24"><circle cx="6" cy="12" r="2"></circle><circle cx="18" cy="6" r="2"></circle><circle cx="18" cy="18" r="2"></circle><path d="m7.8 11 8.4-4M7.8 13l8.4 4"></path></svg><span data-i18n="nav_ecosystem">Ecosystem</span></a>
+<a href="boards/"><svg aria-hidden="true" class="site-nav-icon" viewbox="0 0 24 24"><rect height="13" rx="2" width="16" x="4" y="5"></rect><path d="M8 9h8M8 13h5M7 21h10"></path></svg><span data-i18n="nav_boards">Boards</span></a>
+<a href="hardware/"><svg aria-hidden="true" class="site-nav-icon" viewbox="0 0 24 24"><rect height="14" rx="2" width="10" x="7" y="5"></rect><path d="M4 8h3M4 12h3M4 16h3M17 8h3M17 12h3M17 16h3"></path></svg><span data-i18n="nav_hardware">Hardware</span></a>
+<a href="recipes/"><svg aria-hidden="true" class="site-nav-icon" viewbox="0 0 24 24"><path d="M5 4.5h11a3 3 0 0 1 3 3v12H8a3 3 0 0 0-3 3z"></path><path d="M5 4.5v18M8 9h7M8 13h5"></path></svg><span data-i18n="nav_recipes">Recipes</span></a>
 </nav>
+</div>
 </header>
 <section aria-labelledby="page-title" class="hero">
 <div class="hero-copy">
-<p class="eyebrow"><span aria-hidden="true" class="eyebrow-mark">ESP32-S3</span> Firmware đa giao thức · Công cụ Trình duyệt · Song ngữ Việt - Anh</p>
-<h1 id="page-title">ESP32 OmniBus — <span>Mọi giao thức, một trạm phân tích.</span></h1>
-<p class="lead"><strong>ESP32 OmniBus</strong> biến các bo mạch vi điều khiển ESP32 / ESP32-S3 thành một trạm phát triển, phân tích và gỡ lỗi phần cứng mạnh mẽ. Hỗ trợ hơn 20 giao thức (I2C, SPI, UART, 1-Wire, CAN, Wi-Fi, BLE, LoRa, Sub-GHz...), tích hợp Web Flasher, Web Serial Tools và Web Terminal song ngữ trực tiếp trên trình duyệt.</p>
+<p class="eyebrow"><span aria-hidden="true" class="eyebrow-mark">ESP32-S3</span> <span data-i18n="hero_eyebrow">ESP32-S3 Firmware Đa Giao Thức · Công Cụ Trình Duyệt · Song Ngữ Việt - Anh</span></p>
+<h1 id="page-title" data-i18n="hero_title">ESP32 OmniBus — <span>Mọi giao thức, một trạm phân tích.</span></h1>
+<p class="lead" data-i18n="hero_lead"><strong>ESP32 OmniBus</strong> biến vi điều khiển ESP32 / ESP32-S3 thành một trạm phân tích, phát triển và gỡ lỗi phần cứng mạnh mẽ. Hỗ trợ hơn 20 giao thức (I2C, SPI, UART, 1-Wire, CAN, Wi-Fi, BLE, LoRa, Sub-GHz...), tích hợp Web Flasher, Web Serial Tools và Web Terminal song ngữ trực tiếp trên trình duyệt.</p>
 <div class="actions">
-<a class="button primary" style="background:linear-gradient(135deg, #00ffcc, #00a8ff);color:#090d16;font-weight:700;" href="demo/"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>Trải nghiệm Web Demo ⚡</a>
-<a class="button primary" href="webflasher/"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><path d="M13 2 5 13h6l-1 9 8-12h-6z"></path></svg>Nạp Firmware (Web Flasher)</a>
-<a class="button secondary-button" href="web-tools/"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><rect height="15" rx="2" width="18" x="3" y="4"></rect><path d="M3 8h18M7 6h.01M10 6h.01"></path></svg>Web Tools</a>
+<a class="button primary" style="background:linear-gradient(135deg, #00ffcc, #00a8ff);color:#090d16;font-weight:700;" href="demo/"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg><span data-i18n="btn_demo">Trải nghiệm Web Demo ⚡</span></a>
+<a class="button primary" href="webflasher/"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><path d="M13 2 5 13h6l-1 9 8-12h-6z"></path></svg><span data-i18n="btn_flash">Nạp Firmware (Web Flasher)</span></a>
+<a class="button secondary-button" href="web-tools/"><svg aria-hidden="true" class="button-icon" viewbox="0 0 24 24"><rect height="15" rx="2" width="18" x="3" y="4"></rect><path d="M3 8h18M7 6h.01M10 6h.01"></path></svg><span data-i18n="btn_tools">Mở Bộ Công Cụ (Web Tools)</span></a>
 </div>
 </div>
 <aside aria-label="ESP32 OmniBus capabilities" class="hero-terminal">
-<div class="terminal-topbar"><span aria-hidden="true" class="terminal-dot"></span><span>bitpirate://bench-session</span></div>
+<div class="terminal-topbar"><span aria-hidden="true" class="terminal-dot"></span><span>omnibus://bench-session</span></div>
 <div class="terminal-body">
-<p class="eyebrow"><span aria-hidden="true" class="eyebrow-mark">CLI</span> one interface, many targets</p>
+<p class="eyebrow" data-i18n="cli_eyebrow"><span aria-hidden="true" class="eyebrow-mark">CLI</span> DÒNG LỆNH CLI · MỘT GIAO DIỆN, ĐA MỤC TIÊU</p>
 <ul aria-label="Example workflows" class="prompt-list">
 <li><span>&gt;</span> scan i2c</li>
 <li><span>&gt;</span> dump spi flash</li>
@@ -2227,9 +2273,82 @@
 <ul aria-label="Supported protocol families" class="protocols">
 <li><a href="protocols/i2c/">I2C</a></li><li><a href="protocols/spi/">SPI</a></li><li><a href="protocols/uart/">UART</a></li><li><a href="protocols/uart/">HD UART</a></li><li><a href="protocols/at/">AT</a></li><li><a href="protocols/dio/">GPIO / DIO</a></li><li><a href="protocols/dio/">PWM / Servo</a></li><li><a href="protocols/1wire/">1-Wire</a></li><li><a href="protocols/2wire/">2-Wire</a></li><li><a href="protocols/3wire/">3-Wire</a></li><li><a href="protocols/2wire/">SLE4442</a></li><li><a href="protocols/jtag/">JTAG</a></li><li><a href="protocols/jtag/">SWD</a></li><li><a href="protocols/can/">CAN</a></li><li><a href="protocols/i2s/">I2S</a></li><li><a href="protocols/usb-adapters/">USB CDC</a></li><li><a href="protocols/usb-adapters/">USB HID</a></li><li><a href="protocols/usb-adapters/">USB MSC</a></li><li><a href="protocols/usb-adapters/">USB Host</a></li><li><a href="protocols/dio/">LED</a></li><li><a href="protocols/infrared/">Infrared</a></li><li><a href="protocols/subghz/">Sub-GHz</a></li><li><a href="protocols/lora/">LoRa</a></li><li><a href="protocols/wifi/">Wi-Fi</a></li><li><a href="protocols/bluetooth/">BLE</a></li><li><a href="protocols/rf24/">RF24</a></li><li><a href="protocols/fm/">FM</a></li><li><a href="protocols/ethernet/">Ethernet</a></li><li><a href="protocols/at/">Cellular</a></li><li><a href="web-tools/web-serial-terminal/">Web Serial</a></li>
 </ul>
-<p>Use it from a serial terminal, from browser-based tools, or as a dedicated USB adapter for firmware and signal workflows.</p>
+<p data-i18n="cli_desc">Tương tác linh hoạt từ Serial Terminal qua USB, giao diện Web qua Wi-Fi, hoặc biến ESP32 thành các USB adapter chuyên dụng.</p>
 </div>
 </aside>
+</section>
+
+<!-- Quick Start & Usage Guide for Vietnamese Users -->
+<section id="quickstart" class="content-card quickstart-section" style="margin-top:28px;padding:clamp(20px, 4vw, 36px);border:1px solid #00ffcc55;background:linear-gradient(145deg, #161f1c, #0e1412);box-shadow:0 0 25px rgba(0,255,204,0.06);">
+  <div class="section-head" style="margin-bottom:20px;border-bottom:1px solid #2f3a2f;padding-bottom:14px;">
+    <div>
+      <p class="eyebrow" style="color:#00ffcc;"><span class="eyebrow-mark">⭐</span> <span data-i18n="qs_eyebrow">HƯỚNG DẪN DÀNH CHO NGƯỜI DÙNG VIỆT NAM</span></p>
+      <h2 id="quickstart-title" style="color:#00ffcc;font-size:clamp(1.5rem, 3vw, 2.2rem);" data-i18n="qs_title">🚀 Hướng Dẫn Bắt Đầu Nhanh (Quick Start Guide)</h2>
+    </div>
+    <p class="section-intro" style="color:#b2d8d0;font-size:0.9rem;" data-i18n="qs_subtitle">Khởi đầu làm chủ ESP32 OmniBus chỉ trong 4 bước đơn giản trực tiếp trên trình duyệt, không cần cài đặt phần mềm phức tạp.</p>
+  </div>
+
+  <div class="quickstart-grid" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(min(100%, 250px), 1fr));gap:16px;">
+    <!-- Step 1 -->
+    <div class="step-card" style="background:#111815;border:1px solid #20352b;border-radius:8px;padding:18px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <span style="display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#00ffcc22;color:#00ffcc;font-weight:900;font-size:0.85rem;">01</span>
+        <h3 style="color:#b8ffb8;font-size:1.05rem;" data-i18n="qs_step1_title">01. Chuẩn Bị Phần Cứng</h3>
+      </div>
+      <p style="color:#c5e3d9;font-size:0.85rem;line-height:1.5;" data-i18n="qs_step1_desc">
+        Dùng cáp USB Type-C truyền dữ liệu (tránh cáp sạc 2 dây). Cắm vào cổng USB/UART hoặc Native USB của ESP32-S3.
+      </p>
+      <div style="margin-top:12px;padding:8px 10px;background:#2b1800;border:1px solid #ff9900;border-radius:6px;color:#ffcc66;font-size:0.78rem;line-height:1.4;" data-i18n="qs_step1_warning">
+        ⚠️ <strong>Cảnh báo an toàn:</strong> Chân GPIO ESP32 chỉ hoạt động ở mức logic <strong>3.3V</strong>. Tuyệt đối không cấp trực tiếp 5V vào chân GPIO.
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step-card" style="background:#111815;border:1px solid #20352b;border-radius:8px;padding:18px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <span style="display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#00ffcc22;color:#00ffcc;font-weight:900;font-size:0.85rem;">02</span>
+        <h3 style="color:#b8ffb8;font-size:1.05rem;" data-i18n="qs_step2_title">02. Nạp Firmware 1-Chạm</h3>
+      </div>
+      <p style="color:#c5e3d9;font-size:0.85rem;line-height:1.5;" data-i18n="qs_step2_desc">
+        Mở trang Web Flasher, chọn đúng dòng bo mạch (DevKit 8MB, Super Mini 4MB, Cardputer...), đưa bo vào chế độ boot (nhấn giữ BOOT → bấm RESET → nhả BOOT) rồi bấm Nạp.
+      </p>
+      <div style="margin-top:12px;padding:8px 10px;background:#0d261e;border:1px solid #00ffcc44;border-radius:6px;color:#99ffdd;font-size:0.78rem;line-height:1.4;" data-i18n="qs_step2_tip">
+        💡 Trình duyệt tương thích: Google Chrome, Microsoft Edge, Brave hoặc Opera trên máy tính.
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step-card" style="background:#111815;border:1px solid #20352b;border-radius:8px;padding:18px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <span style="display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#00ffcc22;color:#00ffcc;font-weight:900;font-size:0.85rem;">03</span>
+        <h3 style="color:#b8ffb8;font-size:1.05rem;" data-i18n="qs_step3_title">03. Trải Nghiệm &amp; Tương Tác</h3>
+      </div>
+      <p style="color:#c5e3d9;font-size:0.85rem;line-height:1.5;" data-i18n="qs_step3_desc">
+        Chưa có mạch? Thử ngay Web Demo Simulator với Trợ lý OmniBus AI dịch tiếng Việt sang lệnh phần cứng. Nếu có mạch, mở Web Serial Terminal tốc độ 115200.
+      </p>
+      <div style="margin-top:12px;padding:8px 10px;background:#0d261e;border:1px solid #00ffcc44;border-radius:6px;color:#99ffdd;font-size:0.78rem;line-height:1.4;" data-i18n="qs_step3_tip">
+        🤖 Trợ lý OmniBus AI: Hỏi bằng tiếng Việt (vd: 'quét địa chỉ chip I2C') để nhận ngay tập lệnh chính xác.
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step-card" style="background:#111815;border:1px solid #20352b;border-radius:8px;padding:18px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <span style="display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#00ffcc22;color:#00ffcc;font-weight:900;font-size:0.85rem;">04</span>
+        <h3 style="color:#b8ffb8;font-size:1.05rem;" data-i18n="qs_step4_title">04. Tra Cứu Lệnh Cơ Bản</h3>
+      </div>
+      <ul style="list-style:none;display:grid;gap:6px;color:#c5e3d9;font-size:0.82rem;font-family:var(--font-mono);">
+        <li><strong style="color:#00ffcc;">help</strong> : <span data-i18n="cmd_help">Xem danh mục trợ giúp cú pháp</span></li>
+        <li><strong style="color:#00ffcc;">mode [tên]</strong> : <span data-i18n="cmd_mode">Chuyển giao thức (i2c, spi, uart...)</span></li>
+        <li><strong style="color:#00ffcc;">scan</strong> : <span data-i18n="cmd_scan">Quét địa chỉ IC đang nối trên bus</span></li>
+        <li><strong style="color:#00ffcc;">pins</strong> : <span data-i18n="cmd_pins">Xem sơ đồ chân & trạng thái GPIO</span></li>
+        <li><strong style="color:#00ffcc;">status</strong> : <span data-i18n="cmd_status">Xem điện áp, xung nhịp, kết nối</span></li>
+      </ul>
+      <div style="margin-top:10px;">
+        <a href="recipes/" style="color:#00ffcc;font-size:0.8rem;text-decoration:underline;" data-i18n="qs_step4_more">Xem 30+ bài hướng dẫn thực hành (Recipes) →</a>
+      </div>
+    </div>
+  </div>
 </section>
 <section aria-labelledby="bit-pirate-identity-title" class="brand-signature" id="bit-pirate-identity">
 <div class="brand-signature-card">
@@ -2282,10 +2401,10 @@
 <section aria-labelledby="ecosystem-title" id="ecosystem">
 <div class="section-head">
 <div>
-<p class="eyebrow"><span aria-hidden="true" class="eyebrow-mark">01</span> ecosystem</p>
-<h2 id="ecosystem-title">ESP32 firmware, web serial tools, hardware guides.</h2>
+<p class="eyebrow" data-i18n="eco_eyebrow"><span aria-hidden="true" class="eyebrow-mark">01</span> HỆ SINH THÁI</p>
+<h2 id="ecosystem-title" data-i18n="eco_title">Firmware ESP32, công cụ Web Serial, tài liệu phần cứng.</h2>
 </div>
-<p class="section-intro">The project is more than a C++ firmware repo: it includes browser workflows, documentation, scripts, boards and companion hardware.</p>
+<p class="section-intro" data-i18n="eco_intro">Dự án không chỉ là mã nguồn firmware C++ mà còn là một hệ sinh thái hoàn chỉnh gồm công cụ Web, tài liệu, kịch bản tự động hóa và bo mạch mở rộng.</p>
 </div>
 <div class="ecosystem-grid">
 <svg aria-hidden="true" class="ecosystem-flow" focusable="false" preserveaspectratio="none" viewbox="0 0 1000 600">
@@ -2303,9 +2422,9 @@
 <img alt="ESP32 OmniBus logo surrounded by green and cyan circuit traces." class="card-cover" height="300" loading="lazy" src="assets/index-firmware-logo.svg" width="520"/>
 <div class="card-copy">
 <p class="card-eyebrow"><span aria-hidden="true" class="eyebrow-mark">Core</span> Firmware</p>
-<h3>ESP32 OmniBus</h3>
-<p>C++ firmware for wired buses, wireless protocols, USB adapters, device shells and hardware debugging commands.</p>
-<span class="card-arrow">View source ↗</span>
+<h3 data-i18n="eco_core_title">ESP32 OmniBus</h3>
+<p data-i18n="eco_core_desc">Mã nguồn firmware C++ hỗ trợ bus có dây, giao thức không dây, bộ chuyển đổi USB và tập lệnh gỡ lỗi phần cứng.</p>
+<span class="card-arrow" data-i18n="eco_core_btn">Xem mã nguồn GitHub ↗</span>
 </div>
 </a>
 </article>
@@ -2314,9 +2433,9 @@
 <img alt="Browser firmware flashing screen for installing ESP32 OmniBus." class="card-cover" height="300" loading="lazy" src="assets/index-webflasher.svg?v=20260624" width="520"/>
 <div class="card-copy">
 <p class="card-eyebrow"><span aria-hidden="true" class="eyebrow-mark">Install</span> Web Flasher</p>
-<h3>Firmware one-click install</h3>
-<p>Flash ESP32 OmniBus and companion firmware for supported devices directly from your web browser.</p>
-<span class="card-arrow">Flash firmware →</span>
+<h3 data-i18n="eco_flasher_title">Cài đặt Firmware 1-chạm</h3>
+<p data-i18n="eco_flasher_desc">Nạp firmware ESP32 OmniBus và firmware mở rộng cho các bo mạch tương thích trực tiếp từ trình duyệt web.</p>
+<span class="card-arrow" data-i18n="eco_flasher_btn">Nạp firmware ngay →</span>
 </div>
 </a>
 </article>
@@ -2325,9 +2444,9 @@
 <img alt="Browser tools workspace with serial and hardware panels." class="card-cover" height="300" loading="lazy" src="web-tools/assets/bit-pirate-web-tools.svg" width="520"/>
 <div class="card-copy">
 <p class="card-eyebrow"><span aria-hidden="true" class="eyebrow-mark">Browser</span> Web Tools</p>
-<h3>Serial, flash and capture tools</h3>
-<p>Desktop-style tools for Web Serial, SPI flash, AVR, STM32, ESP32, SUMP logic capture and BPIO2 GPIO/I2C/SPI.</p>
-<span class="card-arrow">Open tools →</span>
+<h3 data-i18n="eco_tools_title">Công cụ Serial, flash và phân tích</h3>
+<p data-i18n="eco_tools_desc">Bộ công cụ phong cách desktop: Web Serial, lập trình SPI flash, AVR, STM32, ESP32, phân tích logic SUMP và điều khiển ngoại vi BPIO2.</p>
+<span class="card-arrow" data-i18n="eco_tools_btn">Mở bộ công cụ →</span>
 </div>
 </a>
 </article>
@@ -2336,9 +2455,9 @@
 <img alt="Practical recipe cards for hardware workflows." class="card-cover" height="300" loading="lazy" src="assets/index-recipes.svg" width="520"/>
 <div class="card-copy">
 <p class="card-eyebrow"><span aria-hidden="true" class="eyebrow-mark">How-to</span> Recipes</p>
-<h3>Practical bench documentation</h3>
-<p>Searchable task pages that explain wiring, commands and helps to learn and practice the firmware features.</p>
-<span class="card-arrow">Read recipes →</span>
+<h3 data-i18n="eco_recipes_title">Tài liệu thực hành theo tác vụ</h3>
+<p data-i18n="eco_recipes_desc">Trang hướng dẫn tìm kiếm được, giải thích sơ đồ đấu dây, câu lệnh mẫu giúp bạn thực hành các tính năng firmware.</p>
+<span class="card-arrow" data-i18n="eco_recipes_btn">Đọc bài hướng dẫn →</span>
 </div>
 </a>
 </article>
@@ -2347,9 +2466,9 @@
 <img alt="Documentation page with command references." class="card-cover" height="300" loading="lazy" src="assets/index-wiki.svg?v=20260624" width="520"/>
 <div class="card-copy">
 <p class="card-eyebrow"><span aria-hidden="true" class="eyebrow-mark">Wiki</span> Documentation</p>
-<h3>Theoretical bench documentation</h3>
-<p>Mode pages, references for every command, modules wiring, tips, web UI and adapter workflows.</p>
-<span class="card-arrow">Open wiki ↗</span>
+<h3 data-i18n="eco_wiki_title">Tài liệu tra cứu lệnh & lý thuyết</h3>
+<p data-i18n="eco_wiki_desc">Wiki chuyên sâu về cú pháp lệnh, thông số kỹ thuật từng chế độ giao thức và cấu trúc hệ thống.</p>
+<span class="card-arrow" data-i18n="eco_wiki_btn">Mở trang Wiki ↗</span>
 </div>
 </a>
 </article>
