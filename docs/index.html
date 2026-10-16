@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESP32 OmniBus - Thiết Bị Phân Tích & Gỡ Lỗi Phần Cứng Đa Giao Thức</title>
+  <meta name="description" content="ESP32 OmniBus là firmware mã nguồn mở biến ESP32-S3 thành công cụ phân tích phần cứng đa giao thức: I2C, SPI, UART, CAN, Wi-Fi, BLE, LoRa, Sub-GHz, RFID...">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230f172a' stroke='%2300ffcc' stroke-width='4'/%3E%3Cpath d='M32 10 L44 28 L35 28 L40 54 L22 34 L30 34 Z' fill='%2300ffcc'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #111827;
+      --card-border: #1f293d;
+      --accent: #00ffcc;
+      --accent-dim: rgba(0, 255, 204, 0.15);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --gradient: linear-gradient(135deg, #00ffcc 0%, #00a8ff 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      background: rgba(9, 13, 22, 0.85);
+      border-bottom: 1px solid var(--card-border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .nav-brand span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-cta {
+      background: var(--accent-dim);
+      border: 1px solid var(--accent);
+      color: var(--accent) !important;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--accent);
+      color: #090d16 !important;
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+    }
+
+    /* Hero Section */
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem 3rem;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(0, 255, 204, 0.4);
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: 3.2rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+
+    h1 span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 780px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00ffcc 0%, #00b4d8 100%);
+      color: #090d16;
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding: 12px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.35);
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(0, 255, 204, 0.55);
+    }
+
+    .btn-secondary {
+      background: #1e293b;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.05rem;
+      padding: 12px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: 1px solid #334155;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: #334155;
+      border-color: #64748b;
+    }
+
+    /* Live Preview Frame */
+    .preview-wrapper {
+      max-width: 1080px;
+      margin: 0 auto;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 255, 204, 0.15);
+      background: #000;
+    }
+
+    .preview-header {
+      background: #161e2e;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #243046;
+    }
+
+    .preview-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .preview-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .preview-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #94a3b8;
+      font-family: monospace;
+    }
+
+    .preview-iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      display: block;
+    }
+
+    /* Feature Grid */
+    .section {
+      max-width: 1200px;
+      margin: 5rem auto;
+      padding: 0 2rem;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title h2 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.8rem;
+      transition: all 0.2s;
+    }
+
+    .card:hover {
+      border-color: rgba(0, 255, 204, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      color: #fff;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Protocols Tags */
+    .protocols-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .proto-badge {
+      background: #141c2c;
+      border: 1px solid #222f47;
+      border-radius: 8px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+
+    .proto-badge:hover {
+      border-color: var(--accent);
+      background: #192336;
+      color: var(--accent);
+    }
+
+    /* Hardware Showcase */
+    .hw-card {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 1.2rem;
+      border-radius: 12px;
+    }
+
+    .hw-card img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #2a354c;
+    }
+
+    .hw-card h4 {
+      font-size: 1.05rem;
+      margin-bottom: 0.3rem;
+      color: #fff;
+    }
+
+    .hw-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 3rem 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 5rem;
+      background: #060910;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2.3rem; }
+      .nav-links { display: none; }
+      .preview-iframe { height: 480px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#" class="nav-brand">
+      <span>⚡ ESP32 OmniBus</span>
+    </a>
+    <div class="nav-links">
+      <a href="#demo">Web Demo</a>
+      <a href="#features">Tính năng</a>
+      <a href="#protocols">Giao thức</a>
+      <a href="#hardware">Phần cứng</a>
+      <a href="https://github.com/huytran1120/ESP32-OmniBus" target="_blank" class="nav-cta">GitHub Repo ↗</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="badge">
+      <span>⚡ Phiên bản 1.0</span> • <span>Mã nguồn mở</span> • <span>Song ngữ VN/EN</span>
+    </div>
+    <h1>Trạm Phân Tích & Gỡ Lỗi Phần Cứng <span>ESP32 OmniBus</span></h1>
+    <p class="hero-desc">
+      Biến vi điều khiển ESP32 / ESP32-S3 của bạn thành công cụ phát triển đa giao thức mạnh mẽ, lấy cảm hứng từ Bus Pirate. Hỗ trợ bắt gói tin, trích xuất dữ liệu, viết kịch bản tự động và tương tác trực quan qua Web Terminal.
+    </p>
+    <div class="hero-actions">
+      <a href="demo/" target="_blank" class="btn-primary">
+        🚀 Mở Web Demo Toàn Màn Hình
+      </a>
+      <a href="https://github.com/huytran1120/ESP32-OmniBus" target="_blank" class="btn-secondary">
+        ⭐ Xem trên GitHub
+      </a>
+    </div>
+
+    <!-- Live Preview -->
+    <div class="preview-wrapper" id="demo">
+      <div class="preview-header">
+        <div class="preview-dots">
+          <div class="preview-dot" style="background: #ef4444;"></div>
+          <div class="preview-dot" style="background: #eab308;"></div>
+          <div class="preview-dot" style="background: #22c55e;"></div>
+        </div>
+        <div class="preview-title">⚡ ESP32 OmniBus Web Terminal (Mô Phỏng Trực Tuyến)</div>
+        <div>
+          <a href="demo/" target="_blank" style="color: #00ffcc; text-decoration: none; font-size: 0.8rem; font-weight: 600;">Mở rộng ↗</a>
+        </div>
+      </div>
+      <iframe src="demo/" class="preview-iframe" title="ESP32 OmniBus Interactive Demo"></iframe>
+    </div>
+  </header>
+
+  <!-- Feature Grid -->
+  <section class="section" id="features">
+    <div class="section-title">
+      <h2>Tính Năng Vượt Trội</h2>
+      <p>Trải nghiệm gỡ lỗi và kiểm thử phần cứng đỉnh cao ngay trên trình duyệt web</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon">🇻🇳</div>
+        <h3>Song Ngữ Việt - Anh</h3>
+        <p>Hỗ trợ đầy đủ ngôn ngữ Tiếng Việt và English với nút chuyển đổi 1 chạm trên thanh menu. Tự động lưu thiết lập ngôn ngữ yêu thích của bạn.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🤖</div>
+        <h3>Trợ Lý OmniBus AI</h3>
+        <p>Tích hợp Gemini AI thông minh giúp biên dịch yêu cầu bằng lời nói tự nhiên thành câu lệnh phần cứng chính xác kèm hướng dẫn sơ đồ chân cắm an toàn.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3>Thanh Lệnh Nhanh</h3>
+        <p>Bổ sung các nút bấm thao tác 1 chạm: help, mode, status, scan, pins, i2c, spi, wifi và clear terminal giúp tăng tốc độ làm việc tối đa.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📁</div>
+        <h3>Quản Lý Tệp LittleFS</h3>
+        <p>Kéo và thả tệp tin trực tiếp từ máy tính lên bộ nhớ flash nội bộ của ESP32. Tải xuống dữ liệu trích xuất EEPROM hoặc tệp cấu hình dễ dàng.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📶</div>
+        <h3>Web Terminal Không Dây</h3>
+        <p>Truy cập và điều khiển thiết bị qua Wi-Fi từ mọi máy tính, tablet, điện thoại mà không cần cắm cáp hay cài đặt bất kỳ driver máy tính nào.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🔌</div>
+        <h3>USB Serial Tốc Độ Cao</h3>
+        <p>Hỗ trợ cổng nối tiếp USB CDC với độ trễ cực thấp, phục vụ các phiên làm việc chuyên sâu hoặc truyền tải luồng dữ liệu lớn liên tục.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Protocols Section -->
+  <section class="section" id="protocols">
+    <div class="section-title">
+      <h2>Hơn 20 Chuẩn Giao Thức</h2>
+      <p>Hỗ trợ tương tác, lắng nghe (sniffing), truyền nhận dữ liệu và phân tích chuyên sâu</p>
+    </div>
+
+    <div class="protocols-grid">
+      <div class="proto-badge">⚡ I2C (Scan, Dump, Slave)</div>
+      <div class="proto-badge">💾 SPI (Flash, EEPROM, SD)</div>
+      <div class="proto-badge">📟 UART & HDUART</div>
+      <div class="proto-badge">🌡️ 1-Wire (DS18B20, iButton)</div>
+      <div class="proto-badge">💳 2-Wire & 3-Wire</div>
+      <div class="proto-badge">🚗 CAN Bus (MCP2515)</div>
+      <div class="proto-badge">📶 Wi-Fi 2.4GHz & 5GHz</div>
+      <div class="proto-badge">🔵 Bluetooth BLE HID</div>
+      <div class="proto-badge">📻 Sub-GHz (CC1101 RF)</div>
+      <div class="proto-badge">📡 LoRa (SX1262)</div>
+      <div class="proto-badge">🏷️ RFID & NFC (PN532)</div>
+      <div class="proto-badge">🎮 RF24 (nRF24L01+)</div>
+      <div class="proto-badge">📺 Hồng ngoại (Infrared TX/RX)</div>
+      <div class="proto-badge">📌 Digital I/O & Logic Plot</div>
+      <div class="proto-badge">🌈 Addressable LED WS2812</div>
+      <div class="proto-badge">🔊 I2S Audio Test</div>
+    </div>
+  </section>
+
+  <!-- Hardware Showcase -->
+  <section class="section" id="hardware">
+    <div class="section-title">
+      <h2>Phần Cứng Tương Thích</h2>
+      <p>Tương thích hoàn hảo với mọi bo mạch phát triển ESP32-S3 (Flash từ 4MB trở lên)</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="hw-card">
+        <img src="images/s3-devkit_s.jpg" alt="ESP32-S3 DevKit">
+        <div>
+          <h4>ESP32-S3 DevKit</h4>
+          <p>Hơn 20 chân GPIO tự do, hỗ trợ Flash 8MB/16MB & PSRAM.</p>
+        </div>
+      </div>
+
+      <div class="hw-card">
+        <img src="images/cardputer_s.png" alt="M5Stack Cardputer">
+        <div>
+          <h4>M5Stack Cardputer</h4>
+          <p>Tích hợp màn hình LCD, bàn phím cứng, loa, mic và pin sạc.</p>
+        </div>
+      </div>
+
+      <div class="hw-card">
+        <img src="images/tembed_s.jpg" alt="LILYGO T-Embed">
+        <div>
+          <h4>LILYGO T-Embed CC1101</h4>
+          <p>Màn hình màu, núm xoay encoder, tích hợp sẵn module RF Sub-GHz.</p>
+        </div>
+      </div>
+
+      <div class="hw-card">
+        <img src="images/m5sticks3_s.jpg" alt="M5StickC S3">
+        <div>
+          <h4>M5Stick S3 & AtomS3</h4>
+          <p>Thiết bị bỏ túi nhỏ gọn, có màn hình màu và mắt thu phát hồng ngoại.</p>
+        </div>
+      </div>
+
+      <div class="hw-card">
+        <img src="images/esp32-s3-supermini_s.jpg" alt="ESP32-S3 SuperMini">
+        <div>
+          <h4>ESP32-S3 SuperMini</h4>
+          <p>Kích thước siêu nhỏ, đầy đủ chân cắm để gắn trực tiếp lên breadboard.</p>
+        </div>
+      </div>
+
+      <div class="hw-card">
+        <img src="images/waveshare-s3-geek_s.jpg" alt="Waveshare S3 Geek">
+        <div>
+          <h4>Waveshare S3-GEEK</h4>
+          <p>Dạng USB Dongle tiện lợi, có màn hình LCD và cổng cắm thẻ MicroSD.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>⚡ <strong>ESP32 OmniBus</strong> — Dự án mã nguồn mở phát triển bởi cộng đồng.</p>
+    <p style="margin-top: 6px;">Phát hành theo giấy phép MIT. Xem mã nguồn tại <a href="https://github.com/huytran1120/ESP32-OmniBus" target="_blank">GitHub Repository</a>.</p>
+  </footer>
+
+</body>
+</html>
