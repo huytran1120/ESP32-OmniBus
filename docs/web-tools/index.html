@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="vi">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
@@ -291,10 +291,10 @@
 
 <a aria-labelledby="suggest-web-tool-title" class="tool-card" href="https://github.com/huytran1120/ESP32-OmniBus/issues" rel="noopener" target="_blank">
 <img alt="A new browser tool idea ready to be shared with the project." class="tool-image" height="300" loading="lazy" src="assets/suggest-web-tool.svg" width="520"/>
-<p class="eyebrow"><svg aria-hidden="true" class="eyebrow-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>Ý tưởng &amp; Đề xuất</p>
-<h2 id="suggest-web-tool-title">Bạn muốn thêm công cụ mới?</h2>
-<p>Bạn cần thêm tính năng hoặc hỗ trợ giao thức nào? Mở issue trên GitHub kèm mô tả thiết bị và tài liệu tham khảo.</p>
-<span class="button" aria-hidden="true">Đề xuất trên GitHub ↗</span>
+<p class="eyebrow"><svg aria-hidden="true" class="eyebrow-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg><span data-i18n="wt_suggest_eyebrow">Ý tưởng &amp; Đề xuất</span></p>
+<h2 id="suggest-web-tool-title" data-i18n="wt_suggest_title">Bạn muốn thêm công cụ mới?</h2>
+<p data-i18n="wt_suggest_desc">Bạn cần thêm tính năng hoặc hỗ trợ giao thức nào? Mở issue trên GitHub kèm mô tả thiết bị và tài liệu tham khảo.</p>
+<span class="button" aria-hidden="true"><span data-i18n="wt_suggest_btn">Đề xuất trên GitHub ↗</span></span>
 </a>
 </section>
 <section aria-labelledby="companion-web-tools-title" class="companion-tools-card">
@@ -302,7 +302,7 @@
 <img alt="Binary analysis interface with a hex dump, detected file signatures and a firmware region map." class="companion-tools-image" height="300" loading="lazy" src="assets/firmware-analysis-companions.svg?v=20261004" width="520"/>
 </div>
 <div class="companion-tools-copy">
-<p class="eyebrow"><span aria-hidden="true" class="eyebrow-text-mark">0x</span> Analysis follow-up</p>
+<p class="eyebrow"><span aria-hidden="true" class="eyebrow-text-mark">0x</span> <span data-i18n="wt_companion_eyebrow">0x Phân tích chuyên sâu</span></p>
 <h2 id="companion-web-tools-title">
 <svg aria-hidden="true" class="section-title-icon" viewbox="0 0 24 24">
 <path d="M4 7h16"></path>
@@ -310,16 +310,16 @@
 <path d="M4 17h16"></path>
 <path d="M17 10l3 2-3 2"></path>
 </svg>
-          Inspect hardware data
+          <span data-i18n="wt_companion_title">Phân tích dữ liệu &amp; Firmware đã trích xuất</span>
         </h2>
-<p>Use these browser tools after captures, serial logs or firmware reads to inspect bytes, extract ranges, parse structures and study small executable payloads.</p>
+<p data-i18n="wt_companion_desc">Sử dụng các công cụ nền web sau khi bắt tín hiệu, đọc log serial hoặc đọc chip nhớ để phân tích byte hex, giải nén file con và đảo ngược firmware.</p>
 <nav aria-label="External browser tools for hardware data analysis" class="companion-tool-actions">
-<a class="companion-tool-card" href="https://web.imhex.werwolv.net/" rel="noopener" target="_blank"><svg aria-hidden="true" class="companion-action-icon" viewbox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path><path d="M8 5v14M16 5v14"></path></svg><span><strong>ImHex Online</strong><small>Inspect dumps in a structured hex editor.</small></span></a>
-<a class="companion-tool-card" href="https://www.unroll.ing/" rel="noopener" target="_blank"><svg aria-hidden="true" class="companion-action-icon" viewbox="0 0 24 24"><path d="M4 7h16"></path><path d="M6 7v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7"></path><path d="M9 11h6M9 15h4"></path></svg><span><strong>Binwalk Online</strong><small>Find embedded files, offsets and signatures.</small></span></a>
-<a class="companion-tool-card" href="https://gchq.github.io/CyberChef/" rel="noopener" target="_blank"><svg aria-hidden="true" class="companion-action-icon" viewbox="0 0 24 24"><path d="M7 20h10"></path><path d="M8 16h8l1-7a3 3 0 0 0-4.8-2.4A3.3 3.3 0 0 0 6 8.2 3 3 0 0 0 7 14z"></path><path d="M9 16v4M15 16v4"></path></svg><span><strong>CyberChef</strong><small>Slice, decode, decompress and hash byte ranges.</small></span></a>
-<a class="companion-tool-card" href="https://ret.futo.org/" rel="noopener" target="_blank"><svg aria-hidden="true" class="companion-action-icon" viewbox="0 0 24 24"><rect height="12" rx="2" width="12" x="6" y="6"></rect><path d="M9 10h6M9 14h4"></path><path d="M4 9h2M4 15h2M18 9h2M18 15h2M9 4v2M15 4v2M9 18v2M15 18v2"></path></svg><span><strong>Ret Online</strong><small>Assemble, disassemble and simulate opcodes.</small></span></a>
-<a class="companion-tool-card" href="https://ide.kaitai.io/" rel="noopener" target="_blank"><svg aria-hidden="true" class="companion-action-icon" viewbox="0 0 24 24"><path d="M4 5h16v14H4z"></path><path d="M8 9h4M8 13h8M8 17h5"></path><path d="M16 9h.01"></path></svg><span><strong>Kaitai Web IDE</strong><small>Map binary structures with parser specs.</small></span></a>
-<a class="companion-tool-card" href="https://dogbolt.org/" rel="noopener" target="_blank"><svg aria-hidden="true" class="companion-action-icon" viewbox="0 0 24 24"><path d="M8 6h8l4 4v8H4V10z"></path><path d="M8 14h8M8 18h5"></path><path d="M16 6v4h4"></path></svg><span><strong>Decompiler Online</strong><small>Compare decompilers for small executable blobs.</small></span></a>
+<a class="companion-tool-card" href="https://web.imhex.werwolv.net/" rel="noopener" target="_blank"><svg aria-hidden="true" class="companion-action-icon" viewbox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path><path d="M8 5v14M16 5v14"></path></svg><span><strong>ImHex Online</strong><small>Xem và biên tập file nhị phân trực quan.</small></span></a>
+<a class="companion-tool-card" href="https://www.unroll.ing/" rel="noopener" target="_blank"><svg aria-hidden="true" class="companion-action-icon" viewbox="0 0 24 24"><path d="M4 7h16"></path><path d="M6 7v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7"></path><path d="M9 11h6M9 15h4"></path></svg><span><strong>Binwalk Online</strong><small>Tìm kiếm chữ ký file nén và phân vùng nhúng.</small></span></a>
+<a class="companion-tool-card" href="https://gchq.github.io/CyberChef/" rel="noopener" target="_blank"><svg aria-hidden="true" class="companion-action-icon" viewbox="0 0 24 24"><path d="M7 20h10"></path><path d="M8 16h8l1-7a3 3 0 0 0-4.8-2.4A3.3 3.3 0 0 0 6 8.2 3 3 0 0 0 7 14z"></path><path d="M9 16v4M15 16v4"></path></svg><span><strong>CyberChef</strong><small>Cắt lát, giải mã, giải nén và băm dữ liệu byte.</small></span></a>
+<a class="companion-tool-card" href="https://ret.futo.org/" rel="noopener" target="_blank"><svg aria-hidden="true" class="companion-action-icon" viewbox="0 0 24 24"><rect height="12" rx="2" width="12" x="6" y="6"></rect><path d="M9 10h6M9 14h4"></path><path d="M4 9h2M4 15h2M18 9h2M18 15h2M9 4v2M15 4v2M9 18v2M15 18v2"></path></svg><span><strong>Ret Online</strong><small>Biên dịch ngược và mô phỏng tập lệnh opcode.</small></span></a>
+<a class="companion-tool-card" href="https://ide.kaitai.io/" rel="noopener" target="_blank"><svg aria-hidden="true" class="companion-action-icon" viewbox="0 0 24 24"><path d="M4 5h16v14H4z"></path><path d="M8 9h4M8 13h8M8 17h5"></path><path d="M16 9h.01"></path></svg><span><strong>Kaitai Web IDE</strong><small>Mô tả và phân tích cấu trúc nhị phân phức tạp.</small></span></a>
+<a class="companion-tool-card" href="https://dogbolt.org/" rel="noopener" target="_blank"><svg aria-hidden="true" class="companion-action-icon" viewbox="0 0 24 24"><path d="M8 6h8l4 4v8H4V10z"></path><path d="M8 14h8M8 18h5"></path><path d="M16 6v4h4"></path></svg><span><strong>Decompiler Online</strong><small>So sánh các trình decompiler mã nhị phân.</small></span></a>
 </nav>
 </div>
 </section>
@@ -330,13 +330,13 @@
 <path d="M4 5h16M4 12h16M4 19h16"></path>
 <path d="M8 5v14M16 5v14"></path>
 </svg>
-          Compatibility and Usage Tips
+          <span data-i18n="wt_compat_heading">Khả năng tương thích &amp; Mẹo sử dụng</span>
         </h2>
 </div>
 <div aria-label="Tool compatibility note" class="compatibility-card">
 <div>
-<h3>Works with ESP32 OmniBus and compatible protocol devices</h3>
-<p>These browser tools are built for ESP32 OmniBus workflows, but they also work with other hardware that exposes the same open interfaces and protocol adapters.</p>
+<h3 data-i18n="wt_compat_subheading">Hoạt động với ESP32 OmniBus và các thiết bị tương thích</h3>
+<p data-i18n="wt_compat_desc">Các công cụ web này được thiết kế tối ưu cho ESP32 OmniBus, nhưng cũng tương thích với mọi phần cứng hỗ trợ chuẩn giao tiếp mở tương đương.</p>
 </div>
 <ul aria-label="Compatible protocols" class="protocol-list">
 <li><a href="bpio2/">BPIO2</a></li>
@@ -350,20 +350,20 @@
 </div>
 <div aria-label="Browser hardware tools FAQ" class="faq-grid">
 <article>
-<h2>Supported Browsers</h2>
-<p>Web Serial works in Chrome, Firefox, Edge, Opera and compatible Chromium browsers on desktop. Safari does not currently support Web Serial hardware access.</p>
+<h2 data-i18n="wt_faq_b_title">Trình duyệt được hỗ trợ</h2>
+<p data-i18n="wt_faq_b_desc">Web Serial hoạt động trên Chrome, Edge, Opera, Brave và các trình duyệt Chromium trên máy tính. Safari hiện chưa hỗ trợ Web Serial.</p>
 </article>
 <article>
-<h2>Supported Hardware</h2>
-<p>The operating system must recognize your ESP32 board, USB UART adapter, CDC-ACM device or ESP32 OmniBus USB mode before the browser can request access.</p>
+<h2 data-i18n="wt_faq_h_title">Phần cứng tương thích</h2>
+<p data-i18n="wt_faq_h_desc">Hệ điều hành cần nhận diện bo mạch ESP32, USB UART hoặc thiết bị CDC-ACM trước khi trình duyệt có thể yêu cầu cấp quyền truy cập.</p>
 </article>
 <article>
-<h2>Linux Serial Access</h2>
-<p>If serial access fails on Linux, grant your user access to the device with <code>sudo setfacl -m u:$USER:rw /dev/ttyACM0</code>, then reconnect the board.</p>
+<h2 data-i18n="wt_faq_l_title">Quyền truy cập trên Linux</h2>
+<p data-i18n="wt_faq_l_desc">Nếu không mở được cổng serial trên Linux, hãy cấp quyền cho tài khoản bằng lệnh <code>sudo setfacl -m u:$USER:rw /dev/ttyACM0</code> rồi cắm lại mạch.</p>
 </article>
 <article>
-<h2>Local Privacy</h2>
-<p>Serial logs, flash data and logic analyzer captures are processed locally by these static pages. The application does not upload captures to a server.</p>
+<h2 data-i18n="wt_faq_p_title">Bảo mật &amp; Quyền riêng tư</h2>
+<p data-i18n="wt_faq_p_desc">Toàn bộ log cổng nối tiếp, dữ liệu chip nhớ flash và dạng sóng logic đều được xử lý cục bộ ngay trên trình duyệt máy tính của bạn, không tải lên bất kỳ máy chủ nào.</p>
 </article>
 </div>
 </section>
@@ -377,12 +377,11 @@
 <circle cx="12" cy="18" r="3"></circle>
 <path d="M8.5 8.1 11 15M15.5 8.1 13 15M9 6h6"></path>
 </svg>
-            Open-source hardware debugging in the browser
+            <span data-i18n="wt_os_title">Gỡ lỗi phần cứng mã nguồn mở ngay trên trình duyệt</span>
           </h2>
-<p><a href="https://github.com/huytran1120/ESP32-OmniBus" rel="noopener" target="_blank">ESP32 OmniBus</a> is an open-source firmware that turns compatible ESP32-S3 devices into a multi-protocol hardware hacking and debugging tool inspired by the Bus Pirate.</p>
-<p>It supports serial and web command-line workflows for UART, I2C, SPI, 1-Wire, 2-Wire, 3-Wire, CAN, JTAG/SWD, infrared, Wi-Fi, Bluetooth, Sub-GHz, RFID, RF24, FM and USB adapter modes.</p>
-<p>These web tools strengthen the ESP32 OmniBus ecosystem by making common embedded workflows discoverable from a secure browser page: serial console access, firmware memory work, digital logic capture and protocol investigation.</p>
-<p>The same hardware can switch between protocol mode and adapter-style workflows, so you can move from probing a bus to capturing waveforms, reading memory or programming without changing tools.</p>
+<p data-i18n="wt_os_p1">ESP32 OmniBus là firmware mã nguồn mở biến các bo mạch ESP32-S3 thành công cụ đa năng để phân tích, đo kiểm và gỡ lỗi phần cứng lấy cảm hứng từ Bus Pirate.</p>
+<p data-i18n="wt_os_p2">Hỗ trợ giao diện dòng lệnh CLI qua cổng Serial và giao diện Web cho UART, I2C, SPI, 1-Wire, 2-Wire, 3-Wire, CAN, JTAG/SWD, hồng ngoại IR, Wi-Fi, BLE, Sub-GHz, RFID, RF24, FM và các chế độ adapter USB.</p>
+<p data-i18n="wt_os_p3">Bộ công cụ web này giúp người dùng dễ dàng thao tác mà không cần cài đặt phần mềm máy tính phức tạp.</p>
 </div>
 <a aria-label="Open the ESP32 OmniBus repository" class="authority-image-link" href="https://github.com/huytran1120/ESP32-OmniBus" rel="noopener" target="_blank">
 <picture>
@@ -393,16 +392,16 @@
 </div>
 <div aria-label="ESP32 OmniBus capabilities" class="capability-grid">
 <article>
-<h3>Serial and Web CLI</h3>
-<p>Use the same command structure over USB serial, Wi-Fi web interface or browser-based Web Serial workflows.</p>
+<h3 data-i18n="wt_os_cap1_title">Dòng lệnh Serial &amp; Web CLI</h3>
+<p data-i18n="wt_os_cap1_desc">Sử dụng chung một tập lệnh trên cả cổng USB Serial vật lý, giao diện Web qua Wi-Fi hoặc Web Serial Terminal trên trình duyệt.</p>
 </article>
 <article>
-<h3>Protocol Workbench</h3>
-<p>Scan, sniff, send, script, dump, explore wired and wireless protocols.</p>
+<h3 data-i18n="wt_os_cap2_title">Bàn làm việc giao thức</h3>
+<p data-i18n="wt_os_cap2_desc">Quét tìm thiết bị, bắt gói tin (sniff), truyền lệnh, lập trình kịch bản và khảo sát các giao thức có dây lẫn không dây.</p>
 </article>
 <article>
-<h3>Firmware and Memory</h3>
-<p>Work with EEPROM, flash, smartcard, SIM, iButton, RFID tag, firmware dumps.</p>
+<h3 data-i18n="wt_os_cap3_title">Bộ nhớ &amp; Firmware</h3>
+<p data-i18n="wt_os_cap3_desc">Đọc ghi EEPROM, SPI flash, thẻ chip thông minh, SIM, iButton, thẻ RFID và trích xuất firmware an toàn.</p>
 </article>
 </div>
 <div class="link-list">

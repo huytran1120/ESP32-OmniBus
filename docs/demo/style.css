@@ -13,7 +13,7 @@ html, body {
   width: 100%;
   max-width: 100vw;
   max-height: 100dvh;
-  font-family: Menlo, 'Courier New', Courier, 'Liberation Mono', monospace;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   background-color: #121212;
   color: #e0e0e0;
   overflow: hidden;
