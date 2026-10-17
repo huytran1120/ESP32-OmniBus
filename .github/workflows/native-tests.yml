@@ -27,6 +27,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Run Web & i18n integrity tests
+        run: python -m unittest discover tests/ -v
+
       - name: Install PlatformIO
         run: |
           python -m pip install --upgrade pip
@@ -35,3 +38,4 @@ jobs:
 
       - name: Run PlatformIO native tests
         run: pio test -e native-tests
+
